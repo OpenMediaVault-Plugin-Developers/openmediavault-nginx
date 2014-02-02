@@ -1,0 +1,53 @@
+#!/bin/sh
+
+set -e
+
+. /etc/default/openmediavault
+. /usr/share/openmediavault/scripts/helper-functions
+
+OMV_NGINX_CONF_NAME=openmediavault-nginx
+OMV_NGINX_CONF=/etc/nginx/sites-available/${OMV_NGINX_CONF_NAME}
+OMV_NGINX_CONF_ENABLED=/etc/nginx/sites-enabled/${OMV_NGINX_CONF_NAME}
+
+remove_fpm_configurations()
+{
+    /usr/bin/find /etc/php5/fpm/pool.d/ -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
+}
+
+case "$1" in
+    purge)
+        omv_config_delete "//services/nginx"
+    ;;
+
+    remove)
+        # Disable and remove current site
+        if [ -e ${OMV_NGINX_CONF_ENABLED} ]; then
+            /bin/rm ${OMV_NGINX_CONF_ENABLED}
+        fi
+
+        if [ -e "${OMV_NGINX_CONF}" ]; then
+            /bin/rm "${OMV_NGINX_CONF}"
+        fi
+
+        if [ -e "/etc/init.d/nginx" ]; then
+            /etc/init.d/nginx reload
+        fi
+
+        if [ -e "/etc/init.d/php5-fpm" ]; then
+            remove_fpm_configurations
+            /etc/init.d/php5-fpm reload
+        fi
+    ;;
+
+    upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+    ;;
+
+    *)
+        echo "postrm called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0

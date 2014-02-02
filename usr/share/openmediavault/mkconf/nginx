@@ -1,0 +1,216 @@
+#!/bin/sh
+#
+# Copyright (C) 2014 OpenMediaVault Plugin Developers
+#
+# This file is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This file is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this file. If not, see <http://www.gnu.org/licenses/>.
+
+set -e
+
+. /etc/default/openmediavault
+. /usr/share/openmediavault/scripts/helper-functions
+
+OMV_PLUGIN_XPATH=//services/nginx
+OMV_NGINX_SERVERS_XPATH=${OMV_PLUGIN_XPATH}/servers
+OMV_NGINX_SERVER_XPATH=${OMV_NGINX_SERVERS_XPATH}/server
+
+# Nginx paths
+NGINX_AVAILABLE_DIR=/etc/nginx/sites-available
+NGINX_ENABLED_DIR=/etc/nginx/sites-enabled
+
+# php-fpm paths
+PHP_FPM_POOL_DIR=/etc/php5/fpm/pool.d/
+
+OMV_NGINX_CONF_NAME=openmediavault-nginx
+OMV_NGINX_CONF=${NGINX_AVAILABLE_DIR}/${OMV_NGINX_CONF_NAME}
+OMV_NGINX_CONF_ENABLED=${NGINX_ENABLED_DIR}/${OMV_NGINX_CONF_NAME}
+
+# HOST_TYPE_PORT = 0
+# HOST_TYPE_NAME = 1
+# HOST_TYPE_BOTH = 2
+
+disable_server()
+{
+    if [ -e "${NGINX_ENABLED_DIR}/${1}" ]; then
+        /bin/rm "${NGINX_ENABLED_DIR}/${1}"
+    fi
+}
+
+enable_server()
+{
+    if [ -e "${NGINX_ENABLED_DIR}/${1}" ]; then
+        /bin/rm "${NGINX_ENABLED_DIR}/${1}"
+    fi
+
+    if [ -e "${NGINX_AVAILABLE_DIR}/${1}" ]; then
+        ln -s "${NGINX_AVAILABLE_DIR}/${1}" "${NGINX_ENABLED_DIR}/${1}"
+    fi
+}
+
+remove_server()
+{
+    disable_server "${1}"
+
+    if [ -e "${NGINX_AVAILABLE_DIR}/${1}" ]; then
+        /bin/rm "${NGINX_AVAILABLE_DIR}/${1}"
+    fi
+}
+
+generate_server_nginx_config()
+{
+    xpath=${1}
+    config=${2}
+
+    # Get Document_Root
+    root_ref=$(omv_config_get "${xpath}/sharedfolderref")
+    root=$(omv_get_sharedfolder_path "${root_ref}")
+
+    if [ "$(omv_config_get "${xpath}/use_public_directory")" -eq "1" ]; then
+        root="${root}/$(omv_config_get "${xpath}/public_directory")"
+    fi
+
+    # Variables
+    id=$(omv_config_get "${xpath}/uuid")
+    server_name_default_port=$(omv_config_get "${OMV_PLUGIN_XPATH}/server_name_default_port")
+    host_type=$(omv_config_get "${xpath}/host_type")
+    port=$(omv_config_get "${xpath}/port")
+    server_name=$(omv_config_get "${xpath}/server_name")
+    server_name_use_default_port=$(omv_config_get "${xpath}/server_name_use_default_port")
+
+    # PHP variables
+    php_enable=$(omv_config_get "${xpath}/php_enable")
+    php_user=$(omv_config_get "${xpath}/php_user")
+
+    # Options
+    autoindex=$(omv_config_get "${xpath}/autoindex")
+    deny_htaccess=$(omv_config_get "${xpath}/deny_htaccess")
+
+    # Extra options
+    extra_options=$(omv_config_get "${xpath}/extra_options")
+
+    # Start generating config
+    echo "server {" >> ${config}
+
+    # If host type is not server_name only
+    # add port to config
+    if [ $host_type -ne 1 ]; then
+        echo "    listen ${port};" >> ${config}
+    fi
+
+    if [ $host_type -eq 1 -a $server_name_use_default_port -eq 0 ]; then
+        echo "    listen ${port};" >> ${config}
+    fi
+
+    if [ $host_type -gt 0 -a $server_name_use_default_port -eq 1 ];then
+        echo "    listen ${server_name_default_port};" >> ${config}
+    fi
+
+    # Add root directory
+    echo "    root \"${root}\";" >> ${config}
+
+    # Add valid index files
+    index_files="index.html"
+
+    if [ $php_enable -eq 1 ]; then
+        index_files="${index_files} index.php"
+    fi
+
+    echo "    index ${index_files};" >> ${config}
+
+    # Add PHP configuration
+    if [ $php_enable -eq 1 ]; then
+        generate_server_fpm_config "${id}" "${php_user}"
+
+        echo "    location ~ \.php$ {" >> ${config}
+        echo "        fastcgi_split_path_info ^(.+\.php)(/.+)$;" >> ${config}
+        echo "        fastcgi_pass unix:/var/run/fpm-${id}.sock;" >> ${config}
+        echo "        fastcgi_index index.php;" >> ${config}
+        echo "        include fastcgi_params;" >> ${config}
+        echo "    }" >> ${config}
+    fi
+
+
+    # Add logs
+    echo "    access_log /var/log/nginx/${id}-access.log;" >> ${config}
+    echo "    error_log /var/log/nginx/${id}-error.log;" >> ${config}
+
+    # Add options
+    if [ $autoindex -eq 1 ]; then
+        echo "    autoindex on;" >> ${config}
+    fi
+
+    if [ $deny_htaccess -eq 1 ]; then
+        echo "    location ~ /\.ht {" >> ${config}
+        echo "        deny all;" >> ${config}
+        echo "    }" >> ${config}
+    fi
+
+    # Add other options
+    if [ -n "$extra_options" ]; then
+        echo "    $extra_options" >> ${config}
+    fi
+
+    echo "}" >> ${config}
+}
+
+generate_server_fpm_config()
+{
+    id=${1}
+    user=${2}
+
+    cat <<EOF > "${PHP_FPM_POOL_DIR}/${id}.conf"
+[${id}]
+listen = /var/run/fpm-${id}.sock
+listen.owner = www-data
+listen.mode = 0600
+user = ${user}
+group = www-data
+pm = dynamic
+pm.max_children = 5
+pm.start_servers = 2
+pm.min_spare_servers = 1
+pm.max_spare_servers = 3
+EOF
+}
+
+remove_fpm_configurations()
+{
+    /usr/bin/find /etc/php5/fpm/pool.d/ -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
+}
+
+disable_server "${OMV_NGINX_CONF_NAME}"
+remove_fpm_configurations
+
+if [ "$(omv_config_get "${OMV_PLUGIN_XPATH}/enable")" -eq "1" ]; then
+
+    # Remove old config remove_config 
+    remove_server ${OMV_NGINX_CONF_NAME}
+
+    # Iterate through virtual hosts
+    server_count=$(omv_config_get_count "${OMV_NGINX_SERVER_XPATH}[enable = '1']")
+    index=1
+
+    while [ $index -lt $server_count -o $index -eq $server_count ]; do
+
+        current_server_xpath="${OMV_NGINX_SERVER_XPATH}[enable = '1' and position()=${index}]"
+        generate_server_nginx_config "${current_server_xpath}" "${OMV_NGINX_CONF}"
+
+        index=$(( ${index} + 1 ))
+
+    done
+
+    enable_server ${OMV_NGINX_CONF_NAME}
+    /etc/init.d/nginx configtest
+fi
+
+exit 0
