@@ -48,22 +48,22 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
 
     public function getName()
     {
-        return 'Nginx';
+        return "Nginx";
     }
 
     public function initialize()
     {
-        $this->registerMethod('getSettings');
-        $this->registerMethod('setSettings');
-        $this->registerMethod('getList');
+        $this->registerMethod("getSettings");
+        $this->registerMethod("setSettings");
+        $this->registerMethod("getList");
 
         // CRUD
-        $this->registerMethod('get');
-        $this->registerMethod('set');
-        $this->registerMethod('delete');
+        $this->registerMethod("get");
+        $this->registerMethod("set");
+        $this->registerMethod("delete");
 
         // Validation
-        $this->registerMethod('validatePort');
+        $this->registerMethod("validatePort");
     }
 
     public function getSettings($params, $context)
@@ -82,9 +82,9 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
                 $this->getXPath());
 
         // Modify result data
-        $settingsObject['enable']                        = boolval($object['enable']);
-        $settingsObject['server_name_default_port']      = intval($object['server_name_default_port']);
-        $settingsObject['server_names_hash_bucket_size'] = intval($object['server_names_hash_bucket_size']);
+        $settingsObject["enable"]                        = boolval($object["enable"]);
+        $settingsObject["server_name_default_port"]      = intval($object["server_name_default_port"]);
+        $settingsObject["server_names_hash_bucket_size"] = intval($object["server_names_hash_bucket_size"]);
 
         return $settingsObject;
     }
@@ -110,12 +110,12 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
 
         // Prepare configuration data
         $object = array(
-            "enable"                        => array_boolval($params, 'enable'),
-            "server_name_default_port"      => $params['server_name_default_port'],
-            "server_names_hash_bucket_size" => $params['server_names_hash_bucket_size']
+            "enable"                        => array_boolval($params, "enable"),
+            "server_name_default_port"      => $params["server_name_default_port"],
+            "server_names_hash_bucket_size" => $params["server_names_hash_bucket_size"]
         );
 
-        if ($this->portIsUsed($object['server_name_default_port'], null, true))
+        if ($this->portIsUsed($object["server_name_default_port"], null, true))
             throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
                 "Selected port is already used");
 
@@ -171,7 +171,7 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
 
         foreach ($uuids as $uuid) {
             try {
-                $servers[] = $this->get(array('uuid' => $uuid), $context);
+                $servers[] = $this->get(array("uuid" => $uuid), $context);
             } catch (Exception $e) {
                 throw $e;
             }
@@ -179,10 +179,10 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
 
         return $this->applyFilter(
             $servers,
-            $params['start'],
-            $params['count'],
-            $params['sortfield'],
-            $params['sortdir']
+            $params["start"],
+            $params["count"],
+            $params["sortfield"],
+            $params["sortdir"]
         );
     }
 
@@ -203,64 +203,64 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
             }
         }');
 
-        $server = $xmlConfig->get($this->getServerXPathByUuid($params['uuid']));
+        $server = $xmlConfig->get($this->getServerXPathByUuid($params["uuid"]));
 
         if (is_null($server))
             throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
                 $xPath);
 
         // General
-        $server['enable']                       = boolval($server['enable']);
-        $server['host_type']                    = intval($server['host_type']);
-        $server['use_public_directory']         = boolval($server['use_public_directory']);
-        $server['port']                         = intval($server['port']);
-        $server['server_name_use_default_port'] = boolval($server['server_name_use_default_port']);
+        $server["enable"]                       = boolval($server["enable"]);
+        $server["host_type"]                    = intval($server["host_type"]);
+        $server["use_public_directory"]         = boolval($server["use_public_directory"]);
+        $server["port"]                         = intval($server["port"]);
+        $server["server_name_use_default_port"] = boolval($server["server_name_use_default_port"]);
 
         // Php
-        $server['php_enable'] = boolval($server['php_enable']);
-        $server['php_user']   = $server['php_user'];
+        $server["php_enable"] = boolval($server["php_enable"]);
+        $server["php_user"]   = $server["php_user"];
 
         // Options
-        $server['autoindex']     = boolval($server['autoindex']);
-        $server['deny_htaccess'] = boolval($server['deny_htaccess']);
+        $server["autoindex"]     = boolval($server["autoindex"]);
+        $server["deny_htaccess"] = boolval($server["deny_htaccess"]);
 
         // Other options
-        $server['other_options'] = $server['other_options'];
+        $server["other_options"] = $server["other_options"];
 
         // Get full path for presentation
-        $xPath = sprintf("//system/shares/sharedfolder[uuid='%s']", $server['sharedfolderref']);
+        $xPath = sprintf("//system/shares/sharedfolder[uuid='%s']", $server["sharedfolderref"]);
         $sharedFolder = $xmlConfig->get($xPath);
 
-        $xPath = sprintf("//system/fstab/mntent[uuid='%s']", $sharedFolder['mntentref']);
+        $xPath = sprintf("//system/fstab/mntent[uuid='%s']", $sharedFolder["mntentref"]);
         $mountPoint = $xmlConfig->get($xPath);
 
-        $server['root_full_path'] = sprintf("%s/%s",
-            $mountPoint['dir'],
-            $sharedFolder['reldirpath']);
+        $server["root_full_path"] = sprintf("%s/%s",
+            $mountPoint["dir"],
+            $sharedFolder["reldirpath"]);
 
-        if ($server['use_public_directory'])
-            $server['root_full_path'] .= "/" . $server['public_directory'];
+        if ($server["use_public_directory"])
+            $server["root_full_path"] .= "/" . $server["public_directory"];
 
         // Build possible URLs
         $urls = array();
 
         // If host type is not only name, add port-based link
-        if ($server['host_type'] != self::HOST_TYPE_NAME) {
-            $urls[] = $this->buildHref('!domain!', $server['port']);
+        if ($server["host_type"] != self::HOST_TYPE_NAME) {
+            $urls[] = $this->buildHref("!domain!", $server["port"]);
         }
 
         // If host type is name or both, add ServerName link
-        if ($server['host_type'] > self::HOST_TYPE_PORT) {
+        if ($server["host_type"] > self::HOST_TYPE_PORT) {
             // Get correct port
-            $port = $server['port'];
+            $port = $server["port"];
 
-            if ($server['server_name_use_default_port'])
+            if ($server["server_name_use_default_port"])
                 $port = $this->getDefaultServerNamePort();
 
-            $urls[] = $this->buildHref($server['server_name'], $port);
+            $urls[] = $this->buildHref($server["server_name"], $port);
         }
 
-        $server['urls'] = $urls;
+        $server["urls"] = $urls;
 
         return $server;
     }
@@ -299,47 +299,47 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
         }');
 
         $server = array(
-            'uuid'                         => empty($params['uuid']) ? OMVUtil::uuid() : $params['uuid'],
-            'enable'                       => boolval($params['enable']),
-            'sharedfolderref'              => $params['sharedfolderref'],
-            'use_public_directory'         => boolval($params['use_public_directory']),
-            'public_directory'             => $params['public_directory'],
-            'host_type'                    => intval($params['host_type']),
-            'port'                         => intval($params['port']),
-            'server_name'                  => $params['server_name'],
-            'server_name_use_default_port' => boolval($params['server_name_use_default_port']),
+            "uuid"                         => empty($params["uuid"]) ? OMVUtil::uuid() : $params["uuid"],
+            "enable"                       => boolval($params["enable"]),
+            "sharedfolderref"              => $params["sharedfolderref"],
+            "use_public_directory"         => boolval($params["use_public_directory"]),
+            "public_directory"             => $params["public_directory"],
+            "host_type"                    => intval($params["host_type"]),
+            "port"                         => intval($params["port"]),
+            "server_name"                  => $params["server_name"],
+            "server_name_use_default_port" => boolval($params["server_name_use_default_port"]),
 
-            'php_enable' => boolval($params['php_enable']),
-            'php_user'   => $params['php_user'],
+            "php_enable" => boolval($params["php_enable"]),
+            "php_user"   => $params["php_user"],
 
-            'autoindex'     => boolval($params['autoindex']),
-            'deny_htaccess' => boolval($params['deny_htaccess']),
+            "autoindex"     => boolval($params["autoindex"]),
+            "deny_htaccess" => boolval($params["deny_htaccess"]),
 
-            'extra_options' => $params['extra_options']
+            "extra_options" => $params["extra_options"]
         );
 
         // Check if choosen port is already used
-        if ($server['host_type'] != self::HOST_TYPE_NAME ||
-            $server['host_type'] == self::HOST_TYPE_NAME &&
-            !$server['server_name_use_default_port'])
+        if ($server["host_type"] != self::HOST_TYPE_NAME ||
+            $server["host_type"] == self::HOST_TYPE_NAME &&
+            !$server["server_name_use_default_port"])
         {
-            if ($this->portIsUsed($server['port'], $server['uuid']))
+            if ($this->portIsUsed($server["port"], $server["uuid"]))
                 throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
                     "Selected port is already used");
         } else {
-            unset($server['port']);
+            unset($server["port"]);
         }
 
         // Save configuration
         $success = false;
         $xPath = null;
 
-        if (empty($params['uuid']))
+        if (empty($params["uuid"]))
             $success = $xmlConfig->set($xPath = $this->getServersXPath(),
-                array('server' => $server),
+                array("server" => $server),
                 $server);
         else
-            $success = $xmlConfig->replace($xPath = $this->getServerXPathByUuid($params['uuid']),
+            $success = $xmlConfig->replace($xPath = $this->getServerXPathByUuid($params["uuid"]),
                 $server);
 
         if (!$success)
@@ -348,7 +348,7 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
 
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
-        $dispatcher->notify(empty($params['uuid']) ? OMV_NOTIFY_CREATE : OMV_NOTIFY_MODIFY,
+        $dispatcher->notify(empty($params["uuid"]) ? OMV_NOTIFY_CREATE : OMV_NOTIFY_MODIFY,
             "org.openmediavault.services.nginx", $server);
 
         return $server;
@@ -371,11 +371,11 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
             }
         }');
 
-        $server = $xmlConfig->delete($this->getServerXPathByUuid($params['uuid']));
+        $server = $xmlConfig->delete($this->getServerXPathByUuid($params["uuid"]));
 
         if (is_null($server))
             throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND,
-                $this->getServerXPathByUuid($params['uuid']));
+                $this->getServerXPathByUuid($params["uuid"]));
 
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
@@ -399,7 +399,7 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
             }
         }');
 
-        return !$this->portIsUsed($params['port'], $params['uuid']);
+        return !$this->portIsUsed($params["port"], $params["uuid"]);
     }
 
     private function portIsUsed($port, $uuid, $isDefaultServerNamePort = false)
@@ -412,17 +412,17 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
         if ($this->getDefaultServerNamePort() == $port && !$isDefaultServerNamePort)
             return true;
         if (!empty($server))
-            if ($server['uuid'] != $uuid)
+            if ($server["uuid"] != $uuid)
                 return true;
 
         // Validate with webadmin ports
         $webadminConfig = $xmlConfig->get("//webadmin");
 
         if (!empty($webadminConfig)) {
-            $webadminPort    = intval($webadminConfig['port']);
-            $webadminSslPort = intval($webadminConfig['sslport']);
-            $forceSslOnly    = boolval($webadminConfig['forcesslonly']);
-            $enableSsl       = boolval($webadminConfig['enablessl']);
+            $webadminPort    = intval($webadminConfig["port"]);
+            $webadminSslPort = intval($webadminConfig["sslport"]);
+            $forceSslOnly    = boolval($webadminConfig["forcesslonly"]);
+            $enableSsl       = boolval($webadminConfig["enablessl"]);
 
             if ($webadminPort == $port && !$forceSslOnly)
                 return true;

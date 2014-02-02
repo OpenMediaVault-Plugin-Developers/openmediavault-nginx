@@ -22,7 +22,7 @@
 // require("js/omv/data/proxy/Rpc.js")
 // require("js/omv/module/admin/service/nginx/window/Server.js")
 
-Ext.define('OMV.module.admin.service.nginx.Servers', {
+Ext.define("OMV.module.admin.service.nginx.Servers", {
     extend   : "OMV.workspace.grid.Panel",
     requires : [
         "OMV.data.Store",
@@ -63,7 +63,7 @@ Ext.define('OMV.module.admin.service.nginx.Servers', {
                 presentation += urls[i].replace(/!domain!/g, window.location.hostname);
 
                 if (i < j - 1)
-                    presentation += ', ';
+                    presentation += ", ";
             }
 
             return presentation;
@@ -78,17 +78,17 @@ Ext.define('OMV.module.admin.service.nginx.Servers', {
                 autoload   : true,
                 remoteSort : false,
                 model      : OMV.data.Model.createImplicit({
-                    idProperty   : 'uuid',
-                    totalPoperty : 'total',
+                    idProperty   : "uuid",
+                    totalPoperty : "total",
                     fields       : [
-                        { name : 'uuid' },
-                        { name : 'enable' },
-                        { name : 'root_full_path' },
-                        { name : 'urls' }
+                        { name : "uuid" },
+                        { name : "enable" },
+                        { name : "root_full_path" },
+                        { name : "urls" }
                     ]
                 }),
                 proxy : {
-                    type    : 'rpc',
+                    type    : "rpc",
                     rpcData : {
                         "service" : "Nginx",
                         "method"  : "getList"
@@ -123,7 +123,7 @@ Ext.define('OMV.module.admin.service.nginx.Servers', {
         Ext.create("OMV.module.admin.service.nginx.window.Server", {
             rpcGetMethod : "get",
             title        : _("Edit server"),
-            uuid         : record.get('uuid'),
+            uuid         : record.get("uuid"),
             listeners    : {
                 scope  : me,
                 submit : function() {
