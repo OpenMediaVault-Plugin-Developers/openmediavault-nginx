@@ -1,0 +1,36 @@
+#!/bin/sh
+
+set -e
+
+. /etc/default/openmediavault
+. /usr/share/openmediavault/scripts/helper-functions
+
+case "$1" in
+    configure)
+        if ! omv_config_exists "/config/services/nginx"; then
+            omv_config_add_element "/config/services" "nginx"
+            omv_config_add_element "/config/services/nginx" "enable" "0"
+            omv_config_add_element "/config/services/nginx" "server_name_default_port" "8000"
+            omv_config_add_element "/config/services/nginx" "servers"
+        fi
+
+        # Disable the default Nginx site
+        NGINX_DEFAULT_ENABLED_CONF=/etc/nginx/sites-enabled/default
+
+        if [ -e "${NGINX_DEFAULT_ENABLED_CONF}" ]; then
+            /bin/rm "${NGINX_DEFAULT_ENABLED_CONF}"
+        fi
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument" >&2
+        exit 1
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0

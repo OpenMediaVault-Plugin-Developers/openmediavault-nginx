@@ -1,0 +1,5 @@
+openmediavault-nginx (0.5.32) stable; urgency=low
+
+  * Initial release
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 02 Feb 2014 14:58:16 +0100
