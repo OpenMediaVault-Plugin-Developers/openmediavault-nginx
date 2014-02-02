@@ -11,6 +11,7 @@ case "$1" in
             omv_config_add_element "/config/services" "nginx"
             omv_config_add_element "/config/services/nginx" "enable" "0"
             omv_config_add_element "/config/services/nginx" "server_name_default_port" "8000"
+            omv_config_add_element "/config/services/nginx" "server_names_hash_bucket_size" "32"
             omv_config_add_element "/config/services/nginx" "servers"
         fi
 
