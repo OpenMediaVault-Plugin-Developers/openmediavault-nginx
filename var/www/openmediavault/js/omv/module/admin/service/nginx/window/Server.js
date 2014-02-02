@@ -184,7 +184,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 allowNegative : false,
                 value         : 8080,
                 listeners     : {
-                    'change' : function(field, newValue, oldValue) {
+                    "change" : function(field, newValue, oldValue) {
                         OMV.Rpc.request({
                             scope : me,
                             callback : function(id, success, response) {
@@ -233,8 +233,8 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 fieldLabel : _("Enable PHP"),
                 checked    : false
             },{
-                xtype      : 'usercombo',
-                name       : 'php_user',
+                xtype      : "usercombo",
+                name       : "php_user",
                 fieldLabel : _("User"),
                 userType   : "normal",
                 editable   : false,
@@ -253,13 +253,13 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             layout   : "column",
             defaults : {
                 columnWidth : 0.5,
-                layout      : 'form',
+                layout      : "form",
                 border      : false,
             },
             items  : [{
                 defaults : {
                     hideLabel      : true,
-                    labelSeparator : ''
+                    labelSeparator : ""
                 },
                 items : [{
                     xtype      : "checkbox",
@@ -270,7 +270,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             },{
                 defaults : {
                     hideLabel      : true,
-                    labelSeparator : ''
+                    labelSeparator : ""
                 },
                 items : [{
                     xtype      : "checkbox",

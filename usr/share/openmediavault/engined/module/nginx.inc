@@ -57,7 +57,7 @@ class OMVModuleNginx extends OMVModuleServiceAbstract
         return array(
             "name"    => $this->getName(),
             "title"   => gettext("Nginx"),
-            "enabled" => boolval($object['enable']),
+            "enabled" => boolval($object["enable"]),
             "running" => ($initd->status() == 0)
         );
     }
