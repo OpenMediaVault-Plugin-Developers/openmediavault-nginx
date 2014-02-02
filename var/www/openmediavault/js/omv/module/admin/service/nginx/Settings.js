@@ -54,6 +54,28 @@ Ext.define("OMV.module.admin.service.nginx.Settings", {
                     ptype : "fieldinfo",
                     text  : _("Default port to use with name-based servers.")
                 }]
+            },{
+                xtype      : "combo",
+                name       : "server_names_hash_bucket_size",
+                fieldLabel : _("Server names hash bucket size"),
+                queryMode  : "local",
+                store      : Ext.create("Ext.data.ArrayStore", {
+                    fields : [
+                        "value",
+                        "text"
+                    ],
+                    data   : [
+                        [ 32, "32" ],
+                        [ 64, "64" ],
+                        [ 128, "128" ],
+                    ]
+                }),
+                displayField  : "text",
+                valueField    : "value",
+                allowBlank    : false,
+                editable      : false,
+                triggerAction : "all",
+                value         : 32
             }]
         }];
     }

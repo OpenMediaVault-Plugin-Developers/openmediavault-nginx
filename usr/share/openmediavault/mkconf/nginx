@@ -31,6 +31,7 @@ NGINX_ENABLED_DIR=/etc/nginx/sites-enabled
 # php-fpm paths
 PHP_FPM_POOL_DIR=/etc/php5/fpm/pool.d/
 
+OMV_NGINX_CUSTOM_CONF=/etc/nginx/conf.d/openmediavault-nginx.conf
 OMV_NGINX_CONF_NAME=openmediavault-nginx
 OMV_NGINX_CONF=${NGINX_AVAILABLE_DIR}/${OMV_NGINX_CONF_NAME}
 OMV_NGINX_CONF_ENABLED=${NGINX_ENABLED_DIR}/${OMV_NGINX_CONF_NAME}
@@ -188,8 +189,15 @@ remove_fpm_configurations()
     /usr/bin/find /etc/php5/fpm/pool.d/ -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
 }
 
+generate_nginx_config()
+{
+    size=$(omv_config_get "${OMV_PLUGIN_XPATH}/server_names_hash_bucket_size")
+    echo "server_names_hash_bucket_size ${size};" > ${OMV_NGINX_CUSTOM_CONF}
+}
+
 disable_server "${OMV_NGINX_CONF_NAME}"
 remove_fpm_configurations
+generate_nginx_config
 
 if [ "$(omv_config_get "${OMV_PLUGIN_XPATH}/enable")" -eq "1" ]; then
 

@@ -82,8 +82,9 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
                 $this->getXPath());
 
         // Modify result data
-        $settingsObject['enable']                   = boolval($object['enable']);
-        $settingsObject['server_name_default_port'] = intval($object['server_name_default_port']);
+        $settingsObject['enable']                        = boolval($object['enable']);
+        $settingsObject['server_name_default_port']      = intval($object['server_name_default_port']);
+        $settingsObject['server_names_hash_bucket_size'] = intval($object['server_names_hash_bucket_size']);
 
         return $settingsObject;
     }
@@ -101,29 +102,33 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
         $this->validateMethodParams($params, '{
             "type"       : "object",
             "properties" : {
-                "enable"                   : { "type" : "boolean" },
-                "server_name_default_port" : { "type" : "integer" }
+                "enable"                        : { "type" : "boolean" },
+                "server_name_default_port"      : { "type" : "integer" },
+                "server_names_hash_bucket_size" : { "type" : "integer" }
             }
         }');
 
         // Prepare configuration data
         $object = array(
-            "enable"                   => array_boolval($params, 'enable'),
-            "server_name_default_port" => $params['server_name_default_port']
+            "enable"                        => array_boolval($params, 'enable'),
+            "server_name_default_port"      => $params['server_name_default_port'],
+            "server_names_hash_bucket_size" => $params['server_names_hash_bucket_size']
         );
 
         if ($this->portIsUsed($object['server_name_default_port'], null, true))
             throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
                 "Selected port is already used");
 
-        // Set configuration object
-        $xPath = sprintf("%s/enable", $this->getXPath(), $object['enable']);
-        if (false === $xmlConfig->replace($xPath, $object['enable']))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_SET_OBJECT_FAILED,
-                $this->$xPath);
+        // Get old configuration object
+        $oldConfig = $xmlConfig->get($this->getXPath());
+        if (is_null($object))
+            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
+                $this->getXPath());
 
-        $xPath = sprintf("%s/server_name_default_port", $this->getXPath());
-        if (false === $xmlConfig->replace($xPath, $object['server_name_default_port']))
+        $object["servers"] = $oldConfig["servers"];
+
+        // Set configuration object
+        if (false === $xmlConfig->replace($this->getXPath(), $object))
             throw new OMVException(OMVErrorMsg::E_CONFIG_SET_OBJECT_FAILED,
                 $this->$xPath);
 
