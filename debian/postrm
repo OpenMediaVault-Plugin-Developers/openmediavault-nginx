@@ -6,12 +6,35 @@ set -e
 . /usr/share/openmediavault/scripts/helper-functions
 
 OMV_NGINX_CONF_NAME=openmediavault-nginx
-OMV_NGINX_CONF=/etc/nginx/sites-available/${OMV_NGINX_CONF_NAME}
-OMV_NGINX_CONF_ENABLED=/etc/nginx/sites-enabled/${OMV_NGINX_CONF_NAME}
+OMV_NGINX_CUSTOM_CONF=/etc/nginx/conf.d/${OMV_NGINX_CONF_NAME}.conf
+NGINX_AVAILABLE_DIR=/etc/nginx/sites-available
+NGINX_ENABLED_DIR=/etc/nginx/sites-enabled
 
-remove_fpm_configurations()
+remove_fpm_configs()
 {
-    /usr/bin/find /etc/php5/fpm/pool.d/ -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
+    /usr/bin/find /etc/php5/fpm/pool.d -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
+}
+
+remove_nginx_configs()
+{
+    if [ -e "${OMV_NGINX_CUSTOM_CONF}" ]; then
+        /bin/rm "${OMV_NGINX_CUSTOM_CONF}"
+    fi
+
+    # Remove file in sites-enabled
+    if [ -e "${NGINX_ENABLED_DIR}/${1}" ]; then
+        /bin/rm "${NGINX_ENABLED_DIR}/${1}"
+    fi
+
+    # Remove file in sites-available
+    if [ -e "${NGINX_AVAILABLE_DIR}/${1}" ]; then
+        /bin/rm "${NGINX_AVAILABLE_DIR}/${1}"
+    fi
+}
+
+remove_nginx_logs()
+{
+    /usr/bin/find /var/log/nginx -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
 }
 
 case "$1" in
@@ -20,21 +43,15 @@ case "$1" in
     ;;
 
     remove)
-        # Disable and remove current site
-        if [ -e ${OMV_NGINX_CONF_ENABLED} ]; then
-            /bin/rm ${OMV_NGINX_CONF_ENABLED}
-        fi
-
-        if [ -e "${OMV_NGINX_CONF}" ]; then
-            /bin/rm "${OMV_NGINX_CONF}"
-        fi
+        remove_nginx_configs ${OMV_NGINX_CONF_NAME}
+        remove_nginx_logs
+        remove_fpm_configs
 
         if [ -e "/etc/init.d/nginx" ]; then
             /etc/init.d/nginx reload
         fi
 
         if [ -e "/etc/init.d/php5-fpm" ]; then
-            remove_fpm_configurations
             /etc/init.d/php5-fpm reload
         fi
     ;;
