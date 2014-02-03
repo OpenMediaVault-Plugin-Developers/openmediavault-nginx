@@ -216,9 +216,13 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
         $server["port"]                         = intval($server["port"]);
         $server["server_name_use_default_port"] = boolval($server["server_name_use_default_port"]);
 
-        // Php
-        $server["php_enable"] = boolval($server["php_enable"]);
-        $server["php_user"]   = $server["php_user"];
+        // PHP
+        $server["php_enable"]              = boolval($server["php_enable"]);
+        $server["php_user"]                = $server["php_user"];
+        $server["php_display_errors"]      = boolval($server["php_display_errors"]);
+        $server["php_memory_limit"]        = intval($server["php_memory_limit"]);
+        $server["php_post_max_size"]       = intval($server["php_post_max_size"]);
+        $server["php_upload_max_filesize"] = intval($server["php_upload_max_filesize"]);
 
         // Options
         $server["autoindex"]                   = boolval($server["autoindex"]);
@@ -289,8 +293,12 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
                 "server_name"                  : { "type" : "string" },
                 "server_name_use_default_port" : { "type" : "boolean" },
 
-                "php_enable" : { "type" : "boolean" },
-                "php_user"   : { "type" : "string" },
+                "php_enable"              : { "type" : "boolean" },
+                "php_user"                : { "type" : "string" },
+                "php_display_errors"      : { "type" : "boolean" },
+                "php_memory_limit"        : { "type" : "integer" },
+                "php_post_max_size"       : { "type" : "integer" },
+                "php_upload_max_filesize" : { "type" : "integer" },
 
                 "autoindex"                   : { "type" : "boolean" },
                 "deny_htaccess"               : { "type" : "boolean" },
@@ -313,6 +321,10 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
 
             "php_enable" => boolval($params["php_enable"]),
             "php_user"   => $params["php_user"],
+            "php_display_errors"      => boolval($params["php_display_errors"]),
+            "php_memory_limit"        => intval($params["php_memory_limit"]),
+            "php_post_max_size"       => intval($params["php_post_max_size"]),
+            "php_upload_max_filesize" => intval($params["php_upload_max_filesize"]),
 
             "autoindex"                   => boolval($params["autoindex"]),
             "deny_htaccess"               => boolval($params["deny_htaccess"]),

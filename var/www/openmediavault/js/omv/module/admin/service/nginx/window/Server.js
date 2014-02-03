@@ -82,7 +82,11 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             ]
         },{
             name : [
-                "php_user"
+                "php_user",
+                "php_display_errors",
+                "php_memory_limit",
+                "php_post_max_size",
+                "php_upload_max_filesize"
             ],
             conditions : [{
                 name  : "php_enable",
@@ -247,6 +251,53 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                     ptype : "fieldinfo",
                     text  : _("Set the user under which PHP scripts should be executed as.")
                 }]
+            },{
+                xtype      : "checkbox",
+                name       : "php_display_errors",
+                fieldLabel : _("Display errors"),
+                checked    : false
+            },{
+                xtype      : "numberfield",
+                name       : "php_memory_limit",
+                fieldLabel : _("Memory limit (MB)"),
+                value      : 128,
+                minValue   : -1,
+                plugins    : [{
+                    ptype : "fieldinfo",
+                    text  : _("This setting should be higher than the post max size. Setting a value of -1 makes it unlimited."),
+                }],
+                validator : function(value) {
+                    var otherField = me.findField("php_post_max_size");
+
+                    if (value != -1 && value < otherField.getValue())
+                        return "Value should be higher than POST max size";
+
+                    return true;
+                }
+            },{
+                xtype      : "numberfield",
+                name       : "php_post_max_size",
+                fieldLabel : _("Max POST size (MB)"),
+                value      : 8,
+                minValue   : 1,
+                plugins    : [{
+                    ptype : "fieldinfo",
+                    text  : _("This setting affects the max upload filesize and should preferably be higher."),
+                }],
+                validator : function(value) {
+                    var otherField = me.findField("php_upload_max_filesize");
+
+                    if (value < otherField.getValue())
+                        return "Value should be higher than max upload filesize";
+
+                    return true;
+            }
+            },{
+                xtype      : "numberfield",
+                name       : "php_upload_max_filesize",
+                fieldLabel : _("Max upload filesize (MB)"),
+                value      : 2,
+                minValue   : 1
             }]
         },{
             xtype : "fieldset",
