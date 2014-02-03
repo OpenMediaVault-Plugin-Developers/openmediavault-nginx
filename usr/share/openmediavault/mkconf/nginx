@@ -27,6 +27,7 @@ OMV_NGINX_SERVER_XPATH=${OMV_NGINX_SERVERS_XPATH}/server
 # Nginx paths
 NGINX_AVAILABLE_DIR=/etc/nginx/sites-available
 NGINX_ENABLED_DIR=/etc/nginx/sites-enabled
+NGINX_LOG_DIR=/var/log/nginx
 
 # php-fpm paths
 PHP_FPM_POOL_DIR=/etc/php5/fpm/pool.d/
@@ -95,6 +96,7 @@ generate_server_nginx_config()
     # Options
     autoindex=$(omv_config_get "${xpath}/autoindex")
     deny_htaccess=$(omv_config_get "${xpath}/deny_htaccess")
+    large_client_header_buffers=$(omv_config_get "${xpath}/large_client_header_buffers")
 
     # Extra options
     extra_options=$(omv_config_get "${xpath}/extra_options")
@@ -142,8 +144,8 @@ generate_server_nginx_config()
 
 
     # Add logs
-    echo "    access_log /var/log/nginx/${id}-access.log;" >> ${config}
-    echo "    error_log /var/log/nginx/${id}-error.log;" >> ${config}
+    echo "    access_log ${NGINX_LOG_DIR}/${id}-access.log;" >> ${config}
+    echo "    error_log ${NGINX_LOG_DIR}/${id}-error.log;" >> ${config}
 
     # Add options
     if [ $autoindex -eq 1 ]; then
@@ -156,12 +158,15 @@ generate_server_nginx_config()
         echo "    }" >> ${config}
     fi
 
+    echo "    large_client_header_buffers 4 ${large_client_header_buffers}k;" >> ${config}
+
     # Add other options
     if [ -n "$extra_options" ]; then
         echo "    $extra_options" >> ${config}
     fi
 
     echo "}" >> ${config}
+    echo "" >> ${config}
 }
 
 generate_server_fpm_config()
@@ -186,7 +191,12 @@ EOF
 
 remove_fpm_configurations()
 {
-    /usr/bin/find /etc/php5/fpm/pool.d/ -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
+    /usr/bin/find ${PHP_FPM_POOL_DIR} -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
+}
+
+remove_nginx_logs()
+{
+    /usr/bin/find ${NGINX_LOG_DIR} -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
 }
 
 generate_nginx_config()
@@ -197,6 +207,7 @@ generate_nginx_config()
 
 disable_server "${OMV_NGINX_CONF_NAME}"
 remove_fpm_configurations
+remove_nginx_logs
 generate_nginx_config
 
 if [ "$(omv_config_get "${OMV_PLUGIN_XPATH}/enable")" -eq "1" ]; then
