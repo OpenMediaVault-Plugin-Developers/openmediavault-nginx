@@ -220,6 +220,8 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
         $server["php_enable"]              = boolval($server["php_enable"]);
         $server["php_user"]                = $server["php_user"];
         $server["php_display_errors"]      = boolval($server["php_display_errors"]);
+        $server["php_html_errors"]         = boolval($server["php_html_errors"]);
+        $server["php_max_execution_time"]  = intval($server["php_max_execution_time"]);
         $server["php_memory_limit"]        = intval($server["php_memory_limit"]);
         $server["php_post_max_size"]       = intval($server["php_post_max_size"]);
         $server["php_upload_max_filesize"] = intval($server["php_upload_max_filesize"]);
@@ -229,8 +231,8 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
         $server["deny_htaccess"]               = boolval($server["deny_htaccess"]);
         $server["large_client_header_buffers"] = intval($server["large_client_header_buffers"]);
 
-        // Other options
-        $server["other_options"] = $server["other_options"];
+        // Extra options
+        $server["extra_options"] = $server["extra_options"];
 
         // Get full path for presentation
         $xPath = sprintf("//system/shares/sharedfolder[uuid='%s']", $server["sharedfolderref"]);
@@ -296,9 +298,11 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
                 "php_enable"              : { "type" : "boolean" },
                 "php_user"                : { "type" : "string" },
                 "php_display_errors"      : { "type" : "boolean" },
-                "php_memory_limit"        : { "type" : "integer" },
-                "php_post_max_size"       : { "type" : "integer" },
-                "php_upload_max_filesize" : { "type" : "integer" },
+                "php_html_errors"         : { "type" : "boolean" },
+                "php_max_execution_time"  : { "type" : "integer", "minimum" : 0 },
+                "php_memory_limit"        : { "type" : "integer", "minimum" : -1 },
+                "php_post_max_size"       : { "type" : "integer", "minimum" : 1 },
+                "php_upload_max_filesize" : { "type" : "integer", "minimum" : 1 },
 
                 "autoindex"                   : { "type" : "boolean" },
                 "deny_htaccess"               : { "type" : "boolean" },
@@ -319,10 +323,12 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
             "server_name"                  => $params["server_name"],
             "server_name_use_default_port" => boolval($params["server_name_use_default_port"]),
 
-            "php_enable" => boolval($params["php_enable"]),
-            "php_user"   => $params["php_user"],
+            "php_enable"              => boolval($params["php_enable"]),
+            "php_user"                => $params["php_user"],
             "php_display_errors"      => boolval($params["php_display_errors"]),
+            "php_html_errors"         => boolval($params["php_html_errors"]),
             "php_memory_limit"        => intval($params["php_memory_limit"]),
+            "php_max_execution_time"  => intval($params["php_max_execution_time"]),
             "php_post_max_size"       => intval($params["php_post_max_size"]),
             "php_upload_max_filesize" => intval($params["php_upload_max_filesize"]),
 
