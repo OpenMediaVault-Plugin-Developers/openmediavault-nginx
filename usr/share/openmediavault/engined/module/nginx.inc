@@ -58,7 +58,7 @@ class OMVModuleNginx extends OMVModuleServiceAbstract
             "name"    => $this->getName(),
             "title"   => gettext("Nginx"),
             "enabled" => boolval($object["enable"]),
-            "running" => ($initd->status() == 0)
+            "running" => ($initd->status() === 0)
         );
     }
 
@@ -94,7 +94,14 @@ class OMVModuleNginx extends OMVModuleServiceAbstract
             return;
 
         $initd = new OMVSysVInitScript($this->getName(), true);
-        $initd->exec();
+
+        // If Nginx is already running use reload
+        // instead. This will keep Nginx running
+        // even if any configuration is faulty.
+        if ($initd->status() === 0)
+            $initd->invoke("reload");
+        else
+            $initd->exec();
     }
 
     /**
@@ -102,6 +109,18 @@ class OMVModuleNginx extends OMVModuleServiceAbstract
      */
     public function stopService()
     {
+        global $xmlConfig;
+
+        $object = $xmlConfig->get($this->getXPath());
+
+        if (is_null($object))
+            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
+                $this->getXPath());
+
+        // Only stop Nginx if service is disabled
+        if ($object["enable"])
+            return;
+
         $initd = new OMVSysVInitScript($this->getName());
         $initd->exec();
     }
