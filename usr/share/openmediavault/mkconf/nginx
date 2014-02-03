@@ -92,6 +92,10 @@ generate_server_nginx_config()
     # PHP variables
     php_enable=$(omv_config_get "${xpath}/php_enable")
     php_user=$(omv_config_get "${xpath}/php_user")
+    php_display_errors=$(omv_config_get "${xpath}/php_display_errors")
+    php_memory_limit=$(omv_config_get "${xpath}/php_memory_limit")
+    php_post_max_size=$(omv_config_get "${xpath}/php_post_max_size")
+    php_upload_max_filesize=$(omv_config_get "${xpath}/php_upload_max_filesize")
 
     # Options
     autoindex=$(omv_config_get "${xpath}/autoindex")
@@ -132,7 +136,12 @@ generate_server_nginx_config()
 
     # Add PHP configuration
     if [ $php_enable -eq 1 ]; then
-        generate_server_fpm_config "${id}" "${php_user}"
+        generate_server_fpm_config "${id}" \
+                                   "${php_user}" \
+                                   "${php_display_errors}" \
+                                   "${php_memory_limit}" \
+                                   "${php_post_max_size}" \
+                                   "${php_upload_max_filesize}"
 
         echo "    location ~ \.php$ {" >> ${config}
         echo "        fastcgi_split_path_info ^(.+\.php)(/.+)$;" >> ${config}
@@ -173,6 +182,20 @@ generate_server_fpm_config()
 {
     id=${1}
     user=${2}
+    display_errors=${3}
+    memory_limit=${4}
+    post_max_size=${5}
+    upload_max_filesize=${6}
+
+    if [ $memory_limit -gt -1 ]; then
+        memory_limit=${memory_limit}M
+    fi
+
+    if [ $display_errors -eq 1 ]; then
+        display_errors=On
+    else
+        display_errors=Off
+    fi
 
     cat <<EOF > "${PHP_FPM_POOL_DIR}/${id}.conf"
 [${id}]
@@ -186,6 +209,13 @@ pm.max_children = 5
 pm.start_servers = 2
 pm.min_spare_servers = 1
 pm.max_spare_servers = 3
+
+; php.ini
+php_flag[display_errors] = ${display_errors}
+php_value[memory_limit] = ${memory_limit}
+php_value[post_max_size] = ${post_max_size}M
+php_value[upload_max_filesize] = ${upload_max_filesize}M
+
 EOF
 }
 
@@ -212,7 +242,7 @@ generate_nginx_config
 
 if [ "$(omv_config_get "${OMV_PLUGIN_XPATH}/enable")" -eq "1" ]; then
 
-    # Remove old config remove_config 
+    # Remove old config remove_config
     remove_server ${OMV_NGINX_CONF_NAME}
 
     # Iterate through virtual hosts
