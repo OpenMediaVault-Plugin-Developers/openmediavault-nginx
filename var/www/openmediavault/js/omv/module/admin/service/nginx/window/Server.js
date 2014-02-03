@@ -84,6 +84,8 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             name : [
                 "php_user",
                 "php_display_errors",
+                "php_html_errors",
+                "php_max_execution_time",
                 "php_memory_limit",
                 "php_post_max_size",
                 "php_upload_max_filesize"
@@ -257,11 +259,30 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 fieldLabel : _("Display errors"),
                 checked    : false
             },{
+                xtype      : "checkbox",
+                name       : "php_html_errors",
+                fieldLabel : _("HTML errors"),
+                checked    : true,
+                plugins    : [{
+                    ptype : "fieldinfo",
+                    text  : _("Use HTML tags in error messages."),
+                }]
+            },{
+                xtype      : "numberfield",
+                name       : "php_max_execution_time",
+                fieldLabel : _("Max execution time (s)"),
+                minValue   : 0,
+                value      : 30,
+                plugins    : [{
+                    ptype : "fieldinfo",
+                    text  : _("Set the max execution time of a script. Using the value 0 means no limit."),
+                }]
+            },{
                 xtype      : "numberfield",
                 name       : "php_memory_limit",
                 fieldLabel : _("Memory limit (MB)"),
-                value      : 128,
                 minValue   : -1,
+                value      : 128,
                 plugins    : [{
                     ptype : "fieldinfo",
                     text  : _("This setting should be higher than the post max size. Setting a value of -1 makes it unlimited."),
@@ -278,8 +299,8 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 xtype      : "numberfield",
                 name       : "php_post_max_size",
                 fieldLabel : _("Max POST size (MB)"),
-                value      : 8,
                 minValue   : 1,
+                value      : 8,
                 plugins    : [{
                     ptype : "fieldinfo",
                     text  : _("This setting affects the max upload filesize and should preferably be higher."),
@@ -296,8 +317,8 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 xtype      : "numberfield",
                 name       : "php_upload_max_filesize",
                 fieldLabel : _("Max upload filesize (MB)"),
-                value      : 2,
-                minValue   : 1
+                minValue   : 1,
+                value      : 2
             }]
         },{
             xtype : "fieldset",
