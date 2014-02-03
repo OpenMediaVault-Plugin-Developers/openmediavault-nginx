@@ -58,7 +58,7 @@ class OMVModuleNginx extends OMVModuleServiceAbstract
             "name"    => $this->getName(),
             "title"   => gettext("Nginx"),
             "enabled" => boolval($object["enable"]),
-            "running" => ($initd->status() === 0)
+            "running" => $initd->status() == 0
         );
     }
 
@@ -74,7 +74,11 @@ class OMVModuleNginx extends OMVModuleServiceAbstract
                 $cmd, implode("\n", $output));
 
         $initd = new OMVSysVInitScript("php5-fpm");
-        $initd->restart();
+
+        if ($initd->status() == 0)
+            $initd->invoke("reload");
+        else
+            $initd->start();
 	}
 
     /**
@@ -98,7 +102,7 @@ class OMVModuleNginx extends OMVModuleServiceAbstract
         // If Nginx is already running use reload
         // instead. This will keep Nginx running
         // even if any configuration is faulty.
-        if ($initd->status() === 0)
+        if ($initd->status() == 0)
             $initd->invoke("reload");
         else
             $initd->exec();
