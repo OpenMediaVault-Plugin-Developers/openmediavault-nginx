@@ -77,7 +77,8 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             properties : [
                 "hide",
                 "allowBlank",
-                "readOnly"
+                "readOnly",
+                "disabled"
             ]
         },{
             name : [
@@ -226,7 +227,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             }]
         },{
             xtype : "fieldset",
-            title : "Options",
+            title : "PHP",
             items : [{
                 xtype      : "checkbox",
                 name       : "php_enable",
@@ -248,36 +249,61 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 }]
             }]
         },{
-            xtype    : "fieldset",
-            title    : "Options",
-            layout   : "column",
-            defaults : {
-                columnWidth : 0.5,
-                layout      : "form",
-                border      : false,
-            },
-            items  : [{
+            xtype : "fieldset",
+            title : _("Options"),
+            items : [{
+                border   : false,
+                layout   : "column",
                 defaults : {
-                    hideLabel      : true,
-                    labelSeparator : ""
+                    border      : false,
+                    columnWidth : 0.5,
+                    layout      : "form"
                 },
-                items : [{
-                    xtype      : "checkbox",
-                    name       : "autoindex",
-                    boxLabel   : "Autoindex",
-                    checked    : false
+                items  : [{
+                    defaults : {
+                        hideLabel      : true,
+                        labelSeparator : ""
+                    },
+                    items : [{
+                        xtype      : "checkbox",
+                        name       : "autoindex",
+                        boxLabel   : "Autoindex",
+                        checked    : false
+                    }]
+                },{
+                    defaults : {
+                        hideLabel      : true,
+                        labelSeparator : ""
+                    },
+                    items : [{
+                        xtype      : "checkbox",
+                        name       : "deny_htaccess",
+                        boxLabel   : _("Don't serve .htaccess"),
+                        checked    : false
+                    }]
                 }]
             },{
-                defaults : {
-                    hideLabel      : true,
-                    labelSeparator : ""
-                },
-                items : [{
-                    xtype      : "checkbox",
-                    name       : "deny_htaccess",
-                    boxLabel   : _("Don't serve .htaccess"),
-                    checked    : false
-                }]
+                xtype      : "combo",
+                name       : "large_client_header_buffers",
+                fieldLabel : _("Header buffer size"),
+                queryMode  : "local",
+                store      : Ext.create("Ext.data.ArrayStore", {
+                    fields : [
+                        "value",
+                        "text"
+                    ],
+                    data   : [
+                        [ 8, "8k" ],
+                        [ 16, "16k" ],
+                        [ 32, "32k" ],
+                    ]
+                }),
+                displayField  : "text",
+                valueField    : "value",
+                allowBlank    : false,
+                editable      : false,
+                triggerAction : "all",
+                value         : 8
             }]
         },{
             xtype : "fieldset",

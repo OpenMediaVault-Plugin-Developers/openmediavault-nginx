@@ -104,7 +104,7 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
             "properties" : {
                 "enable"                        : { "type" : "boolean" },
                 "server_name_default_port"      : { "type" : "integer" },
-                "server_names_hash_bucket_size" : { "type" : "integer" }
+                "server_names_hash_bucket_size" : { "type" : "integer", "enum" : [ 32, 64, 128 ] }
             }
         }');
 
@@ -221,8 +221,9 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
         $server["php_user"]   = $server["php_user"];
 
         // Options
-        $server["autoindex"]     = boolval($server["autoindex"]);
-        $server["deny_htaccess"] = boolval($server["deny_htaccess"]);
+        $server["autoindex"]                   = boolval($server["autoindex"]);
+        $server["deny_htaccess"]               = boolval($server["deny_htaccess"]);
+        $server["large_client_header_buffers"] = intval($server["large_client_header_buffers"]);
 
         // Other options
         $server["other_options"] = $server["other_options"];
@@ -284,15 +285,16 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
                 "use_public_directory"         : { "type" : "boolean" },
                 "public_directory"             : { "type" : "string", "optional" : true },
                 "host_type"                    : { "type" : "integer" },
-                "port"                         : { "type" : "integer" },
+                "port"                         : { "type" : "integer", "optional" : true },
                 "server_name"                  : { "type" : "string" },
                 "server_name_use_default_port" : { "type" : "boolean" },
 
                 "php_enable" : { "type" : "boolean" },
                 "php_user"   : { "type" : "string" },
 
-                "autoindex"     : { "type" : "boolean" },
-                "deny_htaccess" : { "type" : "boolean" },
+                "autoindex"                   : { "type" : "boolean" },
+                "deny_htaccess"               : { "type" : "boolean" },
+                "large_client_header_buffers" : { "type" : "integer", "enum" : [ 8, 16, 32 ]},
 
                 "extra_options" : { "type" : "string" }
             }
@@ -312,8 +314,9 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
             "php_enable" => boolval($params["php_enable"]),
             "php_user"   => $params["php_user"],
 
-            "autoindex"     => boolval($params["autoindex"]),
-            "deny_htaccess" => boolval($params["deny_htaccess"]),
+            "autoindex"                   => boolval($params["autoindex"]),
+            "deny_htaccess"               => boolval($params["deny_htaccess"]),
+            "large_client_header_buffers" => intval($params["large_client_header_buffers"]),
 
             "extra_options" => $params["extra_options"]
         );
