@@ -204,7 +204,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 maxValue      : 65535,
                 allowDecimals : false,
                 allowNegative : false,
-                value         : 8080
+                value         : 80
             }]
         },{
             xtype : "fieldset",
@@ -229,7 +229,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 maxValue      : 65535,
                 allowDecimals : false,
                 allowNegative : false,
-                value         : 8080
+                value         : 443
             },{
                 xtype      : "certificatecombo",
                 name       : "sslcertificateref",
