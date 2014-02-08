@@ -2,10 +2,10 @@ Source: openmediavault-nginx
 Section: net
 Priority: optional
 Maintainer: OpenMediaVault Plugin Developers <plugins@omv-extras.org>
-Build-Depends: debhelper (>= 8.0.0)
+Build-Depends: debhelper (>= 9.0.0)
 Standards-Version: 3.9.3
 
 Package: openmediavault-nginx
 Architecture: all
-Depends: openmediavault (>= 0.5), php5-fpm, nginx, ${misc:Depends}
+Depends: openmediavault (>= 0.6), php5-fpm, nginx, ${misc:Depends}
 Description: Nginx plugin for OpenMediaVault.
