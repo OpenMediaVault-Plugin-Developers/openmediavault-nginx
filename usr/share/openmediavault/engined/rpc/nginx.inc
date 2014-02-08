@@ -231,9 +231,9 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
 
         // If ports is missing a value, just set default value
         if (!$server["port"])
-            $server["port"] = 8080;
+            $server["port"] = 80;
         if (!$server["ssl_port"])
-            $server["ssl_port"] = 8080;
+            $server["ssl_port"] = 443;
 
         // Get full path for presentation
         $xPath = sprintf("//system/shares/sharedfolder[uuid='%s']", $server["sharedfolderref"]);
