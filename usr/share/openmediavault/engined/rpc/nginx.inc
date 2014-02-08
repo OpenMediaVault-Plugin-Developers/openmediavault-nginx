@@ -359,11 +359,11 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
             throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
                 "Ports identical, can't use same port for SSL.");
                 
-        if ($this->portIsUsed($server["port"], $server["uuid"], $server["host_type"]))
+        if (!$this->validatePort($server["port"], $server["uuid"], $server["host_type"]))
             throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
                 "Selected port is already used");
                 
-        if ($this->portIsUsed($server["ssl_port"], $server["uuid"], $server["host_type"], true))
+        if (!$this->validatePort($server["ssl_port"], $server["uuid"], $server["host_type"], true))
             throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
                 "Selected port (SSL) is already used");
 
@@ -420,7 +420,7 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
             "org.openmediavault.services.nginx", $server);
     }
 
-    private function portIsUsed($port, $uuid, $hostType, $sslPort = false)
+    private function validatePort($port, $uuid, $hostType, $sslPort = false)
     {
         global $xmlConfig;
 
@@ -437,24 +437,24 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
         if (!empty($server)) {
             if ($server["uuid"] != $uuid) {
                 if ($sslPort)
-                    return true;
+                    return false;
                 if ($hostType == self::HOST_TYPE_PORT || $server["host_type"] == self::HOST_TYPE_PORT)
-                    return true;
+                    return false;
             } else {
                 if ($sslPort)
-                    return true;
+                    return false;
             }
         }
         
         if (!empty($sslServer)) {
             if ($sslServer["uuid"] != $uuid) {
                 if (!$sslPort)
-                    return true;
+                    return false;
                 if ($hostType == self::HOST_TYPE_PORT || $server["host_type"] == self::HOST_TYPE_PORT)
-                    return true;
+                    return false;
             } else {
                 if (!$sslPort)
-                    return true;
+                    return false;
             }
         }
 
@@ -468,29 +468,18 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
             $enableSsl       = boolval($webadminConfig["enablessl"]);
 
             if ($webadminPort == $port && !$forceSslOnly)
-                return true;
+                return false;
             if ($webadminSslPort == $port && $enableSsl)
-                return true;
+                return false;
         }
 
-        return false;
+        return true;
     }
 
     private function buildHref($domain, $port, $ssl = false)
     {
         $url = sprintf("http%s://%s:%s", $ssl ? "s" : "", $domain, $port);
         return "<a href='$url' target='_blank'>$url</a>";
-    }
-
-    private function getDefaultServerNamePort()
-    {
-        if (!$this->_defaultServerNamePort) {
-            global $xmlConfig;
-            $xPath = sprintf("%s/server_name_default_port", $this->getXPath());
-            $this->_defaultServerNamePort = $xmlConfig->get($xPath);
-        }
-
-        return $this->_defaultServerNamePort;
     }
 }
 
