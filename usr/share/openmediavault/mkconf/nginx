@@ -83,11 +83,15 @@ generate_server_nginx_config()
 
     # Variables
     id=$(omv_config_get "${xpath}/uuid")
-    server_name_default_port=$(omv_config_get "${OMV_PLUGIN_XPATH}/server_name_default_port")
     host_type=$(omv_config_get "${xpath}/host_type")
-    port=$(omv_config_get "${xpath}/port")
     server_name=$(omv_config_get "${xpath}/server_name")
-    server_name_use_default_port=$(omv_config_get "${xpath}/server_name_use_default_port")
+    port=$(omv_config_get "${xpath}/port")
+
+	# SSL
+	ssl_enable=$(omv_config_get "${xpath}/ssl_enable")
+    ssl_port=$(omv_config_get "${xpath}/ssl_port")
+	sslcertificateref=$(omv_config_get "${xpath}/sslcertificateref")
+	ssl_force=$(omv_config_get "${xpath}/ssl_force")
 
     # PHP variables
     php_enable=$(omv_config_get "${xpath}/php_enable")
@@ -110,18 +114,19 @@ generate_server_nginx_config()
     # Start generating config
     echo "server {" >> ${config}
 
-    # If host type is not server_name only
-    # add port to config
-    if [ $host_type -ne 1 ]; then
-        echo "    listen ${port};" >> ${config}
-    fi
-
-    if [ $host_type -eq 1 -a $server_name_use_default_port -eq 0 ]; then
-        echo "    listen ${port};" >> ${config}
-    fi
-
-    if [ $host_type -gt 0 -a $server_name_use_default_port -eq 1 ];then
-        echo "    listen ${server_name_default_port};" >> ${config}
+	# Check if we need to add ssl after port
+    if [ $ssl_force -ne 1 ]; then
+		echo "    listen ${port};" >> ${config}
+	fi
+    
+    if [ $ssl_enable -eq 1 ]; then
+        echo "    listen ${ssl_port} ssl;" >> ${config}
+		echo "    ssl_certificate     ${OMV_CERTIFICATE_DIR}/certs/${OMV_CERTIFICATE_PREFIX}${sslcertificateref}.crt;" >> ${config}
+    	echo "    ssl_certificate_key ${OMV_CERTIFICATE_DIR}/private/${OMV_CERTIFICATE_PREFIX}${sslcertificateref}.key;" >> ${config}
+	fi
+	
+    if [ $host_type = "name" ]; then
+        echo "    server_name ${server_name};" >> ${config}
     fi
 
     # Add root directory
