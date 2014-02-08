@@ -40,21 +40,6 @@ Ext.define("OMV.module.admin.service.nginx.Settings", {
                 fieldLabel : _("Enable"),
                 checked    : false
             },{
-                xtype         : "numberfield",
-                name          : "server_name_default_port",
-                fieldLabel    : _("Default name-server port"),
-                vtype         : "port",
-                minValue      : 0,
-                maxValue      : 65535,
-                allowDecimals : false,
-                allowNegative : false,
-                allowBlank    : false,
-                value         : 8000,
-                plugins    : [{
-                    ptype : "fieldinfo",
-                    text  : _("Default port to use with name-based servers.")
-                }]
-            },{
                 xtype      : "combo",
                 name       : "server_names_hash_bucket_size",
                 fieldLabel : _("Server names hash bucket size"),

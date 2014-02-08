@@ -50,13 +50,11 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             ]
         },{
             name : [
-                "server_name",
-                "server_name_use_default_port"
+                "server_name"
             ],
             conditions : [{
                 name  : "host_type",
-                op    : ">",
-                value : 0
+                value : "name"
             }],
             properties : [
                 "show",
@@ -68,17 +66,28 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 "port"
             ],
             conditions : [{
-                name  : "host_type",
-                value : 1
-            },{
-                name  : "server_name_use_default_port",
+                name  : "ssl_force",
                 value : true
             }],
             properties : [
-                "hide",
                 "allowBlank",
                 "readOnly",
-                "disabled"
+            ]
+        },{
+            name : [
+                "sslcertificateref",
+                "ssl_port",
+                "ssl_force"
+            ],
+            conditions : [{
+                name  : "ssl_enable",
+                value : true
+            }],
+            properties : [
+                "show",
+                "!allowBlank",
+                "!allowNone",
+                "!readOnly"
             ]
         },{
             name : [
@@ -169,9 +178,8 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                         "text"
                     ],
                     data   : [
-                        [ 0, _("Port") ],
-                        [ 1, "ServerName" ],
-                        [ 2, _("Both") ],
+                        [ "port", _("Port") ],
+                        [ "name", _("Name-based") ]
                     ]
                 }),
                 displayField  : "text",
@@ -179,7 +187,14 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 allowBlank    : false,
                 editable      : false,
                 triggerAction : "all",
-                value         : 0
+                value         : "port"
+            },{
+                xtype      : "textfield",
+                name       : "server_name",
+                fieldLabel : "ServerName",
+                allowBlank : true,
+                readOnly   : true,
+                hidden     : true
             },{
                 xtype         : "numberfield",
                 name          : "port",
@@ -189,47 +204,49 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 maxValue      : 65535,
                 allowDecimals : false,
                 allowNegative : false,
-                value         : 8080,
-                listeners     : {
-                    "change" : function(field, newValue, oldValue) {
-                        OMV.Rpc.request({
-                            scope : me,
-                            callback : function(id, success, response) {
-                                if (success) {
-                                    if (!response) {
-                                        field.markInvalid("This port is already used!");
-                                    }
-                                }
-                            },
-                            rpcData : {
-                                service : "Nginx",
-                                method : "validatePort",
-                                params : {
-                                    uuid : me.uuid,
-                                    port : newValue
-                                }
-                            }
-                        });
+                value         : 8080
+            }]
+        },{
+            xtype : "fieldset",
+            title : "SSL",
+            items : [{
+                xtype      : "checkbox",
+                name       : "ssl_enable",
+                fieldLabel : _("Enable SSL"),
+                checked    : false,
+                listeners  : {
+                    "change" : function(field, newValue) {
+                        var sslForceField = me.findField("ssl_force");
+                        sslForceField.setValue(false);
                     }
                 }
             },{
-                xtype      : "textfield",
-                name       : "server_name",
-                fieldLabel : "ServerName",
-                allowBlank : true,
-                readOnly   : true,
-                hidden     : true
+                xtype         : "numberfield",
+                name          : "ssl_port",
+                fieldLabel    : _("Port"),
+                vtype         : "port",
+                minValue      : 0,
+                maxValue      : 65535,
+                allowDecimals : false,
+                allowNegative : false,
+                value         : 8080
             },{
-                xtype      : "checkbox",
-                name       : "server_name_use_default_port",
-                fieldLabel : _("Use default port for ServerName"),
-                checked    : true,
+                xtype      : "certificatecombo",
+                name       : "sslcertificateref",
+                fieldLabel : _("Certificate"),
+                allowNone  : true,
+                allowBlank : true,
                 readOnly   : true,
                 hidden     : true,
                 plugins    : [{
                     ptype : "fieldinfo",
-                    text  : _("Untick to host the ServerName with the portnumber specified in the field port.")
+                    text  : _("The SSL certificate.")
                 }]
+            },{
+                xtype      : "checkbox",
+                name       : "ssl_force",
+                fieldLabel : _("Force SSL"),
+                checked    : false
             }]
         },{
             xtype : "fieldset",
