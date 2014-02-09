@@ -91,6 +91,17 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             ]
         },{
             name : [
+                "php_fpm_pool_socket"
+            ],
+            conditions : [{
+                name  : "php_enable",
+                value : true
+            }],
+            properties : [
+                "show"
+            ]
+        },{
+            name : [
                 "php_user",
                 "php_display_errors",
                 "php_html_errors",
@@ -102,6 +113,9 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             conditions : [{
                 name  : "php_enable",
                 value : true
+            },{
+                name  : "php_fpm_pool_socket",
+                value : ""
             }],
             properties : [
                 "!allowBlank",
@@ -191,7 +205,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             },{
                 xtype      : "textfield",
                 name       : "server_name",
-                fieldLabel : "ServerName",
+                fieldLabel : _("Server name"),
                 allowBlank : true,
                 readOnly   : true,
                 hidden     : true
@@ -256,6 +270,15 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 name       : "php_enable",
                 fieldLabel : _("Enable PHP"),
                 checked    : false
+            },{
+                xtype      : "textfield",
+                name       : "php_fpm_pool_socket",
+                fieldLabel : _("PHP-FPM socket"),
+                hidden     : true,
+                plugins    : [{
+                    ptype : "fieldinfo",
+                    text  : _("Set this if you want to use a custom FPM socket. Will disable all other PHP options.")
+                }]
             },{
                 xtype      : "usercombo",
                 name       : "php_user",
