@@ -143,3 +143,26 @@ class OMVModuleNginx extends OMVModuleServiceAbstract
 // Register module
 $moduleMgr = &OMVModuleMgr::getInstance();
 $moduleMgr->registerModule(new OMVModuleNginx());
+
+// Register new logfile types.
+OMVLogFile::registerType("php-fpm",
+    array(
+        "filename" => "php-fpm",
+        "filepath" => "/var/log/php5-fpm.log",
+        "regex"    => "/^\[(\d+-\w+-\d+\s+\d+:\d+:\d+)\]\s+(.*)$/",
+        "columns"  => array(
+            "ts" => array(
+                "index" => 1,
+                "func"  => create_function("\$v", 
+                    "return strpdate(\$v, \"d-M-Y H:i:s\");")
+            ),
+            "date" => array(
+                "index" => 1,
+                "func"  => create_function('$v',
+                    "return strftime(\"%c\", strpdate(\$v,\"d-M-Y H:i:s\"));")
+            ),
+            "event" => 2
+        )
+    )
+);
+
