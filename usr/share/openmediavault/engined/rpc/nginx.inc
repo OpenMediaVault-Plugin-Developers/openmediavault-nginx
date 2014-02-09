@@ -28,8 +28,6 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
     const HOST_TYPE_PORT = "port";
     const HOST_TYPE_NAME = "name";
 
-    private $_defaultServerNamePort = null;
-
     private function getXPath()
     {
         return "//services/nginx";
@@ -107,10 +105,6 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
             "enable"                        => array_boolval($params, "enable"),
             "server_names_hash_bucket_size" => $params["server_names_hash_bucket_size"]
         );
-
-        if ($this->portIsUsed($object["server_name_default_port"], null, true))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
-                "Selected port is already used");
 
         // Get old configuration object
         $oldConfig = $xmlConfig->get($this->getXPath());
