@@ -38,14 +38,15 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
         hidden    : true,
         dataIndex : "uuid"
     },{
+        xtype     : "booleaniconcolumn",
         header    : _("Enabled"),
         sortable  : true,
         dataIndex : "enable",
         align     : "center",
         width     : 80,
         resizable : false,
-        renderer  : OMV.util.Format.booleanIconRenderer(
-            "switch_on.png", "switch_off.png")
+        trueIcon  : "switch_on.png",
+        falseIcon : "switch_off.png"
     },{
         header    : _("Root"),
         flex      : 1,
@@ -57,16 +58,17 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
         sortable  : true,
         dataIndex : "urls",
         renderer  : function(urls) {
-            var presentation = "";
+            var columnValue = "";
 
-            for (var i = 0, j = urls.length; i < j; i++) {
-                presentation += urls[i].replace(/!domain!/g, window.location.hostname);
+            Ext.Array.each(urls, function(url, i) {
+                columnValue += Ext.String.format("<a href='{0}' target='_blank'>{0}</a>", 
+                    url.replace("!domain!", window.location.hostname));
+                
+                if (i < urls.length - 1)
+                    columnValue += ", ";
+            });
 
-                if (i < j - 1)
-                    presentation += ", ";
-            }
-
-            return presentation;
+            return columnValue;
         }
     }],
 
