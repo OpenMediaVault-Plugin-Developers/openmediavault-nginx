@@ -241,26 +241,23 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
             $sharedFolder["reldirpath"]);
 
         if ($server["use_public_directory"])
-            $server["root_full_path"] .= "/" . $server["public_directory"];
+            $server["root_full_path"] = sprintf("%s%s",
+                $server["root_full_path"],
+                $server["public_directory"]);
+                
+        $server["root_full_path"] = str_replace("//", "/", $server["root_full_path"]);
 
         // Build possible URLs
         $urls = array();
 
-        if ($server["host_type"] == self::HOST_TYPE_PORT) {
-            if (!$server["ssl_force"])
-                $urls[] = $this->buildHref("!domain!", $server["port"]);
-            
-            if ($server["ssl_enable"])
-                $urls[] = $this->buildHref("!domain!", $server["ssl_port"], true);
-        }
-        
-        if ($server["host_type"] == self::HOST_TYPE_NAME) {
-            if (!$server["ssl_force"])
-                $urls[] = $this->buildHref($server["server_name"], $server["port"]);
-            
-            if ($server["ssl_enable"])
-                $urls[] = $this->buildHref($server["server_name"], $server["ssl_port"], true);
-        }
+        $domain = $server["host_type"] == self::HOST_TYPE_PORT 
+            ? "!domain!" : $server["server_name"];
+
+        if (!$server["ssl_force"])
+            $urls[] = sprintf("http://%s:%s", $domain, $server["port"]);
+
+        if ($server["ssl_enable"])
+            $urls[] = sprintf("https://%s:%s", $domain, $server["ssl_port"]);
         
         $server["urls"] = $urls;
 
@@ -468,12 +465,6 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
         }
 
         return true;
-    }
-
-    private function buildHref($domain, $port, $ssl = false)
-    {
-        $url = sprintf("http%s://%s:%s", $ssl ? "s" : "", $domain, $port);
-        return "<a href='$url' target='_blank'>$url</a>";
     }
 }
 
