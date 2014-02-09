@@ -126,7 +126,7 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
         return $object;
     }
 
-    function getList($params, $context)
+    public function getList($params, $context)
     {
         global $xmlConfig;
 
@@ -173,7 +173,7 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
         );
     }
 
-    function get($params, $context)
+    public function get($params, $context)
     {
         global $xmlConfig;
 
