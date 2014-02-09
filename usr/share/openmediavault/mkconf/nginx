@@ -113,14 +113,14 @@ generate_server_nginx_config()
     # Start generating config
     echo "server {" >> ${config}
 
-	# Check if we need to add ssl after port
+	# Always listen to port unless SSL is forced
     if [ $ssl_force -ne 1 ]; then
 		echo "    listen ${port};" >> ${config}
 	fi
     
     if [ $ssl_enable -eq 1 ]; then
         echo "    listen ${ssl_port} ssl;" >> ${config}
-		echo "    ssl_certificate     ${OMV_CERTIFICATE_DIR}/certs/${OMV_CERTIFICATE_PREFIX}${sslcertificateref}.crt;" >> ${config}
+		echo "    ssl_certificate ${OMV_CERTIFICATE_DIR}/certs/${OMV_CERTIFICATE_PREFIX}${sslcertificateref}.crt;" >> ${config}
     	echo "    ssl_certificate_key ${OMV_CERTIFICATE_DIR}/private/${OMV_CERTIFICATE_PREFIX}${sslcertificateref}.key;" >> ${config}
 	fi
 	
