@@ -7,11 +7,14 @@ set -e
 
 case "$1" in
     configure)
-        if ! omv_config_exists "/config/services/nginx"; then
-            omv_config_add_element "/config/services" "nginx"
-            omv_config_add_element "/config/services/nginx" "enable" "0"
-            omv_config_add_element "/config/services/nginx" "server_names_hash_bucket_size" "32"
-            omv_config_add_element "/config/services/nginx" "servers"
+        SERVICE_XPATH_NAME="nginx"
+        SERVICE_XPATH="/config/services/${SERVICE_XPATH_NAME}"
+
+        if ! omv_config_exists "${SERVICE_XPATH}"; then
+            omv_config_add_element "/config/services" "${SERVICE_XPATH_NAME}"
+            omv_config_add_element "${SERVICE_XPATH}" "enable" "0"
+            omv_config_add_element "${SERVICE_XPATH}" "server_names_hash_bucket_size" "32"
+            omv_config_add_element "${SERVICE_XPATH}" "servers"
         fi
 
         # Disable the default Nginx site
