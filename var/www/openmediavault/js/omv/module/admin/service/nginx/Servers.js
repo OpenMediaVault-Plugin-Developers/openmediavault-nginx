@@ -58,17 +58,15 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
         sortable  : true,
         dataIndex : "urls",
         renderer  : function(urls) {
-            var columnValue = "";
+            var value = "";
 
-            Ext.Array.each(urls, function(url, i) {
-                columnValue += Ext.String.format("<a href='{0}' target='_blank'>{0}</a>", 
-                    url.replace("!domain!", window.location.hostname));
-                
-                if (i < urls.length - 1)
-                    columnValue += ", ";
-            });
+            for (var i = 0; i < urls.length; i++)
+                urls[i] = Ext.String.format("<a href='{0}' target='_blank'>{0}</a>", urls[i]
+                    .replace("!domain!", window.location.hostname));
 
-            return columnValue;
+            value = urls.join(", ");
+
+            return value;
         }
     }],
 
