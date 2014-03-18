@@ -48,6 +48,38 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
         trueIcon  : "switch_on.png",
         falseIcon : "switch_off.png"
     },{
+        header    : _("Port"),
+        width     : 60,
+        resizable : false,
+        sortable  : true,
+        dataIndex : "port"
+    },{
+        xtype     : "booleaniconcolumn",
+        header    : _("Default"),
+        sortable  : true,
+        dataIndex : "port_default_server",
+        align     : "center",
+        width     : 80,
+        resizable : false,
+        trueIcon  : "switch_on.png",
+        falseIcon : "switch_off.png"
+    },{
+        header    : _("Port (SSL)"),
+        width     : 70,
+        resizable : false,
+        sortable  : true,
+        dataIndex : "ssl_port"
+    },{
+        xtype     : "booleaniconcolumn",
+        header    : _("Default (SSL)"),
+        sortable  : true,
+        dataIndex : "ssl_port_default_server",
+        align     : "center",
+        width     : 80,
+        resizable : false,
+        trueIcon  : "switch_on.png",
+        falseIcon : "switch_off.png"
+    },{
         header    : _("Root"),
         flex      : 1,
         sortable  : true,
@@ -84,6 +116,10 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
                         { name : "uuid" },
                         { name : "enable" },
                         { name : "root_full_path" },
+                        { name : "port" },
+                        { name : "port_default_server" },
+                        { name : "ssl_port" },
+                        { name : "ssl_port_default_server" },
                         { name : "urls" }
                     ]
                 }),
