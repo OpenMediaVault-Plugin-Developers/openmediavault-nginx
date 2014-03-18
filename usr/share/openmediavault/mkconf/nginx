@@ -118,23 +118,23 @@ generate_server_nginx_config()
 
     # Always listen to port unless SSL is forced
     if [ $ssl_force -ne 1 ]; then
-        default=""
+        default_server=""
 
         if [ $port_default_server -eq 1 ]; then
-            default=" default"
+            default_server=" default_server"
         fi
 
-        echo "    listen ${port}${default};" >> ${config}
+        echo "    listen ${port}${default_server};" >> ${config}
     fi
 
     if [ $ssl_enable -eq 1 ]; then
-        default=""
+        default_server=""
 
         if [ $ssl_port_default_server -eq 1 ]; then
-            default=" default"
+            default_server=" default_server"
         fi
 
-        echo "    listen ${ssl_port}${default} ssl;" >> ${config}
+        echo "    listen ${ssl_port}${default_server} ssl;" >> ${config}
         echo "    ssl_certificate     ${OMV_CERTIFICATE_DIR}/certs/${OMV_CERTIFICATE_PREFIX}${sslcertificateref}.crt;" >> ${config}
         echo "    ssl_certificate_key ${OMV_CERTIFICATE_DIR}/private/${OMV_CERTIFICATE_PREFIX}${sslcertificateref}.key;" >> ${config}
     fi
