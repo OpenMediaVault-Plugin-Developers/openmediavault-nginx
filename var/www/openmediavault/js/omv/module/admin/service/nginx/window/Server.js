@@ -63,7 +63,8 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             ]
         },{
             name : [
-                "port"
+                "port",
+                "port_default_server",
             ],
             conditions : [{
                 name  : "ssl_force",
@@ -77,6 +78,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             name : [
                 "sslcertificateref",
                 "ssl_port",
+                "ssl_port_default_server",
                 "ssl_force"
             ],
             conditions : [{
@@ -219,6 +221,15 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 allowDecimals : false,
                 allowNegative : false,
                 value         : 80
+            },{
+                xtype      : "checkbox",
+                name       : "port_default_server",
+                fieldLabel : _("Default server"),
+                checked    : false,
+                plugins    : [{
+                    ptype : "fieldinfo",
+                    text  : _("Set the server as the default one to be served if no server name matches on the selected port.")
+                }]
             }]
         },{
             xtype : "fieldset",
@@ -244,6 +255,15 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 allowDecimals : false,
                 allowNegative : false,
                 value         : 443
+            },{
+                xtype      : "checkbox",
+                name       : "ssl_port_default_server",
+                fieldLabel : _("Default server"),
+                checked    : false,
+                plugins    : [{
+                    ptype : "fieldinfo",
+                    text  : _("Set the server as the default one to be served if no server name matches on the selected port.")
+                }]
             },{
                 xtype      : "certificatecombo",
                 name       : "sslcertificateref",
