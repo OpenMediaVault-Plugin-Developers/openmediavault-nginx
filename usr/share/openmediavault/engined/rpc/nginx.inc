@@ -197,14 +197,16 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
                 $xPath);
 
         // General
-        $server["enable"]               = boolval($server["enable"]);
-        $server["use_public_directory"] = boolval($server["use_public_directory"]);
-        $server["port"]                 = intval($server["port"]);
-        
+        $server["enable"]                  = boolval($server["enable"]);
+        $server["use_public_directory"]    = boolval($server["use_public_directory"]);
+        $server["port"]                    = intval($server["port"]);
+        $server["ssl_port_default_server"] = boolval($server["ssl_port_default_server"]);
+
         // SSL
-        $server["ssl_enable"] = boolval($server["ssl_enable"]);
-        $server["ssl_port"]   = intval($server["ssl_port"]);
-        $server["ssl_force"]  = boolval($server["ssl_force"]);
+        $server["ssl_enable"]              = boolval($server["ssl_enable"]);
+        $server["ssl_port"]                = intval($server["ssl_port"]);
+        $server["ssl_port_default_server"] = boolval($server["ssl_port_default_server"]);
+        $server["ssl_force"]               = boolval($server["ssl_force"]);
 
         // PHP
         $server["php_enable"]              = boolval($server["php_enable"]);
@@ -244,13 +246,13 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
             $server["root_full_path"] = sprintf("%s%s",
                 $server["root_full_path"],
                 $server["public_directory"]);
-                
+
         $server["root_full_path"] = str_replace("//", "/", $server["root_full_path"]);
 
         // Build possible URLs
         $urls = array();
 
-        $domain = $server["host_type"] == self::HOST_TYPE_PORT 
+        $domain = $server["host_type"] == self::HOST_TYPE_PORT
             ? "!domain!" : $server["server_name"];
 
         if (!$server["ssl_force"])
@@ -258,7 +260,7 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
 
         if ($server["ssl_enable"])
             $urls[] = sprintf("https://%s:%s", $domain, $server["ssl_port"]);
-        
+
         $server["urls"] = $urls;
 
         return $server;
@@ -285,11 +287,13 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
                 "host_type"            : { "type" : "string", "enum" : [ "port", "name" ] },
                 "server_name"          : { "type" : "string" },
                 "port"                 : { "type" : "integer" },
-                
-                "ssl_enable"        : { "type" : "boolean" },
-                "ssl_port"          : { "type" : "integer" },
-                "sslcertificateref" : {' . $GLOBALS['OMV_JSONSCHEMA_UUID_NONE'] . '},
-                "ssl_force"         : { "type" : "boolean" },
+                "port_default_server"  : { "type" : "boolean" },
+
+                "ssl_enable"              : { "type" : "boolean" },
+                "ssl_port"                : { "type" : "integer" },
+                "ssl_port_default_server" : { "type" : "boolean" },
+                "sslcertificateref"       : {' . $GLOBALS['OMV_JSONSCHEMA_UUID_NONE'] . '},
+                "ssl_force"               : { "type" : "boolean" },
 
                 "php_enable"              : { "type" : "boolean" },
                 "php_fpm_pool_socket"     : { "type" : "string" },
@@ -319,11 +323,13 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
             "host_type"            => $params["host_type"],
             "server_name"          => $params["server_name"],
             "port"                 => intval($params["port"]),
-            
-            "ssl_enable"        => boolval($params["ssl_enable"]),
-            "ssl_port"          => intval($params["ssl_port"]),
-            "sslcertificateref" => $params["sslcertificateref"],
-            "ssl_force"         => boolval($params["ssl_force"]),
+            "port_default_server"  => boolval($params["port_default_server"]),
+
+            "ssl_enable"              => boolval($params["ssl_enable"]),
+            "ssl_port"                => intval($params["ssl_port"]),
+            "ssl_port_default_server" => boolval($params["ssl_port_default_server"]),
+            "sslcertificateref"       => $params["sslcertificateref"],
+            "ssl_force"               => boolval($params["ssl_force"]),
 
             "php_enable"              => boolval($params["php_enable"]),
             "php_fpm_pool_socket"     => trim($params["php_fpm_pool_socket"]),
@@ -342,24 +348,7 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
             "extra_options" => $params["extra_options"]
         );
 
-        // Remove current port number if not used
-        if ($server["ssl_force"])
-            $server["port"] = null;
-        if (!$server["ssl_enable"])
-            $server["ssl_port"] = null;
-
-        // Perform port checks
-        if ($server["port"] == $server["ssl_port"])
-            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
-                "Ports identical, can't use same port for SSL.");
-                
-        if (!$this->validatePort($server["port"], $server["uuid"], $server["host_type"]))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
-                "Selected port is already used");
-                
-        if (!$this->validatePort($server["ssl_port"], $server["uuid"], $server["host_type"], true))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
-                "Selected port (SSL) is already used");
+        $server = $this->validateServer($server);
 
         // Save configuration
         $success = false;
@@ -414,17 +403,62 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
             "org.openmediavault.services.nginx", $server);
     }
 
+    private function validateServer($server)
+    {
+        // Remove current port number if not used
+        if ($server["ssl_force"])
+            $server["port"] = null;
+        if (!$server["ssl_enable"])
+            $server["ssl_port"] = null;
+
+        // Perform port checks
+        if ($server["port"] == $server["ssl_port"])
+            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
+                "Ports identical, can't use same port for SSL.");
+
+        if (!$this->validatePort($server["port"], $server["uuid"], $server["host_type"]))
+            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
+                "Selected port is already used");
+
+        if (!$this->validatePort($server["ssl_port"], $server["uuid"], $server["host_type"], true))
+            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
+                "Selected port (SSL) is already used");
+
+        // Validate the default server attribute
+        if (!$server["ssl_force"]) {
+            if ($server["port_default_server"]) {
+                if (!$this->validatePortDefaultServer($server["port"], $server["uuid"]))
+                    throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
+                        "There is already another server set as the default on the selected port.");
+            }
+        } else {
+            $server["port_default_server"] = false;
+        }
+
+        if ($server["ssl_enable"]) {
+            if ($server["ssl_port_default_server"]) {
+                if (!$this->validatePortDefaultServer($server["ssl_port"], $server["uuid"], true))
+                    throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
+                        "There is already another server set as the default on the selected SSL port.");
+            }
+        } else {
+            $server["ssl_port_default_server"] = false;
+        }
+
+        return $server;
+    }
+
     private function validatePort($port, $uuid, $hostType, $sslPort = false)
     {
         global $xmlConfig;
 
         $xPath = sprintf("%s/server[port='%s' and ssl_force='0']", $this->getServersXPath(), $port);
         $server = $xmlConfig->get($xPath);
-        
+
         $sslXPath = sprintf("%s/server[ssl_port='%s' and ssl_enable='1']", $this->getServersXPath(), $port);
         $sslServer = $xmlConfig->get($sslXPath);
 
-        // If not empty and not the same as 
+        // If not empty and not the same as
         // the current one, check if port types
         // mismatches and then if any of them
         // are port based
@@ -439,7 +473,7 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
                     return false;
             }
         }
-        
+
         if (!empty($sslServer)) {
             if ($sslServer["uuid"] != $uuid) {
                 if (!$sslPort)
@@ -468,6 +502,22 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
         }
 
         return true;
+    }
+
+    private function validatePortDefaultServer($port, $uuid, $ssl = false)
+    {
+        global $xmlConfig;
+        $xPath = "";
+
+        if ($ssl) {
+            $xPath = sprintf("%s/server[ssl_port='%s' and ssl_port_default_server='1' and uuid!='%s']",
+                $this->getServersXPath(), $port, $uuid);
+        } else {
+            $xPath = sprintf("%s/server[port='%s' and port_default_server='1' and uuid!='%s']",
+                $this->getServersXPath(), $port, $uuid);
+        }
+
+        return $xmlConfig->count($xPath) === 0;
     }
 }
 

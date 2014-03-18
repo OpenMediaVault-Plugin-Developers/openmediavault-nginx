@@ -85,12 +85,14 @@ generate_server_nginx_config()
     host_type=$(omv_config_get "${xpath}/host_type")
     server_name=$(omv_config_get "${xpath}/server_name")
     port=$(omv_config_get "${xpath}/port")
+    port_default_server=$(omv_config_get "${xpath}/port_default_server")
 
-	# SSL
-	ssl_enable=$(omv_config_get "${xpath}/ssl_enable")
+    # SSL
+    ssl_enable=$(omv_config_get "${xpath}/ssl_enable")
     ssl_port=$(omv_config_get "${xpath}/ssl_port")
-	sslcertificateref=$(omv_config_get "${xpath}/sslcertificateref")
-	ssl_force=$(omv_config_get "${xpath}/ssl_force")
+    ssl_port_default_server=$(omv_config_get "${xpath}/ssl_port_default_server")
+    sslcertificateref=$(omv_config_get "${xpath}/sslcertificateref")
+    ssl_force=$(omv_config_get "${xpath}/ssl_force")
 
     # PHP variables
     php_enable=$(omv_config_get "${xpath}/php_enable")
@@ -114,17 +116,29 @@ generate_server_nginx_config()
     # Start generating config
     echo "server {" >> ${config}
 
-	# Always listen to port unless SSL is forced
+    # Always listen to port unless SSL is forced
     if [ $ssl_force -ne 1 ]; then
-		echo "    listen ${port};" >> ${config}
-	fi
-    
+        default=""
+
+        if [ $port_default_server -eq 1 ]; then
+            default=" default"
+        fi
+
+        echo "    listen ${port}${default};" >> ${config}
+    fi
+
     if [ $ssl_enable -eq 1 ]; then
-        echo "    listen ${ssl_port} ssl;" >> ${config}
-		echo "    ssl_certificate ${OMV_CERTIFICATE_DIR}/certs/${OMV_CERTIFICATE_PREFIX}${sslcertificateref}.crt;" >> ${config}
-    	echo "    ssl_certificate_key ${OMV_CERTIFICATE_DIR}/private/${OMV_CERTIFICATE_PREFIX}${sslcertificateref}.key;" >> ${config}
-	fi
-	
+        default=""
+
+        if [ $ssl_port_default_server -eq 1 ]; then
+            default=" default"
+        fi
+
+        echo "    listen ${ssl_port}${default} ssl;" >> ${config}
+        echo "    ssl_certificate     ${OMV_CERTIFICATE_DIR}/certs/${OMV_CERTIFICATE_PREFIX}${sslcertificateref}.crt;" >> ${config}
+        echo "    ssl_certificate_key ${OMV_CERTIFICATE_DIR}/private/${OMV_CERTIFICATE_PREFIX}${sslcertificateref}.key;" >> ${config}
+    fi
+
     if [ $host_type = ${HOST_TYPE_NAME} ]; then
         echo "    server_name ${server_name};" >> ${config}
     fi
@@ -143,23 +157,23 @@ generate_server_nginx_config()
 
     # Add PHP configuration
     if [ $php_enable -eq 1 ]; then
-    	if [ -z "${php_fpm_pool_socket}" ]; then
-	        generate_server_fpm_config "${id}" \
-	                                   "${php_user}" \
-	                                   "${php_display_errors}" \
-	                                   "${php_html_errors}" \
-	                                   "${php_max_execution_time}" \
-	                                   "${php_memory_limit}" \
-	                                   "${php_post_max_size}" \
-	                                   "${php_upload_max_filesize}"
-    	fi
+        if [ -z "${php_fpm_pool_socket}" ]; then
+            generate_server_fpm_config "${id}" \
+                                       "${php_user}" \
+                                       "${php_display_errors}" \
+                                       "${php_html_errors}" \
+                                       "${php_max_execution_time}" \
+                                       "${php_memory_limit}" \
+                                       "${php_post_max_size}" \
+                                       "${php_upload_max_filesize}"
+        fi
 
         echo "    location ~ \.php$ {" >> ${config}
         echo "        fastcgi_split_path_info ^(.+\.php)(/.+)$;" >> ${config}
-    	if [ -z "${php_fpm_pool_socket}" ]; then
-        	echo "        fastcgi_pass unix:/var/run/fpm-${id}.sock;" >> ${config}
-    	else
-    		echo "        fastcgi_pass unix:${php_fpm_pool_socket};" >> ${config}
+        if [ -z "${php_fpm_pool_socket}" ]; then
+            echo "        fastcgi_pass unix:/var/run/fpm-${id}.sock;" >> ${config}
+        else
+            echo "        fastcgi_pass unix:${php_fpm_pool_socket};" >> ${config}
         fi
         echo "        fastcgi_index index.php;" >> ${config}
         echo "        include fastcgi_params;" >> ${config}
@@ -169,7 +183,7 @@ generate_server_nginx_config()
 
     # Add logs
     echo "    access_log ${NGINX_LOG_DIR}/${id}-access.log;" >> ${config}
-    echo "    error_log ${NGINX_LOG_DIR}/${id}-error.log;" >> ${config}
+    echo "    error_log  ${NGINX_LOG_DIR}/${id}-error.log;" >> ${config}
 
     # Add options
     if [ $autoindex -eq 1 ]; then
