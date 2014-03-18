@@ -197,10 +197,10 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
                 $xPath);
 
         // General
-        $server["enable"]                  = boolval($server["enable"]);
-        $server["use_public_directory"]    = boolval($server["use_public_directory"]);
-        $server["port"]                    = intval($server["port"]);
-        $server["ssl_port_default_server"] = boolval($server["ssl_port_default_server"]);
+        $server["enable"]               = boolval($server["enable"]);
+        $server["use_public_directory"] = boolval($server["use_public_directory"]);
+        $server["port"]                 = intval($server["port"]);
+        $server["port_default_server"]  = boolval($server["port_default_server"]);
 
         // SSL
         $server["ssl_enable"]              = boolval($server["ssl_enable"]);
