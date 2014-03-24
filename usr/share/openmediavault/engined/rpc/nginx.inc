@@ -251,15 +251,21 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
 
         // Build possible URLs
         $urls = array();
+        $serverNames = array();
 
-        $domain = $server["host_type"] == self::HOST_TYPE_PORT
-            ? "!domain!" : $server["server_name"];
+        if ($server["host_type"] == self::HOST_TYPE_PORT) {
+            $serverNames[] = "!domain!";
+        } else {
+            $serverNames = explode(" ", $server["server_name"]);
+        }
 
-        if (!$server["ssl_force"])
-            $urls[] = sprintf("http://%s:%s", $domain, $server["port"]);
+        foreach ($serverNames as $domain) {
+            if (!$server["ssl_force"])
+                $urls[] = sprintf("http://%s:%s", $domain, $server["port"]);
 
-        if ($server["ssl_enable"])
-            $urls[] = sprintf("https://%s:%s", $domain, $server["ssl_port"]);
+            if ($server["ssl_enable"])
+                $urls[] = sprintf("https://%s:%s", $domain, $server["ssl_port"]);
+        }
 
         $server["urls"] = $urls;
 
@@ -444,6 +450,13 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
         } else {
             $server["ssl_port_default_server"] = false;
         }
+
+        // Trim and replace all spaces with a single space
+        // to allow exploding in the get method
+        $serverName = $server["server_name"];
+        $serverName = trim($serverName);
+        $serverName = preg_replace("/\s+/", " ", $serverName);
+        $server["server_name"] = $serverName;
 
         return $server;
     }
