@@ -7,5 +7,7 @@ Standards-Version: 3.9.3
 
 Package: openmediavault-nginx
 Architecture: all
-Depends: openmediavault (>= 0.6), php5-fpm, nginx, ${misc:Depends}
+Depends: openmediavault (>= 0.6), nginx, php5-fpm, ${misc:Depends}
 Description: Nginx plugin for OpenMediaVault.
+  Nginx ("engine X") is a high-performance web server. It can be used to serve your web pages.
+  This plugin also provides PHP support through php-fpm (http://php-fpm.org)
