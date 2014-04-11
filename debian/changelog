@@ -1,4 +1,11 @@
-openmediavault-nginx (1.0.0) stable; urgency=low
+openmediavault-nginx (1.0.0.1) unstable; urgency=low
+
+  * SSL support
+  * Various improvements
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 11 Apr 2014 14:17:57 +0200
+
+openmediavault-nginx (1.0.0) unstable; urgency=low
 
   * Initial release
 
