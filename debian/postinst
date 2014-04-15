@@ -23,6 +23,11 @@ case "$1" in
         if [ -e "${NGINX_DEFAULT_ENABLED_CONF}" ]; then
             /bin/rm "${NGINX_DEFAULT_ENABLED_CONF}"
         fi
+
+        # Activate package triggers. These triggers are only set during the
+        # package installation.
+        dpkg-trigger update-fixperms
+        dpkg-trigger update-locale
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
