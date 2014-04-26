@@ -23,10 +23,15 @@ require_once "openmediavault/util.inc";
 require_once "openmediavault/rpc.inc";
 require_once "openmediavault/notify.inc";
 
-class OMVRpcServiceNginx extends OMVRpcServiceAbstract
+class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 {
     const HOST_TYPE_PORT = "port";
     const HOST_TYPE_NAME = "name";
+
+    private function getEventMessagePath()
+    {
+        return "org.openmediavault.services.nginx";
+    }
 
     private function getXPath()
     {
@@ -121,7 +126,7 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
 
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
-        $dispatcher->notify(OMV_NOTIFY_MODIFY, "org.openmediavault.services.nginx", $object);
+        $dispatcher->notify(OMV_NOTIFY_MODIFY, $this->getEventMessagePath(), $object);
 
         return $object;
     }
@@ -375,7 +380,7 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
         $dispatcher->notify(empty($params["uuid"]) ? OMV_NOTIFY_CREATE : OMV_NOTIFY_MODIFY,
-            "org.openmediavault.services.nginx", $server);
+            $this->getEventMessagePath(), $server);
 
         return $server;
     }
@@ -405,8 +410,7 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
 
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
-        $dispatcher->notify(OMV_NOTIFY_DELETE,
-            "org.openmediavault.services.nginx", $server);
+        $dispatcher->notify(OMV_NOTIFY_DELETE, $this->getEventMessagePath(), $server);
     }
 
     private function validateServer($server)
@@ -536,4 +540,4 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
 
 // Register the RPC service.
 $rpcServiceMgr = &OMVRpcServiceMgr::getInstance();
-$rpcServiceMgr->registerService(new OMVRpcServiceNginx());
+$rpcServiceMgr->registerService(new OMVRpcServiceNginxServer());
