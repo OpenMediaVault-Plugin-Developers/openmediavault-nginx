@@ -304,8 +304,6 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
                 "ssl_force"               : { "type" : "boolean" },
 
                 "php_enable"              : { "type" : "boolean" },
-                "php_fpm_pool_socket"     : { "type" : "string" },
-                "php_enable"              : { "type" : "boolean" },
                 "php_user"                : { "type" : "string" },
                 "php_display_errors"      : { "type" : "boolean" },
                 "php_html_errors"         : { "type" : "boolean" },
@@ -341,7 +339,6 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             "ssl_force"               => boolval($params["ssl_force"]),
 
             "php_enable"              => boolval($params["php_enable"]),
-            "php_fpm_pool_socket"     => trim($params["php_fpm_pool_socket"]),
             "php_user"                => $params["php_user"],
             "php_display_errors"      => boolval($params["php_display_errors"]),
             "php_html_errors"         => boolval($params["php_html_errors"]),
