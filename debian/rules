@@ -15,7 +15,7 @@ install:
 	dh_prep
 	dh_installdirs
 	dh_install
-	chmod +x $(CURDIR)/debian/openmediavault-${PLUGIN_NAME}/usr/share/openmediavault/mkconf/nginx.d/99-nginx-server
+	chmod +x $(CURDIR)/debian/openmediavault-${PLUGIN_NAME}/usr/share/openmediavault/mkconf/nginx.d/90-nginx-server
 
 binary-indep: install omv_clean_scm
 	dh_testdir
