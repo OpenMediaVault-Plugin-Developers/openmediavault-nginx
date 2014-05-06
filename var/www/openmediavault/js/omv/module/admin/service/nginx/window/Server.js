@@ -94,6 +94,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
         },{
             name : [
                 "php_user",
+                "php_group",
                 "php_display_errors",
                 "php_html_errors",
                 "php_max_execution_time",
@@ -289,6 +290,20 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 plugins    : [{
                     ptype : "fieldinfo",
                     text  : _("Set the user under which PHP scripts should be executed as.")
+                }]
+            },{
+                xtype      : "groupcombo",
+                name       : "php_group",
+                fieldLabel : _("Group"),
+                groupType   : "all",
+                editable   : false,
+                allowBlank : true,
+                allowNone  : true,
+                readOnly   : true,
+                hidden     : true,
+                plugins    : [{
+                    ptype : "fieldinfo",
+                    text  : _("Set the group under which PHP scripts should be executed as.")
                 }]
             },{
                 xtype      : "checkbox",

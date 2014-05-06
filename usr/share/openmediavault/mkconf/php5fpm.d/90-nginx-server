@@ -30,12 +30,13 @@ PHP_FPM_POOL_DIR=/etc/php5/fpm/pool.d/
 generate_fpm_config()
 {
 	xpath=${1}
-	echo 
+
     uuid=$(omv_config_get "${xpath}/uuid")
     config="${PHP_FPM_POOL_DIR}/${uuid}.conf"
 
     # PHP variables
     php_user=$(omv_config_get "${xpath}/php_user")
+    php_group=$(omv_config_get "${xpath}/php_group")
     php_display_errors=$(omv_config_get "${xpath}/php_display_errors")
     php_html_errors=$(omv_config_get "${xpath}/php_html_errors")
     php_max_execution_time=$(omv_config_get "${xpath}/php_max_execution_time")
@@ -54,9 +55,12 @@ generate_fpm_config()
 [${uuid}]
 listen = /var/run/fpm-${uuid}.sock
 listen.owner = www-data
+listen.group = www-data
 listen.mode = 0600
+
 user = ${php_user}
-group = www-data
+group = ${php_group}
+
 pm = dynamic
 pm.max_children = 5
 pm.start_servers = 2
