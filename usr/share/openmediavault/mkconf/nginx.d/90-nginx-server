@@ -144,7 +144,8 @@ generate_server_nginx_config()
     fi
 
     # Add root directory
-    echo "    root \"${root}\";" >> ${config}
+    echo "    set \$root_path \"${root}\";" >> ${config}
+    echo "    root \$root_path;" >> ${config}
 
     # Add valid index files
     index_files="index.html"
