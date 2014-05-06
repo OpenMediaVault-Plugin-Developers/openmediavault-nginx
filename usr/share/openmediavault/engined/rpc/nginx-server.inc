@@ -305,6 +305,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 
                 "php_enable"              : { "type" : "boolean" },
                 "php_user"                : { "type" : "string" },
+                "php_group"               : { "type" : "string" },
                 "php_display_errors"      : { "type" : "boolean" },
                 "php_html_errors"         : { "type" : "boolean" },
                 "php_max_execution_time"  : { "type" : "integer", "minimum" : 0 },
@@ -340,6 +341,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 
             "php_enable"              => boolval($params["php_enable"]),
             "php_user"                => $params["php_user"],
+            "php_group"               => $params["php_group"],
             "php_display_errors"      => boolval($params["php_display_errors"]),
             "php_html_errors"         => boolval($params["php_html_errors"]),
             "php_memory_limit"        => intval($params["php_memory_limit"]),
