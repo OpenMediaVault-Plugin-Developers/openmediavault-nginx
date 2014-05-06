@@ -372,13 +372,18 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                         return "Value should be higher than max upload filesize";
 
                     return true;
-            }
+                }
             },{
                 xtype      : "numberfield",
                 name       : "php_upload_max_filesize",
                 fieldLabel : _("Max upload filesize (MB)"),
                 minValue   : 1,
                 value      : 2
+            },{
+                xtype      : "textarea",
+                name       : "php_extra_options",
+                fieldLabel : _("Extra options"),
+                allowBlank : true
             }]
         },{
             xtype : "fieldset",
