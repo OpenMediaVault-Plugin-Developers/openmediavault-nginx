@@ -220,7 +220,6 @@ if [ "$(omv_config_get "${OMV_PLUGIN_XPATH}/enable")" -eq "1" ]; then
     done
 
     enable_server ${OMV_NGINX_CONF_NAME}
-    /etc/init.d/nginx configtest
 fi
 
 exit 0
