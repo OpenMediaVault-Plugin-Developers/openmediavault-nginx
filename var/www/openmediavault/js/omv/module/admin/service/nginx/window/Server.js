@@ -444,7 +444,11 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 xtype      : "textarea",
                 name       : "extra_options",
                 fieldLabel : _("Extra options"),
-                allowBlank : true
+                allowBlank : true,
+                plugins    : [{
+                    ptype : "fieldinfo",
+                    text  : _("Use the variable $root_path to insert the document root."),
+                }]
             }]
         }];
     }
