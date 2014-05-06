@@ -227,9 +227,6 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         $server["deny_htaccess"]               = boolval($server["deny_htaccess"]);
         $server["large_client_header_buffers"] = intval($server["large_client_header_buffers"]);
 
-        // Extra options
-        $server["extra_options"] = $server["extra_options"];
-
         // If ports is missing a value, just set default value
         if (!$server["port"])
             $server["port"] = 80;
@@ -316,6 +313,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
                 "php_memory_limit"        : { "type" : "integer", "minimum" : -1 },
                 "php_post_max_size"       : { "type" : "integer", "minimum" : 1 },
                 "php_upload_max_filesize" : { "type" : "integer", "minimum" : 1 },
+                "php_extra_options"       : { "type" : "string" },
 
                 "autoindex"                   : { "type" : "boolean" },
                 "deny_htaccess"               : { "type" : "boolean" },
@@ -351,12 +349,13 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             "php_max_execution_time"  => intval($params["php_max_execution_time"]),
             "php_post_max_size"       => intval($params["php_post_max_size"]),
             "php_upload_max_filesize" => intval($params["php_upload_max_filesize"]),
+            "php_extra_options"       => trim($params["php_extra_options"]),
 
             "autoindex"                   => boolval($params["autoindex"]),
             "deny_htaccess"               => boolval($params["deny_htaccess"]),
             "large_client_header_buffers" => intval($params["large_client_header_buffers"]),
 
-            "extra_options" => $params["extra_options"]
+            "extra_options" => trim($params["extra_options"]),
         );
 
         $server = $this->validateServer($server);
