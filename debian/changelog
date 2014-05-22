@@ -1,3 +1,9 @@
+openmediavault-nginx (1.0.0.3) UNRELEASED; urgency=low
+
+  * Work with OMV 0.6.0.11 
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 22 May 2014 23:42:26 +0200
+
 openmediavault-nginx (1.0.0.2) unstable; urgency=low
 
   * Conform to OMV 0.6.0.6 trigger standards
