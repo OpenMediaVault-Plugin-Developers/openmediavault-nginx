@@ -93,18 +93,8 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             ]
         },{
             name : [
-                "php_fpm_pool_socket"
-            ],
-            conditions : [{
-                name  : "php_enable",
-                value : true
-            }],
-            properties : [
-                "show"
-            ]
-        },{
-            name : [
                 "php_user",
+                "php_group",
                 "php_display_errors",
                 "php_html_errors",
                 "php_max_execution_time",
@@ -115,9 +105,6 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             conditions : [{
                 name  : "php_enable",
                 value : true
-            },{
-                name  : "php_fpm_pool_socket",
-                value : ""
             }],
             properties : [
                 "!allowBlank",
@@ -291,15 +278,6 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 fieldLabel : _("Enable PHP"),
                 checked    : false
             },{
-                xtype      : "textfield",
-                name       : "php_fpm_pool_socket",
-                fieldLabel : _("PHP-FPM socket"),
-                hidden     : true,
-                plugins    : [{
-                    ptype : "fieldinfo",
-                    text  : _("Set this if you want to use a custom FPM socket. Will disable all other PHP options.")
-                }]
-            },{
                 xtype      : "usercombo",
                 name       : "php_user",
                 fieldLabel : _("User"),
@@ -312,6 +290,20 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 plugins    : [{
                     ptype : "fieldinfo",
                     text  : _("Set the user under which PHP scripts should be executed as.")
+                }]
+            },{
+                xtype      : "groupcombo",
+                name       : "php_group",
+                fieldLabel : _("Group"),
+                groupType   : "all",
+                editable   : false,
+                allowBlank : true,
+                allowNone  : true,
+                readOnly   : true,
+                hidden     : true,
+                plugins    : [{
+                    ptype : "fieldinfo",
+                    text  : _("Set the group under which PHP scripts should be executed as.")
                 }]
             },{
                 xtype      : "checkbox",
@@ -372,13 +364,18 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                         return "Value should be higher than max upload filesize";
 
                     return true;
-            }
+                }
             },{
                 xtype      : "numberfield",
                 name       : "php_upload_max_filesize",
                 fieldLabel : _("Max upload filesize (MB)"),
                 minValue   : 1,
                 value      : 2
+            },{
+                xtype      : "textarea",
+                name       : "php_extra_options",
+                fieldLabel : _("Extra options"),
+                allowBlank : true
             }]
         },{
             xtype : "fieldset",
@@ -444,7 +441,11 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 xtype      : "textarea",
                 name       : "extra_options",
                 fieldLabel : _("Extra options"),
-                allowBlank : true
+                allowBlank : true,
+                plugins    : [{
+                    ptype : "fieldinfo",
+                    text  : _("Use the variable $root_path to insert the document root."),
+                }]
             }]
         }];
     }

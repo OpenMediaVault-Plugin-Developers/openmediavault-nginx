@@ -23,10 +23,15 @@ require_once "openmediavault/util.inc";
 require_once "openmediavault/rpc.inc";
 require_once "openmediavault/notify.inc";
 
-class OMVRpcServiceNginx extends OMVRpcServiceAbstract
+class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 {
     const HOST_TYPE_PORT = "port";
     const HOST_TYPE_NAME = "name";
+
+    private function getEventMessagePath()
+    {
+        return "org.openmediavault.services.nginx";
+    }
 
     private function getXPath()
     {
@@ -121,7 +126,7 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
 
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
-        $dispatcher->notify(OMV_NOTIFY_MODIFY, "org.openmediavault.services.nginx", $object);
+        $dispatcher->notify(OMV_NOTIFY_MODIFY, $this->getEventMessagePath(), $object);
 
         return $object;
     }
@@ -222,9 +227,6 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
         $server["deny_htaccess"]               = boolval($server["deny_htaccess"]);
         $server["large_client_header_buffers"] = intval($server["large_client_header_buffers"]);
 
-        // Extra options
-        $server["extra_options"] = $server["extra_options"];
-
         // If ports is missing a value, just set default value
         if (!$server["port"])
             $server["port"] = 80;
@@ -302,15 +304,15 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
                 "ssl_force"               : { "type" : "boolean" },
 
                 "php_enable"              : { "type" : "boolean" },
-                "php_fpm_pool_socket"     : { "type" : "string" },
-                "php_enable"              : { "type" : "boolean" },
                 "php_user"                : { "type" : "string" },
+                "php_group"               : { "type" : "string" },
                 "php_display_errors"      : { "type" : "boolean" },
                 "php_html_errors"         : { "type" : "boolean" },
                 "php_max_execution_time"  : { "type" : "integer", "minimum" : 0 },
                 "php_memory_limit"        : { "type" : "integer", "minimum" : -1 },
                 "php_post_max_size"       : { "type" : "integer", "minimum" : 1 },
                 "php_upload_max_filesize" : { "type" : "integer", "minimum" : 1 },
+                "php_extra_options"       : { "type" : "string" },
 
                 "autoindex"                   : { "type" : "boolean" },
                 "deny_htaccess"               : { "type" : "boolean" },
@@ -338,20 +340,21 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
             "ssl_force"               => boolval($params["ssl_force"]),
 
             "php_enable"              => boolval($params["php_enable"]),
-            "php_fpm_pool_socket"     => trim($params["php_fpm_pool_socket"]),
             "php_user"                => $params["php_user"],
+            "php_group"               => $params["php_group"],
             "php_display_errors"      => boolval($params["php_display_errors"]),
             "php_html_errors"         => boolval($params["php_html_errors"]),
             "php_memory_limit"        => intval($params["php_memory_limit"]),
             "php_max_execution_time"  => intval($params["php_max_execution_time"]),
             "php_post_max_size"       => intval($params["php_post_max_size"]),
             "php_upload_max_filesize" => intval($params["php_upload_max_filesize"]),
+            "php_extra_options"       => trim($params["php_extra_options"]),
 
             "autoindex"                   => boolval($params["autoindex"]),
             "deny_htaccess"               => boolval($params["deny_htaccess"]),
             "large_client_header_buffers" => intval($params["large_client_header_buffers"]),
 
-            "extra_options" => $params["extra_options"]
+            "extra_options" => trim($params["extra_options"]),
         );
 
         $server = $this->validateServer($server);
@@ -375,7 +378,7 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
         $dispatcher->notify(empty($params["uuid"]) ? OMV_NOTIFY_CREATE : OMV_NOTIFY_MODIFY,
-            "org.openmediavault.services.nginx", $server);
+            $this->getEventMessagePath(), $server);
 
         return $server;
     }
@@ -405,8 +408,7 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
 
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
-        $dispatcher->notify(OMV_NOTIFY_DELETE,
-            "org.openmediavault.services.nginx", $server);
+        $dispatcher->notify(OMV_NOTIFY_DELETE, $this->getEventMessagePath(), $server);
     }
 
     private function validateServer($server)
@@ -536,4 +538,4 @@ class OMVRpcServiceNginx extends OMVRpcServiceAbstract
 
 // Register the RPC service.
 $rpcServiceMgr = &OMVRpcServiceMgr::getInstance();
-$rpcServiceMgr->registerService(new OMVRpcServiceNginx());
+$rpcServiceMgr->registerService(new OMVRpcServiceNginxServer());
