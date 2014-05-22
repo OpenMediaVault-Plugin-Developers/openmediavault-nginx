@@ -20,6 +20,7 @@
 
 Ext.define("OMV.module.admin.diagnostic.log.plugin.PhpFpm", {
     extend : "OMV.module.admin.diagnostic.log.plugin.Plugin",
+    alias  : "omv.plugin.diagnostic.log.phpfpm",
 
     id      : "php-fpm",
     text    : "PHP-FPM",
@@ -54,10 +55,4 @@ Ext.define("OMV.module.admin.diagnostic.log.plugin.PhpFpm", {
         name : "event",
         type : "string"
     }]
-});
-
-OMV.PluginManager.register({
-    ptype     : "diagnostic",
-    id        : "log",
-    className : "OMV.module.admin.diagnostic.log.plugin.PhpFpm"
 });
