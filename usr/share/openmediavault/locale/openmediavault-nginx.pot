@@ -1,0 +1,171 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault-nginx\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-24 06:16-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Add server"
+msgstr ""
+
+msgid "Certificate"
+msgstr ""
+
+msgid "Date & Time"
+msgstr ""
+
+msgid "Default"
+msgstr ""
+
+msgid "Default (SSL)"
+msgstr ""
+
+msgid "Default server"
+msgstr ""
+
+msgid "Display errors"
+msgstr ""
+
+msgid "Document root"
+msgstr ""
+
+msgid "Don't serve .htaccess"
+msgstr ""
+
+msgid "Edit server"
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
+msgid "Enable PHP"
+msgstr ""
+
+msgid "Enable SSL"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Event"
+msgstr ""
+
+msgid "Extra options"
+msgstr ""
+
+msgid "Force SSL"
+msgstr ""
+
+msgid "General"
+msgstr ""
+
+msgid "Group"
+msgstr ""
+
+msgid "HTML errors"
+msgstr ""
+
+msgid "Header buffer size"
+msgstr ""
+
+msgid "Host type"
+msgstr ""
+
+msgid "Max POST size (MB)"
+msgstr ""
+
+msgid "Max execution time (s)"
+msgstr ""
+
+msgid "Max upload filesize (MB)"
+msgstr ""
+
+msgid "Memory limit (MB)"
+msgstr ""
+
+msgid "Name-based"
+msgstr ""
+
+msgid "Nginx"
+msgstr ""
+
+msgid "Options"
+msgstr ""
+
+msgid "Port"
+msgstr ""
+
+msgid "Public directory"
+msgstr ""
+
+msgid "Root"
+msgstr ""
+
+msgid "Server name"
+msgstr ""
+
+msgid "Server names hash bucket size"
+msgstr ""
+
+msgid "Servers"
+msgstr ""
+
+msgid "Set the group under which PHP scripts should be executed as."
+msgstr ""
+
+msgid "Set the max execution time of a script. Using the value 0 means no limit."
+msgstr ""
+
+msgid "Set the server as the default one to be served if no server name matches on the selected port."
+msgstr ""
+
+msgid "Set the user under which PHP scripts should be executed as."
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "The SSL certificate."
+msgstr ""
+
+msgid "The location needs to have at least read permissions for the user/group www-data"
+msgstr ""
+
+msgid "This setting affects the max upload filesize and should preferably be higher."
+msgstr ""
+
+msgid "This setting should be higher than the post max size. Setting a value of -1 makes it unlimited."
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+msgid "UUID"
+msgstr ""
+
+msgid "Use HTML tags in error messages."
+msgstr ""
+
+msgid "Use if you serve your public files in a subfolder like public_html or public. This folder will be the document root. It also avoids the need to create an additional shared folder in such cases."
+msgstr ""
+
+msgid "Use public directory"
+msgstr ""
+
+msgid "Use the variable $root_path to insert the document root."
+msgstr ""
+
+msgid "User"
+msgstr ""

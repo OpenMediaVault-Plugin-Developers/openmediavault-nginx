@@ -1,0 +1,184 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Alexander Savchenko <a.v.savchenko@mail.ru>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault-nginx\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-24 06:16-0500\n"
+"PO-Revision-Date: 2014-06-24 11:17+0000\n"
+"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/openmediavault-nginx/language/ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "Add server"
+msgstr "Добавить сервер"
+
+msgid "Certificate"
+msgstr "Сертификат"
+
+msgid "Date & Time"
+msgstr ""
+
+msgid "Default"
+msgstr ""
+
+msgid "Default (SSL)"
+msgstr ""
+
+msgid "Default server"
+msgstr ""
+
+msgid "Display errors"
+msgstr "Показывать ошибки"
+
+msgid "Document root"
+msgstr ""
+
+msgid "Don't serve .htaccess"
+msgstr ""
+
+msgid "Edit server"
+msgstr ""
+
+msgid "Enable"
+msgstr "Включить"
+
+msgid "Enable PHP"
+msgstr "Включить PHP"
+
+msgid "Enable SSL"
+msgstr "Включить SSL"
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Event"
+msgstr ""
+
+msgid "Extra options"
+msgstr "Дополнительный опции"
+
+msgid "Force SSL"
+msgstr ""
+
+msgid "General"
+msgstr "Общие"
+
+msgid "Group"
+msgstr ""
+
+msgid "HTML errors"
+msgstr ""
+
+msgid "Header buffer size"
+msgstr ""
+
+msgid "Host type"
+msgstr ""
+
+msgid "Max POST size (MB)"
+msgstr ""
+
+msgid "Max execution time (s)"
+msgstr ""
+
+msgid "Max upload filesize (MB)"
+msgstr ""
+
+msgid "Memory limit (MB)"
+msgstr ""
+
+msgid "Name-based"
+msgstr ""
+
+msgid "Nginx"
+msgstr "Nginx"
+
+msgid "Options"
+msgstr "Опции"
+
+msgid "Port"
+msgstr "Порт"
+
+msgid "Public directory"
+msgstr ""
+
+msgid "Root"
+msgstr ""
+
+msgid "Server name"
+msgstr "Имя сервера"
+
+msgid "Server names hash bucket size"
+msgstr ""
+
+msgid "Servers"
+msgstr "Сервера"
+
+msgid "Set the group under which PHP scripts should be executed as."
+msgstr ""
+
+msgid ""
+"Set the max execution time of a script. Using the value 0 means no limit."
+msgstr ""
+
+msgid ""
+"Set the server as the default one to be served if no server name matches on "
+"the selected port."
+msgstr ""
+
+msgid "Set the user under which PHP scripts should be executed as."
+msgstr ""
+
+msgid "Settings"
+msgstr "Настройки"
+
+msgid "The SSL certificate."
+msgstr ""
+
+msgid ""
+"The location needs to have at least read permissions for the user/group www-"
+"data"
+msgstr ""
+
+msgid ""
+"This setting affects the max upload filesize and should preferably be "
+"higher."
+msgstr ""
+
+msgid ""
+"This setting should be higher than the post max size. Setting a value of -1 "
+"makes it unlimited."
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+msgid "UUID"
+msgstr ""
+
+msgid "Use HTML tags in error messages."
+msgstr ""
+
+msgid ""
+"Use if you serve your public files in a subfolder like public_html or "
+"public. This folder will be the document root. It also avoids the need to "
+"create an additional shared folder in such cases."
+msgstr ""
+
+msgid "Use public directory"
+msgstr ""
+
+msgid "Use the variable $root_path to insert the document root."
+msgstr ""
+
+msgid "User"
+msgstr "Пользователь"

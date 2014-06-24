@@ -1,0 +1,184 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# songming <by@songming.me>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault-nginx\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-24 06:16-0500\n"
+"PO-Revision-Date: 2014-06-24 11:17+0000\n"
+"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/openmediavault-nginx/language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add server"
+msgstr "添加服务器"
+
+msgid "Certificate"
+msgstr "证书"
+
+msgid "Date & Time"
+msgstr "日期和时间"
+
+msgid "Default"
+msgstr "默认"
+
+msgid "Default (SSL)"
+msgstr "默认(SSL)"
+
+msgid "Default server"
+msgstr "默认服务器"
+
+msgid "Display errors"
+msgstr "显示错误"
+
+msgid "Document root"
+msgstr "文档根目录"
+
+msgid "Don't serve .htaccess"
+msgstr ""
+
+msgid "Edit server"
+msgstr "编辑服务器"
+
+msgid "Enable"
+msgstr "启用"
+
+msgid "Enable PHP"
+msgstr "启用PHP"
+
+msgid "Enable SSL"
+msgstr "启用SSL"
+
+msgid "Enabled"
+msgstr "启用"
+
+msgid "Event"
+msgstr "事件"
+
+msgid "Extra options"
+msgstr "扩展选项"
+
+msgid "Force SSL"
+msgstr "强制SSL"
+
+msgid "General"
+msgstr "常规"
+
+msgid "Group"
+msgstr ""
+
+msgid "HTML errors"
+msgstr "HTML错误"
+
+msgid "Header buffer size"
+msgstr "头缓冲大小"
+
+msgid "Host type"
+msgstr "主机类型"
+
+msgid "Max POST size (MB)"
+msgstr "最大POST大小(MB)"
+
+msgid "Max execution time (s)"
+msgstr "最大执行时间(s)"
+
+msgid "Max upload filesize (MB)"
+msgstr "最大上传文件大小(MB)"
+
+msgid "Memory limit (MB)"
+msgstr "内存限制(MB)"
+
+msgid "Name-based"
+msgstr "基于名称"
+
+msgid "Nginx"
+msgstr "Nginx"
+
+msgid "Options"
+msgstr "选项"
+
+msgid "Port"
+msgstr "端口"
+
+msgid "Public directory"
+msgstr "公共目录"
+
+msgid "Root"
+msgstr "Root"
+
+msgid "Server name"
+msgstr "服务器名"
+
+msgid "Server names hash bucket size"
+msgstr ""
+
+msgid "Servers"
+msgstr "服务器"
+
+msgid "Set the group under which PHP scripts should be executed as."
+msgstr ""
+
+msgid ""
+"Set the max execution time of a script. Using the value 0 means no limit."
+msgstr ""
+
+msgid ""
+"Set the server as the default one to be served if no server name matches on "
+"the selected port."
+msgstr ""
+
+msgid "Set the user under which PHP scripts should be executed as."
+msgstr ""
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "The SSL certificate."
+msgstr "SSL证书。"
+
+msgid ""
+"The location needs to have at least read permissions for the user/group www-"
+"data"
+msgstr ""
+
+msgid ""
+"This setting affects the max upload filesize and should preferably be "
+"higher."
+msgstr ""
+
+msgid ""
+"This setting should be higher than the post max size. Setting a value of -1 "
+"makes it unlimited."
+msgstr ""
+
+msgid "URL"
+msgstr "URL"
+
+msgid "UUID"
+msgstr "UUID"
+
+msgid "Use HTML tags in error messages."
+msgstr ""
+
+msgid ""
+"Use if you serve your public files in a subfolder like public_html or "
+"public. This folder will be the document root. It also avoids the need to "
+"create an additional shared folder in such cases."
+msgstr ""
+
+msgid "Use public directory"
+msgstr "使用公共目录"
+
+msgid "Use the variable $root_path to insert the document root."
+msgstr ""
+
+msgid "User"
+msgstr "用户"
