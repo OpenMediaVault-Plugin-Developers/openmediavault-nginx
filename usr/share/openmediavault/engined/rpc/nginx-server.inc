@@ -17,11 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once "openmediavault/object.inc";
 require_once "openmediavault/error.inc";
-require_once "openmediavault/util.inc";
-require_once "openmediavault/rpc.inc";
 require_once "openmediavault/notify.inc";
+require_once "openmediavault/object.inc";
+require_once "openmediavault/rpc.inc";
+require_once "openmediavault/util.inc";
 
 class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 {
@@ -76,9 +76,9 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 
         // Get configuration object
         $object = $xmlConfig->get($this->getXPath());
-        if (is_null($object))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $this->getXPath());
+        if (is_null($object)) {
+            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $this->getXPath());
+        }
 
         // Modify result data
         $settingsObject["enable"]                        = boolval($object["enable"]);
@@ -97,13 +97,16 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         ));
 
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, '{
-            "type"       : "object",
-            "properties" : {
-                "enable"                        : { "type" : "boolean" },
-                "server_names_hash_bucket_size" : { "type" : "integer", "enum" : [ 32, 64, 128 ] }
-            }
-        }');
+        $this->validateMethodParams(
+            $params,
+            '{
+                "type"       : "object",
+                "properties" : {
+                    "enable"                        : { "type" : "boolean" },
+                    "server_names_hash_bucket_size" : { "type" : "integer", "enum" : [ 32, 64, 128 ] }
+                }
+            }'
+        );
 
         // Prepare configuration data
         $object = array(
@@ -113,16 +116,16 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 
         // Get old configuration object
         $oldConfig = $xmlConfig->get($this->getXPath());
-        if (is_null($object))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $this->getXPath());
+        if (is_null($object)) {
+            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $this->getXPath());
+        }
 
         $object["servers"] = $oldConfig["servers"];
 
         // Set configuration object
-        if (false === $xmlConfig->replace($this->getXPath(), $object))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_SET_OBJECT_FAILED,
-                $this->$xPath);
+        if (false === $xmlConfig->replace($this->getXPath(), $object)) {
+            throw new OMVException(OMVErrorMsg::E_CONFIG_SET_OBJECT_FAILED, $this->$xPath);
+        }
 
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
@@ -141,23 +144,26 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         ));
 
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, '{
-            "type"       : "object",
-            "properties" : {
-                "start"     : { "type" : "integer" },
-                "limit"     : {' . $GLOBALS['OMV_JSONSCHEMA_COUNTFIELD'] . '},
-                "sortfield" : {' . $GLOBALS['OMV_JSONSCHEMA_SORTFIELD'] . '},
-                "sortdir"   : {' . $GLOBALS['OMV_JSONSCHEMA_SORTDIR'] . '}
-            }
-        }');
+        $this->validateMethodParams(
+            $params,
+            '{
+                "type"       : "object",
+                "properties" : {
+                    "start"     : { "type" : "integer" },
+                    "limit"     : {' . $GLOBALS['OMV_JSONSCHEMA_COUNTFIELD'] . '},
+                    "sortfield" : {' . $GLOBALS['OMV_JSONSCHEMA_SORTFIELD'] . '},
+                    "sortdir"   : {' . $GLOBALS['OMV_JSONSCHEMA_SORTDIR'] . '}
+                }
+            }'
+        );
 
         // Get configuration object
         $xPath = sprintf("%s/server/uuid", $this->getServersXPath());
         $uuids = $xmlConfig->getList($xPath);
 
-        if (is_null($uuids))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $xPath);
+        if (is_null($uuids)) {
+            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $xPath);
+        }
 
         $servers = array();
 
@@ -188,18 +194,21 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         ));
 
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, '{
-            "type"       : "object",
-            "properties" : {
-                "uuid" : {' . $GLOBALS['OMV_JSONSCHEMA_UUID_NONE'] . '}
-            }
-        }');
+        $this->validateMethodParams(
+            $params,
+            '{
+                "type"       : "object",
+                "properties" : {
+                    "uuid" : {' . $GLOBALS['OMV_JSONSCHEMA_UUID_NONE'] . '}
+                }
+            }'
+        );
 
         $server = $xmlConfig->get($this->getServerXPathByUuid($params["uuid"]));
 
-        if (is_null($server))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $xPath);
+        if (is_null($server)) {
+            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $xPath);
+        }
 
         // General
         $server["enable"]               = boolval($server["enable"]);
@@ -228,10 +237,13 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         $server["large_client_header_buffers"] = intval($server["large_client_header_buffers"]);
 
         // If ports is missing a value, just set default value
-        if (!$server["port"])
+        if (!$server["port"]) {
             $server["port"] = 80;
-        if (!$server["ssl_port"])
+        }
+
+        if (!$server["ssl_port"]) {
             $server["ssl_port"] = 443;
+        }
 
         // Get full path for presentation
         $xPath = sprintf("//system/shares/sharedfolder[uuid='%s']", $server["sharedfolderref"]);
@@ -240,14 +252,19 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         $xPath = sprintf("//system/fstab/mntent[uuid='%s']", $sharedFolder["mntentref"]);
         $mountPoint = $xmlConfig->get($xPath);
 
-        $server["root_full_path"] = sprintf("%s/%s",
+        $server["root_full_path"] = sprintf(
+            "%s/%s",
             $mountPoint["dir"],
-            $sharedFolder["reldirpath"]);
+            $sharedFolder["reldirpath"]
+        );
 
-        if ($server["use_public_directory"])
-            $server["root_full_path"] = sprintf("%s%s",
+        if ($server["use_public_directory"]) {
+            $server["root_full_path"] = sprintf(
+                "%s%s",
                 $server["root_full_path"],
-                $server["public_directory"]);
+                $server["public_directory"]
+            );
+        }
 
         $server["root_full_path"] = str_replace("//", "/", $server["root_full_path"]);
 
@@ -262,11 +279,13 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         }
 
         foreach ($serverNames as $domain) {
-            if (!$server["ssl_force"])
+            if (!$server["ssl_force"]) {
                 $urls[] = sprintf("http://%s:%s", $domain, $server["port"]);
+            }
 
-            if ($server["ssl_enable"])
+            if ($server["ssl_enable"]) {
                 $urls[] = sprintf("https://%s:%s", $domain, $server["ssl_port"]);
+            }
         }
 
         $server["urls"] = $urls;
@@ -284,43 +303,46 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         ));
 
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, '{
-            "type"       : "object",
-            "properties" : {
-                "uuid"                 : {' . $GLOBALS['OMV_JSONSCHEMA_UUID_UNDEFINED'] . '},
-                "enable"               : { "type" : "boolean" },
-                "sharedfolderref"      : {' . $GLOBALS['OMV_JSONSCHEMA_UUID'] . '},
-                "use_public_directory" : { "type" : "boolean" },
-                "public_directory"     : { "type" : "string", "optional" : true },
-                "host_type"            : { "type" : "string", "enum" : [ "port", "name" ] },
-                "server_name"          : { "type" : "string" },
-                "port"                 : { "type" : "integer" },
-                "port_default_server"  : { "type" : "boolean" },
+        $this->validateMethodParams(
+            $params,
+            '{
+                "type"       : "object",
+                "properties" : {
+                    "uuid"                 : {' . $GLOBALS['OMV_JSONSCHEMA_UUID_UNDEFINED'] . '},
+                    "enable"               : { "type" : "boolean" },
+                    "sharedfolderref"      : {' . $GLOBALS['OMV_JSONSCHEMA_UUID'] . '},
+                    "use_public_directory" : { "type" : "boolean" },
+                    "public_directory"     : { "type" : "string", "optional" : true },
+                    "host_type"            : { "type" : "string", "enum" : [ "port", "name" ] },
+                    "server_name"          : { "type" : "string" },
+                    "port"                 : { "type" : "integer" },
+                    "port_default_server"  : { "type" : "boolean" },
 
-                "ssl_enable"              : { "type" : "boolean" },
-                "ssl_port"                : { "type" : "integer" },
-                "ssl_port_default_server" : { "type" : "boolean" },
-                "sslcertificateref"       : {' . $GLOBALS['OMV_JSONSCHEMA_UUID_NONE'] . '},
-                "ssl_force"               : { "type" : "boolean" },
+                    "ssl_enable"              : { "type" : "boolean" },
+                    "ssl_port"                : { "type" : "integer" },
+                    "ssl_port_default_server" : { "type" : "boolean" },
+                    "sslcertificateref"       : {' . $GLOBALS['OMV_JSONSCHEMA_UUID_NONE'] . '},
+                    "ssl_force"               : { "type" : "boolean" },
 
-                "php_enable"              : { "type" : "boolean" },
-                "php_user"                : { "type" : "string" },
-                "php_group"               : { "type" : "string" },
-                "php_display_errors"      : { "type" : "boolean" },
-                "php_html_errors"         : { "type" : "boolean" },
-                "php_max_execution_time"  : { "type" : "integer", "minimum" : 0 },
-                "php_memory_limit"        : { "type" : "integer", "minimum" : -1 },
-                "php_post_max_size"       : { "type" : "integer", "minimum" : 1 },
-                "php_upload_max_filesize" : { "type" : "integer", "minimum" : 1 },
-                "php_extra_options"       : { "type" : "string" },
+                    "php_enable"              : { "type" : "boolean" },
+                    "php_user"                : { "type" : "string" },
+                    "php_group"               : { "type" : "string" },
+                    "php_display_errors"      : { "type" : "boolean" },
+                    "php_html_errors"         : { "type" : "boolean" },
+                    "php_max_execution_time"  : { "type" : "integer", "minimum" : 0 },
+                    "php_memory_limit"        : { "type" : "integer", "minimum" : -1 },
+                    "php_post_max_size"       : { "type" : "integer", "minimum" : 1 },
+                    "php_upload_max_filesize" : { "type" : "integer", "minimum" : 1 },
+                    "php_extra_options"       : { "type" : "string" },
 
-                "autoindex"                   : { "type" : "boolean" },
-                "deny_htaccess"               : { "type" : "boolean" },
-                "large_client_header_buffers" : { "type" : "integer", "enum" : [ 8, 16, 32 ]},
+                    "autoindex"                   : { "type" : "boolean" },
+                    "deny_htaccess"               : { "type" : "boolean" },
+                    "large_client_header_buffers" : { "type" : "integer", "enum" : [ 8, 16, 32 ]},
 
-                "extra_options" : { "type" : "string" }
-            }
-        }');
+                    "extra_options" : { "type" : "string" }
+                }
+            }'
+        );
 
         $server = array(
             "uuid"                 => empty($params["uuid"]) ? OMVUtil::uuid() : $params["uuid"],
@@ -363,22 +385,30 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         $success = false;
         $xPath = null;
 
-        if (empty($params["uuid"]))
-            $success = $xmlConfig->set($xPath = $this->getServersXPath(),
+        if (empty($params["uuid"])) {
+            $success = $xmlConfig->set(
+                $xPath = $this->getServersXPath(),
                 array("server" => $server),
-                $server);
-        else
-            $success = $xmlConfig->replace($xPath = $this->getServerXPathByUuid($params["uuid"]),
-                $server);
+                $server
+            );
+        } else {
+            $success = $xmlConfig->replace(
+                $xPath = $this->getServerXPathByUuid($params["uuid"]),
+                $server
+            );
+        }
 
-        if (!$success)
-            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND,
-                $xPath);
+        if (!$success) {
+            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND, $xPath);
+        }
 
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
-        $dispatcher->notify(empty($params["uuid"]) ? OMV_NOTIFY_CREATE : OMV_NOTIFY_MODIFY,
-            $this->getEventMessagePath(), $server);
+        $dispatcher->notify(
+            empty($params["uuid"]) ? OMV_NOTIFY_CREATE : OMV_NOTIFY_MODIFY,
+            $this->getEventMessagePath(),
+            $server
+        );
 
         return $server;
     }
@@ -393,18 +423,24 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         ));
 
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, '{
-            "type"       : "object",
-            "properties" : {
-                "uuid" : {' . $GLOBALS['OMV_JSONSCHEMA_UUID_NONE'] . '}
-            }
-        }');
+        $this->validateMethodParams(
+            $params,
+            '{
+                "type"       : "object",
+                "properties" : {
+                    "uuid" : {' . $GLOBALS['OMV_JSONSCHEMA_UUID_NONE'] . '}
+                }
+            }'
+        );
 
         $server = $xmlConfig->delete($this->getServerXPathByUuid($params["uuid"]));
 
-        if (is_null($server))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND,
-                $this->getServerXPathByUuid($params["uuid"]));
+        if (is_null($server)) {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND,
+                $this->getServerXPathByUuid($params["uuid"])
+            );
+        }
 
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
@@ -414,30 +450,45 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
     private function validateServer($server)
     {
         // Remove current port number if not used
-        if ($server["ssl_force"])
+        if ($server["ssl_force"]) {
             $server["port"] = null;
-        if (!$server["ssl_enable"])
+        }
+
+        if (!$server["ssl_enable"]) {
             $server["ssl_port"] = null;
+        }
 
         // Perform port checks
-        if ($server["port"] == $server["ssl_port"])
-            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
-                "Ports identical, can't use same port for SSL.");
+        if ($server["port"] == $server["ssl_port"]) {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
+                "Ports identical, can't use same port for SSL."
+            );
+        }
 
-        if (!$this->validatePort($server["port"], $server["uuid"], $server["host_type"]))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
-                "Selected port is already used");
+        if (!$this->validatePort($server["port"], $server["uuid"], $server["host_type"])) {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
+                "Selected port is already used"
+            );
+        }
 
-        if (!$this->validatePort($server["ssl_port"], $server["uuid"], $server["host_type"], true))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
-                "Selected port (SSL) is already used");
+        if (!$this->validatePort($server["ssl_port"], $server["uuid"], $server["host_type"], true)) {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
+                "Selected port (SSL) is already used"
+            );
+        }
 
         // Validate the default server attribute
         if (!$server["ssl_force"]) {
             if ($server["port_default_server"]) {
-                if (!$this->validatePortDefaultServer($server["port"], $server["uuid"]))
-                    throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
-                        "There is already another server set as the default on the selected port.");
+                if (!$this->validatePortDefaultServer($server["port"], $server["uuid"])) {
+                    throw new OMVException(
+                        OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
+                        "There is already another server set as the default on the selected port."
+                    );
+                }
             }
         } else {
             $server["port_default_server"] = false;
@@ -445,9 +496,12 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 
         if ($server["ssl_enable"]) {
             if ($server["ssl_port_default_server"]) {
-                if (!$this->validatePortDefaultServer($server["ssl_port"], $server["uuid"], true))
-                    throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
-                        "There is already another server set as the default on the selected SSL port.");
+                if (!$this->validatePortDefaultServer($server["ssl_port"], $server["uuid"], true)) {
+                    throw new OMVException(
+                        OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
+                        "There is already another server set as the default on the selected SSL port."
+                    );
+                }
             }
         } else {
             $server["ssl_port_default_server"] = false;
@@ -479,25 +533,33 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         // are port based
         if (!empty($server)) {
             if ($server["uuid"] != $uuid) {
-                if ($sslPort)
+                if ($sslPort) {
                     return false;
-                if ($hostType == self::HOST_TYPE_PORT || $server["host_type"] == self::HOST_TYPE_PORT)
+                }
+
+                if ($hostType == self::HOST_TYPE_PORT || $server["host_type"] == self::HOST_TYPE_PORT) {
                     return false;
+                }
             } else {
-                if ($sslPort)
+                if ($sslPort) {
                     return false;
+                }
             }
         }
 
         if (!empty($sslServer)) {
             if ($sslServer["uuid"] != $uuid) {
-                if (!$sslPort)
+                if (!$sslPort) {
                     return false;
-                if ($hostType == self::HOST_TYPE_PORT || $server["host_type"] == self::HOST_TYPE_PORT)
+                }
+
+                if ($hostType == self::HOST_TYPE_PORT || $server["host_type"] == self::HOST_TYPE_PORT) {
                     return false;
+                }
             } else {
-                if (!$sslPort)
+                if (!$sslPort) {
                     return false;
+                }
             }
         }
 
@@ -510,10 +572,13 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             $forceSslOnly    = boolval($webadminConfig["forcesslonly"]);
             $enableSsl       = boolval($webadminConfig["enablessl"]);
 
-            if ($webadminPort == $port && !$forceSslOnly)
+            if ($webadminPort == $port && !$forceSslOnly) {
                 return false;
-            if ($webadminSslPort == $port && $enableSsl)
+            }
+
+            if ($webadminSslPort == $port && $enableSsl) {
                 return false;
+            }
         }
 
         return true;
@@ -525,11 +590,19 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         $xPath = "";
 
         if ($ssl) {
-            $xPath = sprintf("%s/server[ssl_port='%s' and ssl_port_default_server='1' and uuid!='%s']",
-                $this->getServersXPath(), $port, $uuid);
+            $xPath = sprintf(
+                "%s/server[ssl_port='%s' and ssl_port_default_server='1' and uuid!='%s']",
+                $this->getServersXPath(),
+                $port,
+                $uuid
+            );
         } else {
-            $xPath = sprintf("%s/server[port='%s' and port_default_server='1' and uuid!='%s']",
-                $this->getServersXPath(), $port, $uuid);
+            $xPath = sprintf(
+                "%s/server[port='%s' and port_default_server='1' and uuid!='%s']",
+                $this->getServersXPath(),
+                $port,
+                $uuid
+            );
         }
 
         return $xmlConfig->count($xPath) === 0;

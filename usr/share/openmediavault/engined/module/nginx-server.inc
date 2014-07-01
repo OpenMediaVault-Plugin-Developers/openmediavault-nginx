@@ -17,14 +17,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once "openmediavault/module.inc";
 require_once "openmediavault/config.inc";
 require_once "openmediavault/error.inc";
-require_once "openmediavault/util.inc";
 require_once "openmediavault/initscript.inc";
+require_once "openmediavault/module.inc";
+require_once "openmediavault/util.inc";
 
-class OMVModuleNginxServer extends OMVModuleServiceAbstract
-    implements OMVINotifyListener
+class OMVModuleNginxServer extends OMVModuleServiceAbstract implements OMVINotifyListener
 {
     private function getEventMessagePath()
     {
@@ -42,18 +41,21 @@ class OMVModuleNginxServer extends OMVModuleServiceAbstract
     /**
      * Bind listeners.
      */
-    public function bindListeners(OMVNotifyDispatcher $dispatcher) {
+    public function bindListeners(OMVNotifyDispatcher $dispatcher)
+    {
         $moduleMgr = &OMVModuleMgr::getInstance();
 
         $dispatcher->addListener(
             OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
             $this->getEventMessagePath(),
-            array($moduleMgr->getModule("php5fpm"), "setDirty"));
+            array($moduleMgr->getModule("php5fpm"), "setDirty")
+        );
 
         $dispatcher->addListener(
             OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
             $this->getEventMessagePath(),
-            array($moduleMgr->getModule("webserver"), "setDirty"));
+            array($moduleMgr->getModule("webserver"), "setDirty")
+        );
 
     }
 }
@@ -63,7 +65,8 @@ $moduleMgr = &OMVModuleMgr::getInstance();
 $moduleMgr->registerModule(new OMVModuleNginxServer());
 
 // Register new logfile types.
-OMVLogFile::registerType("php-fpm",
+OMVLogFile::registerType(
+    "php-fpm",
     array(
         "filename" => "php-fpm",
         "filepath" => "/var/log/php5-fpm.log",
@@ -71,16 +74,19 @@ OMVLogFile::registerType("php-fpm",
         "columns"  => array(
             "ts" => array(
                 "index" => 1,
-                "func"  => create_function("\$v",
-                    "return strpdate(\$v, \"d-M-Y H:i:s\");")
+                "func"  => create_function(
+                    "\$v",
+                    "return strpdate(\$v, \"d-M-Y H:i:s\");"
+                )
             ),
             "date" => array(
                 "index" => 1,
-                "func"  => create_function('$v',
-                    "return strftime(\"%c\", strpdate(\$v,\"d-M-Y H:i:s\"));")
+                "func"  => create_function(
+                    '$v',
+                    "return strftime(\"%c\", strpdate(\$v,\"d-M-Y H:i:s\"));"
+                )
             ),
             "event" => 2
         )
     )
 );
-
