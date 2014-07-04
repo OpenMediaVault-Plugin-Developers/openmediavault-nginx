@@ -444,7 +444,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 allowBlank : true,
                 plugins    : [{
                     ptype : "fieldinfo",
-                    text  : _("Use the variable $root_path to insert the document root."),
+                    text  : _("Use the variable $root_path to insert the document root. Use the variable $socket to insert the socket."),
                 }]
             }]
         }];
