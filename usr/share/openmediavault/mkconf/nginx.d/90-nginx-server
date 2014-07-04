@@ -150,9 +150,10 @@ generate_server_nginx_config()
 
     # Add PHP configuration
     if [ $php_enable -eq 1 ]; then
+        echo "    set \$socket \"unix:/var/run/fpm-${uuid}.sock\";" >> ${config}
         echo "    location ~ \.php$ {" >> ${config}
         echo "        fastcgi_split_path_info ^(.+\.php)(/.+)$;" >> ${config}
-        echo "        fastcgi_pass unix:/var/run/fpm-${uuid}.sock;" >> ${config}
+        echo "        fastcgi_pass \$socket;" >> ${config}
         echo "        fastcgi_index index.php;" >> ${config}
         echo "        include fastcgi_params;" >> ${config}
         echo "    }" >> ${config}
