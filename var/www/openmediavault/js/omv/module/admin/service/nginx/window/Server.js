@@ -104,6 +104,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             ]
         },{
             name : [
+                "php_use_default_config",
                 "php_user",
                 "php_group",
                 "php_display_errors",
@@ -120,6 +121,18 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             properties : [
                 "!allowBlank",
                 "!allowNone",
+                "!readOnly",
+                "show"
+            ]
+        },{
+            name : [
+                "php_extra_options"
+            ],
+            conditions : [{
+                name  : "php_enable",
+                value : true
+            }],
+            properties : [
                 "!readOnly",
                 "show"
             ]
@@ -296,6 +309,15 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 name       : "php_enable",
                 fieldLabel : _("Enable PHP"),
                 checked    : false
+            },{
+                xtype      : "checkbox",
+                name       : "php_use_default_config",
+                fieldLabel : _("Default config"),
+                checked    : true,
+                plugins    : [{
+                    ptype : "fieldinfo",
+                    text  : _("Use the default Nginx config for PHP.")
+                }]
             },{
                 xtype      : "usercombo",
                 name       : "php_user",

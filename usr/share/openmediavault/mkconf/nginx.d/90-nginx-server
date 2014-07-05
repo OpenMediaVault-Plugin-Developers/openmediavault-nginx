@@ -101,6 +101,7 @@ generate_server_nginx_config()
 
     # PHP variables
     local php_enable=$(omv_config_get "${xpath}/php_enable")
+    local php_use_default_config=$(omv_config_get "${xpath}/php_use_default_config")
 
     # Options
     local autoindex=$(omv_config_get "${xpath}/autoindex")
@@ -161,9 +162,13 @@ generate_server_nginx_config()
         echo "    index ${index_files};" >> ${config}
     fi
 
-    # Add PHP configuration
+    # Add $socket variable
     if [ $php_enable -eq 1 ]; then
         echo "    set \$socket \"unix:/var/run/fpm-${uuid}.sock\";" >> ${config}
+    fi
+
+    # Add default PHP configuration
+    if [ $php_enable -eq 1 -a $php_use_default_config  -eq 1 ]; then
         echo "    location ~ \.php$ {" >> ${config}
         echo "        fastcgi_split_path_info ^(.+\.php)(/.+)$;" >> ${config}
         echo "        fastcgi_pass \$socket;" >> ${config}
