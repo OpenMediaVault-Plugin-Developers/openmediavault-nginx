@@ -207,7 +207,10 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         $server = $xmlConfig->get($this->getServerXPathByUuid($params["uuid"]));
 
         if (is_null($server)) {
-            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $xPath);
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
+                $this->getServerXPathByUuid($params["uuid"])
+            );
         }
 
         // General
@@ -224,14 +227,8 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         $server["ssl_force"]               = boolval($server["ssl_force"]);
 
         // PHP
-        $server["php_enable"]              = boolval($server["php_enable"]);
-        $server["php_use_default_config"]  = boolval($server["php_use_default_config"]);
-        $server["php_display_errors"]      = boolval($server["php_display_errors"]);
-        $server["php_html_errors"]         = boolval($server["php_html_errors"]);
-        $server["php_max_execution_time"]  = intval($server["php_max_execution_time"]);
-        $server["php_memory_limit"]        = intval($server["php_memory_limit"]);
-        $server["php_post_max_size"]       = intval($server["php_post_max_size"]);
-        $server["php_upload_max_filesize"] = intval($server["php_upload_max_filesize"]);
+        $server["php_enable"]             = boolval($server["php_enable"]);
+        $server["php_use_default_config"] = boolval($server["php_use_default_config"]);
 
         // Options
         $server["autoindex"]                   = boolval($server["autoindex"]);
@@ -319,17 +316,9 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
                     "sslcertificateref"       : {' . $GLOBALS["OMV_JSONSCHEMA_UUID_NONE"] . '},
                     "ssl_force"               : { "type" : "boolean" },
 
-                    "php_enable"              : { "type" : "boolean" },
-                    "php_use_default_config"  : { "type" : "boolean" },
-                    "php_user"                : { "type" : "string" },
-                    "php_group"               : { "type" : "string" },
-                    "php_display_errors"      : { "type" : "boolean" },
-                    "php_html_errors"         : { "type" : "boolean" },
-                    "php_max_execution_time"  : { "type" : "integer", "minimum" : 0 },
-                    "php_memory_limit"        : { "type" : "integer", "minimum" : -1 },
-                    "php_post_max_size"       : { "type" : "integer", "minimum" : 1 },
-                    "php_upload_max_filesize" : { "type" : "integer", "minimum" : 1 },
-                    "php_extra_options"       : { "type" : "string" },
+                    "php_enable"             : { "type" : "boolean" },
+                    "php_pool_ref"           : {' . $GLOBALS["OMV_JSONSCHEMA_UUID_NONE"] . '},
+                    "php_use_default_config" : { "type" : "boolean" },
 
                     "autoindex"                   : { "type" : "boolean" },
                     "deny_htaccess"               : { "type" : "boolean" },
@@ -341,7 +330,9 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         );
 
         $server = array(
-            "uuid"                 => empty($params["uuid"]) ? OMVUtil::uuid() : $params["uuid"],
+            "uuid"                 =>
+                ($params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"])
+                ? OMVUtil::uuid() : $params["uuid"],
             "enable"               => boolval($params["enable"]),
             "log_enable"           => boolval($params["log_enable"]),
             "sharedfolderref"      => $params["sharedfolderref"],
@@ -359,16 +350,8 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             "ssl_force"               => boolval($params["ssl_force"]),
 
             "php_enable"              => boolval($params["php_enable"]),
+            "php_pool_ref"            => $params["php_pool_ref"],
             "php_use_default_config"  => boolval($params["php_use_default_config"]),
-            "php_user"                => $params["php_user"],
-            "php_group"               => $params["php_group"],
-            "php_display_errors"      => boolval($params["php_display_errors"]),
-            "php_html_errors"         => boolval($params["php_html_errors"]),
-            "php_memory_limit"        => intval($params["php_memory_limit"]),
-            "php_max_execution_time"  => intval($params["php_max_execution_time"]),
-            "php_post_max_size"       => intval($params["php_post_max_size"]),
-            "php_upload_max_filesize" => intval($params["php_upload_max_filesize"]),
-            "php_extra_options"       => trim($params["php_extra_options"]),
 
             "autoindex"                   => boolval($params["autoindex"]),
             "deny_htaccess"               => boolval($params["deny_htaccess"]),
@@ -383,7 +366,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         $success = false;
         $xPath = null;
 
-        if (empty($params["uuid"])) {
+        if ($params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"]) {
             $success = $xmlConfig->set(
                 $xPath = $this->getServersXPath(),
                 array("server" => $server),
