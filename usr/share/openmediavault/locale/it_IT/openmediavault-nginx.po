@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-nginx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-24 06:16-0500\n"
-"PO-Revision-Date: 2014-06-24 11:17+0000\n"
+"POT-Creation-Date: 2014-07-05 12:52-0500\n"
+"PO-Revision-Date: 2014-07-05 17:50+0000\n"
 "Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/openmediavault-nginx/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "A PHP-FPM pool with the given name already exists"
+msgstr ""
+
+msgid "Add pool"
+msgstr ""
 
 msgid "Add server"
 msgstr "Aggiungi server"
@@ -33,8 +39,14 @@ msgstr "Predefinito"
 msgid "Default (SSL)"
 msgstr "Predefinito (SSL)"
 
+msgid "Default config"
+msgstr ""
+
 msgid "Default server"
 msgstr "Server predefinito"
+
+msgid "Description"
+msgstr ""
 
 msgid "Display errors"
 msgstr "Mostra errori"
@@ -44,6 +56,9 @@ msgstr "Cartella radice"
 
 msgid "Don't serve .htaccess"
 msgstr "Non utilizzare .htaccess"
+
+msgid "Edit pool"
+msgstr ""
 
 msgid "Edit server"
 msgstr "Modifica server"
@@ -56,6 +71,9 @@ msgstr "Abilita PHP"
 
 msgid "Enable SSL"
 msgstr "Abilita SSL"
+
+msgid "Enable logging"
+msgstr ""
 
 msgid "Enabled"
 msgstr "Abilita"
@@ -73,7 +91,7 @@ msgid "General"
 msgstr "Generale"
 
 msgid "Group"
-msgstr ""
+msgstr "Gruppo"
 
 msgid "HTML errors"
 msgstr "Errori HTML"
@@ -96,6 +114,9 @@ msgstr "Dimensione massima upload (MB)"
 msgid "Memory limit (MB)"
 msgstr "Limite memoria (MB)"
 
+msgid "Name"
+msgstr ""
+
 msgid "Name-based"
 msgstr "Basato-su-nome"
 
@@ -105,6 +126,12 @@ msgstr "Nginx"
 msgid "Options"
 msgstr "Opzioni"
 
+msgid "PHP-FPM pool"
+msgstr ""
+
+msgid "Pools"
+msgstr ""
+
 msgid "Port"
 msgstr "Porta"
 
@@ -113,6 +140,9 @@ msgstr "Cartella pubblica"
 
 msgid "Root"
 msgstr "Radice"
+
+msgid "Select a PHP-FPM pool ..."
+msgstr ""
 
 msgid "Server name"
 msgstr "Nome server"
@@ -124,7 +154,7 @@ msgid "Servers"
 msgstr "Server"
 
 msgid "Set the group under which PHP scripts should be executed as."
-msgstr ""
+msgstr "Imposta il gruppo con cui gli script PHP devono essere eseguiti."
 
 msgid ""
 "Set the max execution time of a script. Using the value 0 means no limit."
@@ -177,7 +207,12 @@ msgstr "Utilizzare se si servono i file pubblici in una sottocartella come publi
 msgid "Use public directory"
 msgstr "Utilizza cartella pubblica"
 
-msgid "Use the variable $root_path to insert the document root."
+msgid "Use the default Nginx config for PHP."
+msgstr ""
+
+msgid ""
+"Use the variable $root_path to insert the document root. Use the variable "
+"$socket to insert the socket."
 msgstr ""
 
 msgid "User"

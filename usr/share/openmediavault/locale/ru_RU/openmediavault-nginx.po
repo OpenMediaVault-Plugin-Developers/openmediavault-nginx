@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Alexander Savchenko <a.v.savchenko@mail.ru>, 2014
+# Alexander Savchenko, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-nginx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-24 06:16-0500\n"
-"PO-Revision-Date: 2014-06-24 11:17+0000\n"
+"POT-Creation-Date: 2014-07-05 12:52-0500\n"
+"PO-Revision-Date: 2014-07-05 17:50+0000\n"
 "Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/openmediavault-nginx/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "A PHP-FPM pool with the given name already exists"
+msgstr ""
+
+msgid "Add pool"
+msgstr ""
 
 msgid "Add server"
 msgstr "Добавить сервер"
@@ -33,7 +39,13 @@ msgstr ""
 msgid "Default (SSL)"
 msgstr ""
 
+msgid "Default config"
+msgstr ""
+
 msgid "Default server"
+msgstr ""
+
+msgid "Description"
 msgstr ""
 
 msgid "Display errors"
@@ -43,6 +55,9 @@ msgid "Document root"
 msgstr ""
 
 msgid "Don't serve .htaccess"
+msgstr ""
+
+msgid "Edit pool"
 msgstr ""
 
 msgid "Edit server"
@@ -56,6 +71,9 @@ msgstr "Включить PHP"
 
 msgid "Enable SSL"
 msgstr "Включить SSL"
+
+msgid "Enable logging"
+msgstr ""
 
 msgid "Enabled"
 msgstr ""
@@ -96,6 +114,9 @@ msgstr ""
 msgid "Memory limit (MB)"
 msgstr ""
 
+msgid "Name"
+msgstr ""
+
 msgid "Name-based"
 msgstr ""
 
@@ -105,6 +126,12 @@ msgstr "Nginx"
 msgid "Options"
 msgstr "Опции"
 
+msgid "PHP-FPM pool"
+msgstr ""
+
+msgid "Pools"
+msgstr ""
+
 msgid "Port"
 msgstr "Порт"
 
@@ -112,6 +139,9 @@ msgid "Public directory"
 msgstr ""
 
 msgid "Root"
+msgstr ""
+
+msgid "Select a PHP-FPM pool ..."
 msgstr ""
 
 msgid "Server name"
@@ -177,7 +207,12 @@ msgstr ""
 msgid "Use public directory"
 msgstr ""
 
-msgid "Use the variable $root_path to insert the document root."
+msgid "Use the default Nginx config for PHP."
+msgstr ""
+
+msgid ""
+"Use the variable $root_path to insert the document root. Use the variable "
+"$socket to insert the socket."
 msgstr ""
 
 msgid "User"
