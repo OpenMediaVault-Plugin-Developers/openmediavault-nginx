@@ -37,6 +37,17 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
         ptype        : "linkedfields",
         correlations : [{
             name : [
+                "use_public_directory"
+            ],
+            conditions: [{
+                name  : "sharedfolderref",
+                value : ""
+            }],
+            properties : [
+                "readOnly"
+            ]
+        },{
+            name : [
                 "public_directory"
             ],
             conditions : [{
@@ -93,14 +104,8 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             ]
         },{
             name : [
-                "php_user",
-                "php_group",
-                "php_display_errors",
-                "php_html_errors",
-                "php_max_execution_time",
-                "php_memory_limit",
-                "php_post_max_size",
-                "php_upload_max_filesize"
+                "php_pool_ref",
+                "php_use_default_config",
             ],
             conditions : [{
                 name  : "php_enable",
@@ -134,9 +139,17 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 fieldLabel : _("Enable"),
                 checked    : true
             },{
+                xtype      : "checkbox",
+                name       : "log_enable",
+                fieldLabel : _("Enable logging"),
+                checked    : true
+            },{
                 xtype      : "sharedfoldercombo",
                 name       : "sharedfolderref",
                 fieldLabel : _("Document root"),
+                allowBlank : true,
+                allowNone  : true,
+                value      : "",
                 plugins    : [{
                     ptype : "fieldinfo",
                     text  : _("The location needs to have at least read permissions for the user/group www-data")
@@ -278,104 +291,46 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 fieldLabel : _("Enable PHP"),
                 checked    : false
             },{
-                xtype      : "usercombo",
-                name       : "php_user",
-                fieldLabel : _("User"),
-                userType   : "normal",
-                editable   : false,
-                allowBlank : true,
-                allowNone  : true,
-                readOnly   : true,
-                hidden     : true,
-                plugins    : [{
-                    ptype : "fieldinfo",
-                    text  : _("Set the user under which PHP scripts should be executed as.")
-                }]
-            },{
-                xtype      : "groupcombo",
-                name       : "php_group",
-                fieldLabel : _("Group"),
-                groupType   : "all",
-                editable   : false,
-                allowBlank : true,
-                allowNone  : true,
-                readOnly   : true,
-                hidden     : true,
-                plugins    : [{
-                    ptype : "fieldinfo",
-                    text  : _("Set the group under which PHP scripts should be executed as.")
-                }]
+                xtype         : "combo",
+                name          : "php_pool_ref",
+                fieldLabel    : _("PHP-FPM pool"),
+                emptyText     : _("Select a PHP-FPM pool ..."),
+                allowBlank    : false,
+                allowNone     : false,
+                editable      : false,
+                triggerAction : "all",
+                displayField  : "name",
+                valueField    : "uuid",
+                store         : Ext.create("OMV.data.Store", {
+                    autoLoad : true,
+                    model    : OMV.data.Model.createImplicit({
+                        idProperty : "uuid",
+                        fields     : [
+                            { name : "uuid", type : "string" },
+                            { name : "name", type : "string" }
+                        ]
+                    }),
+                    proxy : {
+                        type    : "rpc",
+                        rpcData : {
+                            service : "PhpFpm",
+                            method  : "getList"
+                        },
+                    },
+                    sorters : [{
+                        direction : "ASC",
+                        property  : "name"
+                    }]
+                })
             },{
                 xtype      : "checkbox",
-                name       : "php_display_errors",
-                fieldLabel : _("Display errors"),
-                checked    : false
-            },{
-                xtype      : "checkbox",
-                name       : "php_html_errors",
-                fieldLabel : _("HTML errors"),
+                name       : "php_use_default_config",
+                fieldLabel : _("Default config"),
                 checked    : true,
                 plugins    : [{
                     ptype : "fieldinfo",
-                    text  : _("Use HTML tags in error messages."),
+                    text  : _("Use the default Nginx config for PHP.")
                 }]
-            },{
-                xtype      : "numberfield",
-                name       : "php_max_execution_time",
-                fieldLabel : _("Max execution time (s)"),
-                minValue   : 0,
-                value      : 30,
-                plugins    : [{
-                    ptype : "fieldinfo",
-                    text  : _("Set the max execution time of a script. Using the value 0 means no limit."),
-                }]
-            },{
-                xtype      : "numberfield",
-                name       : "php_memory_limit",
-                fieldLabel : _("Memory limit (MB)"),
-                minValue   : -1,
-                value      : 128,
-                plugins    : [{
-                    ptype : "fieldinfo",
-                    text  : _("This setting should be higher than the post max size. Setting a value of -1 makes it unlimited."),
-                }],
-                validator : function(value) {
-                    var otherField = me.findField("php_post_max_size");
-
-                    if (value != -1 && value < otherField.getValue())
-                        return "Value should be higher than POST max size";
-
-                    return true;
-                }
-            },{
-                xtype      : "numberfield",
-                name       : "php_post_max_size",
-                fieldLabel : _("Max POST size (MB)"),
-                minValue   : 1,
-                value      : 8,
-                plugins    : [{
-                    ptype : "fieldinfo",
-                    text  : _("This setting affects the max upload filesize and should preferably be higher."),
-                }],
-                validator : function(value) {
-                    var otherField = me.findField("php_upload_max_filesize");
-
-                    if (value < otherField.getValue())
-                        return "Value should be higher than max upload filesize";
-
-                    return true;
-                }
-            },{
-                xtype      : "numberfield",
-                name       : "php_upload_max_filesize",
-                fieldLabel : _("Max upload filesize (MB)"),
-                minValue   : 1,
-                value      : 2
-            },{
-                xtype      : "textarea",
-                name       : "php_extra_options",
-                fieldLabel : _("Extra options"),
-                allowBlank : true
             }]
         },{
             xtype : "fieldset",
