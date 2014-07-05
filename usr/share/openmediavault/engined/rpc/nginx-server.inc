@@ -225,6 +225,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 
         // PHP
         $server["php_enable"]              = boolval($server["php_enable"]);
+        $server["php_use_default_config"]  = boolval($server["php_use_default_config"]);
         $server["php_display_errors"]      = boolval($server["php_display_errors"]);
         $server["php_html_errors"]         = boolval($server["php_html_errors"]);
         $server["php_max_execution_time"]  = intval($server["php_max_execution_time"]);
@@ -319,6 +320,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
                     "ssl_force"               : { "type" : "boolean" },
 
                     "php_enable"              : { "type" : "boolean" },
+                    "php_use_default_config"  : { "type" : "boolean" },
                     "php_user"                : { "type" : "string" },
                     "php_group"               : { "type" : "string" },
                     "php_display_errors"      : { "type" : "boolean" },
@@ -357,6 +359,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             "ssl_force"               => boolval($params["ssl_force"]),
 
             "php_enable"              => boolval($params["php_enable"]),
+            "php_use_default_config"  => boolval($params["php_use_default_config"]),
             "php_user"                => $params["php_user"],
             "php_group"               => $params["php_group"],
             "php_display_errors"      => boolval($params["php_display_errors"]),
