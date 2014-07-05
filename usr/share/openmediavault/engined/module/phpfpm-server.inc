@@ -23,11 +23,11 @@ require_once "openmediavault/initscript.inc";
 require_once "openmediavault/module.inc";
 require_once "openmediavault/util.inc";
 
-class OMVModuleNginxServer extends OMVModuleServiceAbstract implements OMVINotifyListener
+class OMVModulePhpFpmServer extends OMVModuleServiceAbstract implements OMVINotifyListener
 {
     private function getEventMessagePath()
     {
-        return "org.openmediavault.services.nginx";
+        return "org.openmediavault.services.phpfpm";
     }
 
     /**
@@ -35,7 +35,7 @@ class OMVModuleNginxServer extends OMVModuleServiceAbstract implements OMVINotif
      */
     public function getName()
     {
-        return "nginx-server";
+        return "phpfpm-server";
     }
 
     /**
@@ -48,11 +48,38 @@ class OMVModuleNginxServer extends OMVModuleServiceAbstract implements OMVINotif
         $dispatcher->addListener(
             OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
             $this->getEventMessagePath(),
-            array($moduleMgr->getModule("webserver"), "setDirty")
+            array($moduleMgr->getModule("php5fpm"), "setDirty")
         );
     }
 }
 
 // Register module
 $moduleMgr = &OMVModuleMgr::getInstance();
-$moduleMgr->registerModule(new OMVModuleNginxServer());
+$moduleMgr->registerModule(new OMVModulePhpFpmServer());
+
+// Register new logfile types.
+OMVLogFile::registerType(
+    "php-fpm",
+    array(
+        "filename" => "php-fpm",
+        "filepath" => "/var/log/php5-fpm.log",
+        "regex"    => "/^\[(\d+-\w+-\d+\s+\d+:\d+:\d+)\]\s+(.*)$/",
+        "columns"  => array(
+            "ts" => array(
+                "index" => 1,
+                "func"  => create_function(
+                    "\$v",
+                    "return strpdate(\$v, \"d-M-Y H:i:s\");"
+                )
+            ),
+            "date" => array(
+                "index" => 1,
+                "func"  => create_function(
+                    '$v',
+                    "return strftime(\"%c\", strpdate(\$v,\"d-M-Y H:i:s\"));"
+                )
+            ),
+            "event" => 2
+        )
+    )
+);

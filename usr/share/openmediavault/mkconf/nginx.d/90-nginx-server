@@ -101,6 +101,7 @@ generate_server_nginx_config()
 
     # PHP variables
     local php_enable=$(omv_config_get "${xpath}/php_enable")
+    local php_pool_ref=$(omv_config_get "${xpath}/php_pool_ref")
     local php_use_default_config=$(omv_config_get "${xpath}/php_use_default_config")
 
     # Options
@@ -164,7 +165,7 @@ generate_server_nginx_config()
 
     # Add $socket variable
     if [ $php_enable -eq 1 ]; then
-        echo "    set \$socket \"unix:/var/run/fpm-${uuid}.sock\";" >> ${config}
+        echo "    set \$socket \"unix:/var/run/fpm-${php_pool_ref}.sock\";" >> ${config}
     fi
 
     # Add default PHP configuration
