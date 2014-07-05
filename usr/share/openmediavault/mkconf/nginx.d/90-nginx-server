@@ -86,6 +86,7 @@ generate_server_nginx_config()
 
     # Variables
     local uuid=$(omv_config_get "${xpath}/uuid")
+    local log_enable=$(omv_config_get "${xpath}/log_enable")
     local host_type=$(omv_config_get "${xpath}/host_type")
     local server_name=$(omv_config_get "${xpath}/server_name")
     local port=$(omv_config_get "${xpath}/port")
@@ -172,8 +173,10 @@ generate_server_nginx_config()
     fi
 
     # Add logs
-    echo "    access_log ${NGINX_LOG_DIR}/${uuid}-access.log;" >> ${config}
-    echo "    error_log  ${NGINX_LOG_DIR}/${uuid}-error.log;" >> ${config}
+    if [ $log_enable -eq 1 ]; then
+        echo "    access_log ${NGINX_LOG_DIR}/${uuid}-access.log;" >> ${config}
+        echo "    error_log  ${NGINX_LOG_DIR}/${uuid}-error.log;" >> ${config}
+    fi
 
     # Add options
     if [ $autoindex -eq 1 ]; then

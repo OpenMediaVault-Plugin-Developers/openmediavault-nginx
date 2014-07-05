@@ -212,6 +212,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 
         // General
         $server["enable"]               = boolval($server["enable"]);
+        $server["log_enable"]           = boolval($server["log_enable"]);
         $server["use_public_directory"] = boolval($server["use_public_directory"]);
         $server["port"]                 = intval($server["port"]);
         $server["port_default_server"]  = boolval($server["port_default_server"]);
@@ -302,6 +303,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
                 "properties" : {
                     "uuid"                 : {' . $GLOBALS["OMV_JSONSCHEMA_UUID_UNDEFINED"] . '},
                     "enable"               : { "type" : "boolean" },
+                    "log_enable"           : { "type" : "boolean" },
                     "sharedfolderref"      : {' . $GLOBALS["OMV_JSONSCHEMA_UUID_NONE"] . '},
                     "use_public_directory" : { "type" : "boolean" },
                     "public_directory"     : { "type" : "string", "optional" : true },
@@ -339,6 +341,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         $server = array(
             "uuid"                 => empty($params["uuid"]) ? OMVUtil::uuid() : $params["uuid"],
             "enable"               => boolval($params["enable"]),
+            "log_enable"           => boolval($params["log_enable"]),
             "sharedfolderref"      => $params["sharedfolderref"],
             "use_public_directory" => boolval($params["use_public_directory"]),
             "public_directory"     => $params["public_directory"],
