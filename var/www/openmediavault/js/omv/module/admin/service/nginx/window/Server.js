@@ -37,6 +37,17 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
         ptype        : "linkedfields",
         correlations : [{
             name : [
+                "use_public_directory"
+            ],
+            conditions: [{
+                name  : "sharedfolderref",
+                value : ""
+            }],
+            properties : [
+                "readOnly"
+            ]
+        },{
+            name : [
                 "public_directory"
             ],
             conditions : [{
@@ -137,6 +148,9 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 xtype      : "sharedfoldercombo",
                 name       : "sharedfolderref",
                 fieldLabel : _("Document root"),
+                allowBlank : true,
+                allowNone  : true,
+                value      : "",
                 plugins    : [{
                     ptype : "fieldinfo",
                     text  : _("The location needs to have at least read permissions for the user/group www-data")
