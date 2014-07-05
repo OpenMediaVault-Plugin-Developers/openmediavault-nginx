@@ -1,8 +1,9 @@
-openmediavault-nginx (1.0.0.4) UNRELEASED; urgency=low
+openmediavault-nginx (1.0.0.5) unstable; urgency=low
 
   * Add ability to use $socket variable in extra options 
+  * Update locales
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 04 Jul 2014 22:16:22 +0200
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 05 Jul 2014 12:52:33 -0500
 
 openmediavault-nginx (1.0.0.3) unstable; urgency=low
 

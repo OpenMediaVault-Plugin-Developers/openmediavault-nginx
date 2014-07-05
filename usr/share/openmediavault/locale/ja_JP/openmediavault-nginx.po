@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Toshihiro Kan <kansuke4649@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-nginx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-24 06:16-0500\n"
-"PO-Revision-Date: 2014-06-24 11:17+0000\n"
+"POT-Creation-Date: 2014-07-05 12:52-0500\n"
+"PO-Revision-Date: 2014-07-05 17:50+0000\n"
 "Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/projects/p/openmediavault-nginx/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
@@ -16,6 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ja_JP\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "A PHP-FPM pool with the given name already exists"
+msgstr ""
+
+msgid "Add pool"
+msgstr ""
 
 msgid "Add server"
 msgstr "サーバの追加"
@@ -32,8 +39,14 @@ msgstr "デフォルト"
 msgid "Default (SSL)"
 msgstr "デフォルト(SSL)"
 
+msgid "Default config"
+msgstr ""
+
 msgid "Default server"
 msgstr "デフォルトサーバ"
+
+msgid "Description"
+msgstr ""
 
 msgid "Display errors"
 msgstr "エラーの表示"
@@ -43,6 +56,9 @@ msgstr "ドキュメントルート"
 
 msgid "Don't serve .htaccess"
 msgstr ".htaccess は使えません"
+
+msgid "Edit pool"
+msgstr ""
 
 msgid "Edit server"
 msgstr "サーバの編集"
@@ -55,6 +71,9 @@ msgstr "PHPを有効にする"
 
 msgid "Enable SSL"
 msgstr "SSLを有効にする"
+
+msgid "Enable logging"
+msgstr ""
 
 msgid "Enabled"
 msgstr "有効化済み"
@@ -72,7 +91,7 @@ msgid "General"
 msgstr "一般"
 
 msgid "Group"
-msgstr ""
+msgstr "グループ"
 
 msgid "HTML errors"
 msgstr "HTMLエラー"
@@ -95,6 +114,9 @@ msgstr "最大アップロードファイルサイズ(MB)"
 msgid "Memory limit (MB)"
 msgstr "メモリ上限(MB)"
 
+msgid "Name"
+msgstr ""
+
 msgid "Name-based"
 msgstr "名前ベース"
 
@@ -104,6 +126,12 @@ msgstr "Nginx"
 msgid "Options"
 msgstr "オプション"
 
+msgid "PHP-FPM pool"
+msgstr ""
+
+msgid "Pools"
+msgstr ""
+
 msgid "Port"
 msgstr "ポート"
 
@@ -112,6 +140,9 @@ msgstr "公開ディレクトリ"
 
 msgid "Root"
 msgstr "ルート"
+
+msgid "Select a PHP-FPM pool ..."
+msgstr ""
 
 msgid "Server name"
 msgstr "サーバ名"
@@ -123,7 +154,7 @@ msgid "Servers"
 msgstr "サーバ"
 
 msgid "Set the group under which PHP scripts should be executed as."
-msgstr ""
+msgstr "PHPスクリプトを実行するグループを設定します。"
 
 msgid ""
 "Set the max execution time of a script. Using the value 0 means no limit."
@@ -176,7 +207,12 @@ msgstr "あなたがpublic_htmlやpublicのようなサブフォルダに公開�
 msgid "Use public directory"
 msgstr "公開ディレクトリを使用します。"
 
-msgid "Use the variable $root_path to insert the document root."
+msgid "Use the default Nginx config for PHP."
+msgstr ""
+
+msgid ""
+"Use the variable $root_path to insert the document root. Use the variable "
+"$socket to insert the socket."
 msgstr ""
 
 msgid "User"
