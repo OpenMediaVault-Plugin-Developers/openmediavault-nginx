@@ -145,6 +145,11 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 fieldLabel : _("Enable"),
                 checked    : true
             },{
+                xtype      : "checkbox",
+                name       : "log_enable",
+                fieldLabel : _("Enable logging"),
+                checked    : true
+            },{
                 xtype      : "sharedfoldercombo",
                 name       : "sharedfolderref",
                 fieldLabel : _("Document root"),
