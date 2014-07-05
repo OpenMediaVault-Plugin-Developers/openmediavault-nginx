@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Copyright (C) 2014 OpenMediaVault Plugin Developers
 #
@@ -69,41 +69,45 @@ remove_server()
 
 generate_server_nginx_config()
 {
-    xpath=${1}
-    config=${2}
+    local xpath=${1}
+    local config=${2}
 
-    # Get Document_Root
-    root_ref=$(omv_config_get "${xpath}/sharedfolderref")
-    root=$(omv_get_sharedfolder_path "${root_ref}")
+    # Get document root if it's set
+    local root_ref=$(omv_config_get "${xpath}/sharedfolderref")
+    local root=""
 
-    if [ "$(omv_config_get "${xpath}/use_public_directory")" -eq "1" ]; then
-        root="${root}/$(omv_config_get "${xpath}/public_directory")"
+    if [ -n "${root_ref}" ]; then
+        root=$(omv_get_sharedfolder_path "${root_ref}")
+
+        if [ "$(omv_config_get "${xpath}/use_public_directory")" -eq "1" ]; then
+            root="${root}/$(omv_config_get "${xpath}/public_directory")"
+        fi
     fi
 
     # Variables
-    uuid=$(omv_config_get "${xpath}/uuid")
-    host_type=$(omv_config_get "${xpath}/host_type")
-    server_name=$(omv_config_get "${xpath}/server_name")
-    port=$(omv_config_get "${xpath}/port")
-    port_default_server=$(omv_config_get "${xpath}/port_default_server")
+    local uuid=$(omv_config_get "${xpath}/uuid")
+    local host_type=$(omv_config_get "${xpath}/host_type")
+    local server_name=$(omv_config_get "${xpath}/server_name")
+    local port=$(omv_config_get "${xpath}/port")
+    local port_default_server=$(omv_config_get "${xpath}/port_default_server")
 
     # SSL
-    ssl_enable=$(omv_config_get "${xpath}/ssl_enable")
-    ssl_port=$(omv_config_get "${xpath}/ssl_port")
-    ssl_port_default_server=$(omv_config_get "${xpath}/ssl_port_default_server")
-    sslcertificateref=$(omv_config_get "${xpath}/sslcertificateref")
-    ssl_force=$(omv_config_get "${xpath}/ssl_force")
+    local ssl_enable=$(omv_config_get "${xpath}/ssl_enable")
+    local ssl_port=$(omv_config_get "${xpath}/ssl_port")
+    local ssl_port_default_server=$(omv_config_get "${xpath}/ssl_port_default_server")
+    local sslcertificateref=$(omv_config_get "${xpath}/sslcertificateref")
+    local ssl_force=$(omv_config_get "${xpath}/ssl_force")
 
     # PHP variables
-    php_enable=$(omv_config_get "${xpath}/php_enable")
+    local php_enable=$(omv_config_get "${xpath}/php_enable")
 
     # Options
-    autoindex=$(omv_config_get "${xpath}/autoindex")
-    deny_htaccess=$(omv_config_get "${xpath}/deny_htaccess")
-    large_client_header_buffers=$(omv_config_get "${xpath}/large_client_header_buffers")
+    local autoindex=$(omv_config_get "${xpath}/autoindex")
+    local deny_htaccess=$(omv_config_get "${xpath}/deny_htaccess")
+    local large_client_header_buffers=$(omv_config_get "${xpath}/large_client_header_buffers")
 
     # Extra options
-    extra_options=$(omv_config_get "${xpath}/extra_options")
+    local extra_options=$(omv_config_get "${xpath}/extra_options")
 
     # Start generating config
     echo "server {" >> ${config}
@@ -135,18 +139,26 @@ generate_server_nginx_config()
         echo "    server_name ${server_name};" >> ${config}
     fi
 
+    local index_files=""
+
     # Add root directory
-    echo "    set \$root_path \"${root}\";" >> ${config}
-    echo "    root \$root_path;" >> ${config}
+    if [ -n "${root}" ]; then
+        echo "    set \$root_path \"${root}\";" >> ${config}
+        echo "    root \$root_path;" >> ${config}
 
-    # Add valid index files
-    index_files="index.html"
+        # Add valid index files
+        index_files="index.html"
+    fi
 
-    if [ $php_enable -eq 1 ]; then
+    # Only add index.php to index_files if the document root is set
+    if [ $php_enable -eq 1 -a -n "${root}" ]; then
         index_files="${index_files} index.php"
     fi
 
-    echo "    index ${index_files};" >> ${config}
+    # If the index_files variable is empty we don't add the index option
+    if [ -n "${index_files}" ]; then
+        echo "    index ${index_files};" >> ${config}
+    fi
 
     # Add PHP configuration
     if [ $php_enable -eq 1 ]; then
@@ -194,7 +206,7 @@ remove_nginx_logs()
 
 generate_nginx_config()
 {
-    size=$(omv_config_get "${OMV_PLUGIN_XPATH}/server_names_hash_bucket_size")
+    local size=$(omv_config_get "${OMV_PLUGIN_XPATH}/server_names_hash_bucket_size")
     echo "server_names_hash_bucket_size ${size};" > ${OMV_NGINX_CUSTOM_CONF}
 }
 
