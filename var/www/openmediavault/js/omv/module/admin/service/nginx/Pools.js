@@ -20,15 +20,15 @@
 // require("js/omv/data/Store.js")
 // require("js/omv/data/Model.js")
 // require("js/omv/data/proxy/Rpc.js")
-// require("js/omv/module/admin/service/nginx/window/Server.js")
+// require("js/omv/module/admin/service/nginx/window/Pool.js")
 
-Ext.define("OMV.module.admin.service.nginx.Servers", {
+Ext.define("OMV.module.admin.service.nginx.Pools", {
     extend   : "OMV.workspace.grid.Panel",
     requires : [
         "OMV.data.Store",
         "OMV.data.Model",
         "OMV.data.proxy.Rpc",
-        "OMV.module.admin.service.nginx.window.Server"
+        "OMV.module.admin.service.nginx.window.Pool"
     ],
 
     columns : [{
@@ -36,76 +36,15 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
         hidden    : true,
         dataIndex : "uuid"
     },{
-        xtype     : "booleaniconcolumn",
-        header    : _("Enabled"),
-        sortable  : true,
-        dataIndex : "enable",
-        align     : "center",
-        width     : 80,
-        resizable : false,
-        trueIcon  : "switch_on.png",
-        falseIcon : "switch_off.png"
-    },{
-        xtype     : "booleaniconcolumn",
-        header    : "SSL",
-        sortable  : true,
-        dataIndex : "ssl_enable",
-        align     : "center",
-        width     : 60,
-        resizable : false,
-        trueIcon  : "switch_on.png",
-        falseIcon : "switch_off.png"
-    },{
-        xtype     : "booleaniconcolumn",
-        header    : "PHP",
-        sortable  : true,
-        dataIndex : "php_enable",
-        align     : "center",
-        width     : 60,
-        resizable : false,
-        trueIcon  : "switch_on.png",
-        falseIcon : "switch_off.png"
-    },{
-        xtype     : "booleaniconcolumn",
-        header    : _("Default"),
-        sortable  : true,
-        dataIndex : "port_default_server",
-        align     : "center",
-        width     : 60,
-        resizable : false,
-        trueIcon  : "switch_on.png",
-        falseIcon : "switch_off.png"
-    },{
-        xtype     : "booleaniconcolumn",
-        header    : _("Default (SSL)"),
-        sortable  : true,
-        dataIndex : "ssl_port_default_server",
-        align     : "center",
-        width     : 80,
-        resizable : false,
-        trueIcon  : "switch_on.png",
-        falseIcon : "switch_off.png"
-    },{
-        header    : _("Root"),
+        header    : _("Name"),
         flex      : 1,
         sortable  : true,
-        dataIndex : "root_full_path"
+        dataIndex : "name"
     },{
-        header    : _("URL"),
+        header    : _("Description"),
         flex      : 1,
         sortable  : true,
-        dataIndex : "urls",
-        renderer  : function(urls) {
-            var value = "";
-
-            for (var i = 0; i < urls.length; i++)
-                urls[i] = Ext.String.format("<a href='{0}' target='_blank'>{0}</a>", urls[i]
-                    .replace("!domain!", window.location.hostname));
-
-            value = urls.join(", ");
-
-            return value;
-        }
+        dataIndex : "description"
     }],
 
     initComponent : function() {
@@ -120,19 +59,14 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
                     totalPoperty : "total",
                     fields       : [
                         { name : "uuid" },
-                        { name : "enable" },
-                        { name : "ssl_enable" },
-                        { name : "php_enable" },
-                        { name : "port_default_server" },
-                        { name : "ssl_port_default_server" },
-                        { name : "root_full_path" },
-                        { name : "urls" }
+                        { name : "name" },
+                        { name : "description" }
                     ]
                 }),
                 proxy : {
                     type    : "rpc",
                     rpcData : {
-                        "service" : "Nginx",
+                        "service" : "PhpFpm",
                         "method"  : "getList"
                     }
                 }
@@ -147,8 +81,8 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
     onAddButton : function() {
         var me = this;
 
-        Ext.create("OMV.module.admin.service.nginx.window.Server", {
-            title        : _("Add server"),
+        Ext.create("OMV.module.admin.service.nginx.window.Pool", {
+            title        : _("Add pool"),
             uuid         : OMV.UUID_UNDEFINED,
             listeners    : {
                 scope  : me,
@@ -163,9 +97,9 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
         var me = this;
         var record = me.getSelected();
 
-        Ext.create("OMV.module.admin.service.nginx.window.Server", {
+        Ext.create("OMV.module.admin.service.nginx.window.Pool", {
             rpcGetMethod : "get",
-            title        : _("Edit server"),
+            title        : _("Edit pool"),
             uuid         : record.get("uuid"),
             listeners    : {
                 scope  : me,
@@ -183,7 +117,7 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
             scope : me,
             callback : me.onDeletion,
             rpcData : {
-                service : "Nginx",
+                service : "PhpFpm",
                 method : "delete",
                 params : {
                     uuid : record.get("uuid")
@@ -195,9 +129,9 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
 });
 
 OMV.WorkspaceManager.registerPanel({
-    id        : "servers",
+    id        : "pools",
     path      : "/service/nginx",
-    text      : _("Servers"),
-    position  : 20,
-    className : "OMV.module.admin.service.nginx.Servers"
+    text      : _("Pools"),
+    position  : 30,
+    className : "OMV.module.admin.service.nginx.Pools"
 });
