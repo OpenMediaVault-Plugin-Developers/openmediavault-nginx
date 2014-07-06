@@ -1,3 +1,9 @@
+openmediavault-nginx (1.0.0.6) unstable; urgency=low
+
+  * Add a log viewer for access and error logs 
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 06 Jul 2014 23:03:32 +0200
+
 openmediavault-nginx (1.0.0.5) unstable; urgency=low
 
   * Add ability to use $socket variable in extra options 

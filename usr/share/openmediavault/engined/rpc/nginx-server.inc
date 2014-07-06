@@ -28,6 +28,8 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
     const HOST_TYPE_PORT = "port";
     const HOST_TYPE_NAME = "name";
 
+    private $logDir = "/var/log/nginx";
+
     private function getEventMessagePath()
     {
         return "org.openmediavault.services.nginx";
@@ -63,6 +65,9 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         $this->registerMethod("get");
         $this->registerMethod("set");
         $this->registerMethod("delete");
+
+        // Log
+        $this->registerMethod("getLog");
     }
 
     public function getSettings($params, $context)
@@ -426,6 +431,65 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
         $dispatcher->notify(OMV_NOTIFY_DELETE, $this->getEventMessagePath(), $server);
+    }
+
+    public function getLog($params, $context)
+    {
+        global $xmlConfig;
+
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, array(
+            "role" => OMV_ROLE_ADMINISTRATOR
+        ));
+
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams(
+            $params,
+            '{
+                "type"       : "object",
+                "properties" : {
+                    "start"     : { "type" : "integer" },
+                    "limit"     : {' . $GLOBALS["OMV_JSONSCHEMA_COUNTFIELD"] . '},
+                    "sortfield" : {' . $GLOBALS["OMV_JSONSCHEMA_SORTFIELD"] . '},
+                    "sortdir"   : {' . $GLOBALS["OMV_JSONSCHEMA_SORTDIR"] . '},
+                    "uuid"      : {' . $GLOBALS["OMV_JSONSCHEMA_UUID"] . '},
+                    "type"      : { "type" : "string", "enum" : [ "access", "error" ]}
+                }
+            }'
+        );
+
+        $uuid = $params["uuid"];
+        $type = $params["type"];
+
+        $logRows = array();
+
+        $logPath = sprintf(
+            "%s/%s-%s.log",
+            $this->logDir,
+            $uuid,
+            $type
+        );
+
+        if (file_exists($logPath)) {
+            $logText = file_get_contents($logPath);
+
+            $logTextArray = explode("\n", $logText);
+            $rowNumber = 1;
+
+            foreach ($logTextArray as $row) {
+                if (!empty($row)) {
+                    $logRows[] = array(
+                        "id"      => $rowNumber++,
+                        "message" => $row,
+                    );
+                }
+            }
+        }
+
+        return array(
+            "total" => count($logRows),
+            "data"  => $logRows,
+        );
     }
 
     private function validateServer($server)
