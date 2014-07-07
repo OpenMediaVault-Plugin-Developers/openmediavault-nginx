@@ -40,6 +40,7 @@ remove_nginx_logs()
 case "$1" in
     purge)
         omv_config_delete "//services/nginx"
+        omv_config_delete "//services/phpfpm"
     ;;
 
     remove)
