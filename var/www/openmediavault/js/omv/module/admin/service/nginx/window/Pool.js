@@ -70,7 +70,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Pool", {
                 xtype      : "groupcombo",
                 name       : "group",
                 fieldLabel : _("Group"),
-                groupType   : "all",
+                groupType  : "normal",
                 editable   : false,
                 plugins    : [{
                     ptype : "fieldinfo",
