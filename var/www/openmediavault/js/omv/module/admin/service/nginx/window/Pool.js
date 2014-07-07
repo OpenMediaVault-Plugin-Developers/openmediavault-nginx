@@ -62,6 +62,19 @@ Ext.define("OMV.module.admin.service.nginx.window.Pool", {
                 fieldLabel : _("User"),
                 userType   : "normal",
                 editable   : false,
+                listeners  : {
+                    "boxready" : function(combo) {
+                        var store = combo.getStore();
+
+                        store.on("load", function(store) {
+                            store.add({
+                                name : "openmediavault"
+                            },{
+                                name : "www-data"
+                            });
+                        });
+                    }
+                },
                 plugins    : [{
                     ptype : "fieldinfo",
                     text  : _("Set the user under which PHP scripts should be executed as.")
@@ -72,6 +85,19 @@ Ext.define("OMV.module.admin.service.nginx.window.Pool", {
                 fieldLabel : _("Group"),
                 groupType  : "normal",
                 editable   : false,
+                listeners  : {
+                    "boxready" : function(combo) {
+                        var store = combo.getStore();
+
+                        store.on("load", function(store) {
+                            store.add({
+                                name : "openmediavault"
+                            },{
+                                name : "www-data"
+                            });
+                        });
+                    }
+                },
                 plugins    : [{
                     ptype : "fieldinfo",
                     text  : _("Set the group under which PHP scripts should be executed as.")
