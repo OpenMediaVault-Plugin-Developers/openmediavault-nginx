@@ -57,24 +57,22 @@ Ext.define("OMV.module.admin.service.nginx.window.Pool", {
                 fieldLabel : _("Description"),
                 allowBlank : true
             },{
-                xtype      : "usercombo",
-                name       : "user",
-                fieldLabel : _("User"),
-                userType   : "normal",
-                editable   : false,
-                listeners  : {
-                    "boxready" : function(combo) {
-                        var store = combo.getStore();
+                xtype        : "usercombo",
+                name         : "user",
+                fieldLabel   : _("User"),
+                userType     : "normal",
+                editable     : false,
+                initComponent: Ext.Function.interceptAfter(OMV.form.field.UserComboBox.prototype, "initComponent", function() {
+                        var me = this;
 
-                        store.on("load", function(store) {
-                            store.add({
-                                name : "openmediavault"
+                        me.store.on("load", function(store, records) {
+                            store.addData({
+                                name: "openmediavault"
                             },{
-                                name : "www-data"
+                                name: "www-data"
                             });
                         });
-                    }
-                },
+                }),
                 plugins    : [{
                     ptype : "fieldinfo",
                     text  : _("Set the user under which PHP scripts should be executed as.")
@@ -85,19 +83,17 @@ Ext.define("OMV.module.admin.service.nginx.window.Pool", {
                 fieldLabel : _("Group"),
                 groupType  : "normal",
                 editable   : false,
-                listeners  : {
-                    "boxready" : function(combo) {
-                        var store = combo.getStore();
+                initComponent: Ext.Function.interceptAfter(OMV.form.field.GroupComboBox.prototype, "initComponent", function() {
+                        var me = this;
 
-                        store.on("load", function(store) {
-                            store.add({
-                                name : "openmediavault"
+                        me.store.on("load", function(store) {
+                            store.addData({
+                                name: "openmediavault"
                             },{
-                                name : "www-data"
+                                name: "www-data"
                             });
                         });
-                    }
-                },
+                }),
                 plugins    : [{
                     ptype : "fieldinfo",
                     text  : _("Set the group under which PHP scripts should be executed as.")
