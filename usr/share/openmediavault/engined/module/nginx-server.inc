@@ -30,6 +30,11 @@ class OMVModuleNginxServer extends OMVModuleServiceAbstract implements OMVINotif
         return "org.openmediavault.services.nginx";
     }
 
+    private function getSharedFolderEventMessagePath()
+    {
+        return "org.openmediavault.system.shares.sharedfolder";
+    }
+
     /**
      * Get the module name.
      */
@@ -48,6 +53,12 @@ class OMVModuleNginxServer extends OMVModuleServiceAbstract implements OMVINotif
         $dispatcher->addListener(
             OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
             $this->getEventMessagePath(),
+            array($moduleMgr->getModule("webserver"), "setDirty")
+        );
+
+        $dispatcher->addListener(
+            OMV_NOTIFY_MODIFY,
+            $this->getSharedFolderEventMessagePath(),
             array($moduleMgr->getModule("webserver"), "setDirty")
         );
     }
