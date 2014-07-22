@@ -127,15 +127,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Pool", {
                 plugins    : [{
                     ptype : "fieldinfo",
                     text  : _("This setting should be higher than the post max size. Setting a value of -1 makes it unlimited."),
-                }],
-                validator : function(value) {
-                    var otherField = me.findField("php_post_max_size");
-
-                    if (value != -1 && value < otherField.getValue())
-                        return "Value should be higher than POST max size";
-
-                    return true;
-                }
+                }]
             },{
                 xtype      : "numberfield",
                 name       : "php_post_max_size",
