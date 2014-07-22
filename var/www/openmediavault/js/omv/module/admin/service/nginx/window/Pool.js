@@ -83,11 +83,11 @@ Ext.define("OMV.module.admin.service.nginx.window.Pool", {
                 editable   : false,
                 onLoad     : Ext.Function.interceptBefore(OMV.form.field.GroupComboBox.prototype, "onLoad", function(store, records, success) {
                     if (success) {
-                        store.add({
-                            name : "openmediavault"
-                        },{
-                            name : "www-data"
-                        });
+                        store.add(
+                            { name : "openmediavault" },
+                            { name : "www-data" },
+                            { name : "users" }
+                        );
                     }
                 }),
                 plugins : [{
