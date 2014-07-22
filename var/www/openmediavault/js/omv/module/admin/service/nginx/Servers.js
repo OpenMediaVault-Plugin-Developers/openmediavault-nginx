@@ -155,9 +155,9 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
             scope    : me,
             disabled : true,
             selectionConfig : {
-                minSelection : 1,
-                maxSelection : 1,
-                enableFn     : me.updateLogButtonState
+                minSelections : 1,
+                maxSelections : 1,
+                enabledFn     : me.logButtonEnabled
             }
         },{
             id       : me.getId() + "-error-log",
@@ -167,16 +167,16 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
             scope    : me,
             disabled : true,
             selectionConfig : {
-                minSelection : 1,
-                maxSelection : 1,
-                enableFn     : me.updateLogButtonState
+                minSelections : 1,
+                maxSelections : 1,
+                enabledFn     : me.logButtonEnabled
             }
         }]);
 
         return items;
     },
 
-    updateLogButtonState : function(button, records) {
+    logButtonEnabled : function(button, records) {
         var record = records[0];
 
         return record.get("log_enable");
