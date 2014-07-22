@@ -143,9 +143,6 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
     initComponent : function() {
         var me = this;
 
-        var selectionModel = me.getSelectionModel();
-        selectionModel.on("selectionchange", me.updateLogButtonState, me);
-
         me.doReload();
         me.callParent(arguments);
     },
@@ -162,39 +159,33 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
             text     : me.accessLogButtonText,
             handler  : Ext.Function.bind(me.onViewLogButton, me, [ "access" ]),
             scope    : me,
-            disabled : true
+            disabled : true,
+            selectionChangeConfig : {
+                minSelection : 1,
+                maxSelection : 1,
+                enableFn     : me.updateLogButtonState
+            }
         },{
             id       : me.getId() + "-error-log",
             xtype    : "button",
             text     : me.errorLogButtonText,
             handler  : Ext.Function.bind(me.onViewLogButton, me, [ "error" ]),
             scope    : me,
-            disabled : true
+            disabled : true,
+            selectionChangeConfig : {
+                minSelection : 1,
+                maxSelection : 1,
+                enableFn     : me.updateLogButtonState
+            }
         }]);
 
         return items;
     },
 
-    updateLogButtonState : function() {
-        var me = this;
+    updateLogButtonState : function(records) {
+        var record = records[0];
 
-        var buttons = [
-            "access-log",
-            "error-log"
-        ];
-
-        var records = me.getSelection();
-        var state = records.length === 1 ? "enable" : "disable";
-
-        if (records.length === 1) {
-            var record = records.pop();
-
-            state = record.get("log_enable") ? "enable" : "disable";
-        }
-
-        Ext.each(buttons, function(buttonName) {
-            me.queryById(me.getId() + "-" + buttonName)[state]();
-        });
+        return record.get("log_enable");
     },
 
     onAddButton : function() {
