@@ -154,7 +154,7 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
             handler  : Ext.Function.bind(me.onViewLogButton, me, [ "access" ]),
             scope    : me,
             disabled : true,
-            selectionChangeConfig : {
+            selectionConfig : {
                 minSelection : 1,
                 maxSelection : 1,
                 enableFn     : me.updateLogButtonState
@@ -166,7 +166,7 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
             handler  : Ext.Function.bind(me.onViewLogButton, me, [ "error" ]),
             scope    : me,
             disabled : true,
-            selectionChangeConfig : {
+            selectionConfig : {
                 minSelection : 1,
                 maxSelection : 1,
                 enableFn     : me.updateLogButtonState
