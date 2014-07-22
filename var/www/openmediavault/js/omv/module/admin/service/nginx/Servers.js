@@ -35,6 +35,7 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
 
     accessLogButtonText : _("Access log"),
     errorLogButtonText  : _("Error log"),
+    reloadOnActivate    : true,
 
     columns : [{
         header    : _("UUID"),
@@ -140,13 +141,6 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
         }
     }),
 
-    initComponent : function() {
-        var me = this;
-
-        me.doReload();
-        me.callParent(arguments);
-    },
-
     getTopToolbarItems : function() {
         var me = this;
         var items = me.callParent(arguments);
@@ -182,7 +176,7 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
         return items;
     },
 
-    updateLogButtonState : function(records) {
+    updateLogButtonState : function(button, records) {
         var record = records[0];
 
         return record.get("log_enable");
