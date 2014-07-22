@@ -272,6 +272,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 allowBlank : true,
                 readOnly   : true,
                 hidden     : true,
+                value      : "",
                 plugins    : [{
                     ptype : "fieldinfo",
                     text  : _("The SSL certificate.")
