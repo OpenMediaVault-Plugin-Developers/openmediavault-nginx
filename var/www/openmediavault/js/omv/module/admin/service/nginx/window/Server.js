@@ -125,7 +125,6 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
 
     height          : 600,
     hideResetButton : true,
-    uuid            : null,
 
     getFormItems : function() {
         var me = this;
