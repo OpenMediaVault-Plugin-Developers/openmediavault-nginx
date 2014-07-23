@@ -321,7 +321,8 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                         direction : "ASC",
                         property  : "name"
                     }]
-                })
+                }),
+                value : ""
             },{
                 xtype      : "checkbox",
                 name       : "php_use_default_config",
