@@ -138,6 +138,11 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         }
 
         // General
+        $pool["pm_max_children"]         = intval($pool["pm_max_children"]);
+        $pool["pm_start_servers"]        = intval($pool["pm_start_servers"]);
+        $pool["pm_min_spare_servers"]    = intval($pool["pm_min_spare_servers"]);
+        $pool["pm_max_spare_servers"]    = intval($pool["pm_max_spare_servers"]);
+        $pool["pm_max_requests"]         = intval($pool["pm_max_requests"]);
         $pool["php_display_errors"]      = boolval($pool["php_display_errors"]);
         $pool["php_html_errors"]         = boolval($pool["php_html_errors"]);
         $pool["php_max_execution_time"]  = intval($pool["php_max_execution_time"]);
@@ -168,6 +173,11 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
                     "description"             : { "type" : "string" },
                     "user"                    : { "type" : "string" },
                     "group"                   : { "type" : "string" },
+                    "pm_max_children"         : { "type" : "integer", "minimum" : 1 },
+                    "pm_start_servers"        : { "type" : "integer", "minimum" : 1 },
+                    "pm_min_spare_servers"    : { "type" : "integer", "minimum" : 1 },
+                    "pm_max_spare_servers"    : { "type" : "integer", "minimum" : 1 },
+                    "pm_max_requests"         : { "type" : "integer", "minimum" : 0 },
                     "php_display_errors"      : { "type" : "boolean" },
                     "php_html_errors"         : { "type" : "boolean" },
                     "php_max_execution_time"  : { "type" : "integer", "minimum" : 0 },
@@ -187,6 +197,11 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
             "description"             => $params["description"],
             "user"                    => $params["user"],
             "group"                   => $params["group"],
+            "pm_max_children"         => intval($params["pm_max_children"]),
+            "pm_start_servers"        => intval($params["pm_start_servers"]),
+            "pm_min_spare_servers"    => intval($params["pm_min_spare_servers"]),
+            "pm_max_spare_servers"    => intval($params["pm_max_spare_servers"]),
+            "pm_max_requests"         => intval($params["pm_max_requests"]),
             "php_display_errors"      => boolval($params["php_display_errors"]),
             "php_html_errors"         => boolval($params["php_html_errors"]),
             "php_memory_limit"        => intval($params["php_memory_limit"]),
