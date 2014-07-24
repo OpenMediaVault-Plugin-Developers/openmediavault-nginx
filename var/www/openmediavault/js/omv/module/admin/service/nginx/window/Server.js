@@ -37,14 +37,28 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
         ptype        : "linkedfields",
         correlations : [{
             name : [
-                "use_public_directory"
+                "use_root",
             ],
             conditions: [{
-                name  : "sharedfolderref",
-                value : ""
+                name : "sharedfolderref",
+                op   : "z"
             }],
             properties : [
                 "readOnly"
+            ]
+        },{
+            name : [
+                "use_public_directory"
+            ],
+            conditions: [{
+                name  : "use_root",
+                value : true
+            },{
+                name : "sharedfolderref",
+                op   : "n"
+            }],
+            properties : [
+                "!readOnly"
             ]
         },{
             name : [
@@ -117,6 +131,18 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 "!readOnly",
                 "show"
             ]
+        },{
+            name : [
+                "use_index_html",
+                "use_index_php",
+            ],
+            conditions : [{
+                name  : "use_index",
+                value : true
+            }],
+            properties : [
+                "!readOnly"
+            ]
         }]
     }],
 
@@ -138,26 +164,32 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 fieldLabel : _("Enable"),
                 checked    : true
             },{
-                xtype      : "checkbox",
-                name       : "log_enable",
-                fieldLabel : _("Enable logging"),
-                checked    : true
-            },{
                 xtype      : "sharedfoldercombo",
                 name       : "sharedfolderref",
-                fieldLabel : _("Document root"),
+                fieldLabel : _("Directory"),
                 allowBlank : true,
                 allowNone  : true,
                 value      : "",
                 plugins    : [{
                     ptype : "fieldinfo",
-                    text  : _("The location needs to have at least read permissions for the user/group www-data")
+                    text  : _("The location needs to have at least read permissions for the user/group www-data.") + " " +
+                            _("This option will populate the $root_path variable for usage in extra options or as document root.")
+                }]
+            },{
+                xtype      : "checkbox",
+                name       : "use_root",
+                fieldLabel : _("Use root"),
+                checked    : true,
+                plugins    : [{
+                    ptype : "fieldinfo",
+                    text  : _("Use 'Directory' as document root.")
                 }]
             },{
                 xtype      : "checkbox",
                 name       : "use_public_directory",
                 fieldLabel : _("Use public directory"),
                 checked    : false,
+                readOnly   : true,
                 plugins    : [{
                     ptype : "fieldinfo",
                     text  : _("Use if you serve your public files in a subfolder like public_html or public. This folder will be the document root. It also avoids the need to create an additional shared folder in such cases.")
@@ -289,7 +321,11 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 xtype      : "checkbox",
                 name       : "php_enable",
                 fieldLabel : _("Enable PHP"),
-                checked    : false
+                checked    : false,
+                plugins    : [{
+                    ptype : "fieldinfo",
+                    text  : _("This enables PHP and makes the $socket variable (for the chosen PHP-FPM pool) available in extra options.")
+                }]
             },{
                 xtype         : "combo",
                 name          : "php_pool_ref",
@@ -330,41 +366,75 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 checked    : true,
                 plugins    : [{
                     ptype : "fieldinfo",
-                    text  : _("Use the default Nginx config for PHP.")
+                    text  : _("Use the default Nginx config for PHP.") + " " +
+                            _("Uncheck this if you want to use your own configuration to connect to the PHP socket.")
                 }]
             }]
         },{
             xtype : "fieldset",
             title : _("Options"),
             items : [{
+                xtype : "fieldset",
+                title : _("Index"),
+                items : [{
+                    xtype      : "checkbox",
+                    name       : "use_index",
+                    boxLabel   : _("Use index"),
+                    checked    : true,
+                },{
+                    border   : false,
+                    layout   : "column",
+                    defaults : {
+                        border         : false,
+                        columnWidth    : 0.5,
+                        hideLabel      : true,
+                        labelSeparator : "",
+                        layout         : "form"
+                    },
+                    items : [{
+                        items : [{
+                            xtype    : "checkbox",
+                            name     : "use_index_html",
+                            boxLabel : "index.html",
+                            checked  : true
+                        }]
+                    },{
+                        items : [{
+                            xtype    : "checkbox",
+                            name     : "use_index_php",
+                            boxLabel : "index.php",
+                            checked  : false
+                        }]
+                    }]
+                }]
+            },{
                 border   : false,
                 layout   : "column",
                 defaults : {
-                    border      : false,
-                    columnWidth : 0.5,
-                    layout      : "form"
+                    border         : false,
+                    columnWidth    : 0.5,
+                    hideLabel      : true,
+                    labelSeparator : "",
+                    layout         : "form"
                 },
-                items  : [{
-                    defaults : {
-                        hideLabel      : true,
-                        labelSeparator : ""
-                    },
+                items : [{
                     items : [{
+                        xtype    : "checkbox",
+                        name     : "autoindex",
+                        boxLabel : "Autoindex",
+                        checked  : false
+                    },{
                         xtype      : "checkbox",
-                        name       : "autoindex",
-                        boxLabel   : "Autoindex",
-                        checked    : false
+                        name       : "log_enable",
+                        fieldLabel : _("Enable log"),
+                        checked    : true
                     }]
                 },{
-                    defaults : {
-                        hideLabel      : true,
-                        labelSeparator : ""
-                    },
                     items : [{
-                        xtype      : "checkbox",
-                        name       : "deny_htaccess",
-                        boxLabel   : _("Don't serve .htaccess"),
-                        checked    : false
+                        xtype    : "checkbox",
+                        name     : "deny_htaccess",
+                        boxLabel : _("Don't serve .htaccess"),
+                        checked  : false
                     }]
                 }]
             },{
@@ -396,12 +466,8 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             items : [{
                 xtype      : "textarea",
                 name       : "extra_options",
-                fieldLabel : _("Extra options"),
-                allowBlank : true,
-                plugins    : [{
-                    ptype : "fieldinfo",
-                    text  : _("Use the variable $root_path to insert the document root. Use the variable $socket to insert the socket."),
-                }]
+                minHeight  : 150,
+                allowBlank : true
             }]
         }];
     }

@@ -220,7 +220,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 
         // General
         $server["enable"]               = boolval($server["enable"]);
-        $server["log_enable"]           = boolval($server["log_enable"]);
+        $server["use_root"]    = boolval($server["use_root"]);
         $server["use_public_directory"] = boolval($server["use_public_directory"]);
         $server["port"]                 = intval($server["port"]);
         $server["port_default_server"]  = boolval($server["port_default_server"]);
@@ -236,8 +236,12 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         $server["php_use_default_config"] = boolval($server["php_use_default_config"]);
 
         // Options
+        $server["use_index"]                   = boolval($server["use_index"]);
+        $server["use_index_html"]              = boolval($server["use_index_html"]);
+        $server["use_index_php"]               = boolval($server["use_index_php"]);
         $server["autoindex"]                   = boolval($server["autoindex"]);
         $server["deny_htaccess"]               = boolval($server["deny_htaccess"]);
+        $server["log_enable"]                  = boolval($server["log_enable"]);
         $server["large_client_header_buffers"] = intval($server["large_client_header_buffers"]);
 
         // If ports is missing a value, just set default value
@@ -257,7 +261,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
                 $server["sharedfolderref"]
             );
 
-            if ($server["use_public_directory"]) {
+            if ($server["use_root"] && $server["use_public_directory"]) {
                 $rootFullPath = $rootFullPath . $server["public_directory"];
             }
         }
@@ -306,8 +310,8 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
                 "properties" : {
                     "uuid"                 : {' . $GLOBALS["OMV_JSONSCHEMA_UUID_UNDEFINED"] . '},
                     "enable"               : { "type" : "boolean" },
-                    "log_enable"           : { "type" : "boolean" },
                     "sharedfolderref"      : {' . $GLOBALS["OMV_JSONSCHEMA_UUID_NONE"] . '},
+                    "use_root"    : { "type" : "boolean" },
                     "use_public_directory" : { "type" : "boolean" },
                     "public_directory"     : { "type" : "string", "optional" : true },
                     "host_type"            : { "type" : "string", "enum" : [ "port", "name" ] },
@@ -325,8 +329,12 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
                     "php_pool_ref"           : {' . $GLOBALS["OMV_JSONSCHEMA_UUID_NONE"] . '},
                     "php_use_default_config" : { "type" : "boolean" },
 
+                    "use_index"                   : { "type" : "boolean" },
+                    "use_index_html"              : { "type" : "boolean" },
+                    "use_index_php"               : { "type" : "boolean" },
                     "autoindex"                   : { "type" : "boolean" },
                     "deny_htaccess"               : { "type" : "boolean" },
+                    "log_enable"                  : { "type" : "boolean" },
                     "large_client_header_buffers" : { "type" : "integer", "enum" : [ 8, 16, 32 ]},
 
                     "extra_options" : { "type" : "string" }
@@ -336,11 +344,11 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 
         $server = array(
             "uuid"                 =>
-                ($params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"])
-                ? OMVUtil::uuid() : $params["uuid"],
+                ($params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"]) ?
+                OMVUtil::uuid() : $params["uuid"],
             "enable"               => boolval($params["enable"]),
-            "log_enable"           => boolval($params["log_enable"]),
             "sharedfolderref"      => $params["sharedfolderref"],
+            "use_root"    => boolval($params["use_root"]),
             "use_public_directory" => boolval($params["use_public_directory"]),
             "public_directory"     => $params["public_directory"],
             "host_type"            => $params["host_type"],
@@ -358,8 +366,12 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             "php_pool_ref"            => $params["php_pool_ref"],
             "php_use_default_config"  => boolval($params["php_use_default_config"]),
 
+            "use_index"                   => boolval($params["use_index"]),
+            "use_index_html"              => boolval($params["use_index_html"]),
+            "use_index_php"               => boolval($params["use_index_php"]),
             "autoindex"                   => boolval($params["autoindex"]),
             "deny_htaccess"               => boolval($params["deny_htaccess"]),
+            "log_enable"                  => boolval($params["log_enable"]),
             "large_client_header_buffers" => intval($params["large_client_header_buffers"]),
 
             "extra_options" => trim($params["extra_options"]),

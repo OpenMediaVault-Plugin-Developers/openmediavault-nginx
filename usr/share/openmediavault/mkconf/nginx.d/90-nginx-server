@@ -75,18 +75,19 @@ generate_server_nginx_config()
     # Get document root if it's set
     local root_ref=$(omv_config_get "${xpath}/sharedfolderref")
     local root=""
+    local use_root=$(omv_config_get "${xpath}/use_root")
+    local use_public_directory=$(omv_config_get "${xpath}/use_public_directory")
 
     if [ -n "${root_ref}" ]; then
         root=$(omv_get_sharedfolder_path "${root_ref}")
 
-        if [ "$(omv_config_get "${xpath}/use_public_directory")" -eq "1" ]; then
+        if [ $use_root -eq 1 -a ${use_public_directory} -eq 1 ]; then
             root="${root}/$(omv_config_get "${xpath}/public_directory")"
         fi
     fi
 
     # Variables
     local uuid=$(omv_config_get "${xpath}/uuid")
-    local log_enable=$(omv_config_get "${xpath}/log_enable")
     local host_type=$(omv_config_get "${xpath}/host_type")
     local server_name=$(omv_config_get "${xpath}/server_name")
     local port=$(omv_config_get "${xpath}/port")
@@ -105,70 +106,74 @@ generate_server_nginx_config()
     local php_use_default_config=$(omv_config_get "${xpath}/php_use_default_config")
 
     # Options
+    local use_index=$(omv_config_get "${xpath}/use_index")
+    local use_index_html=$(omv_config_get "${xpath}/use_index_html")
+    local use_index_php=$(omv_config_get "${xpath}/use_index_php")
     local autoindex=$(omv_config_get "${xpath}/autoindex")
     local deny_htaccess=$(omv_config_get "${xpath}/deny_htaccess")
+    local log_enable=$(omv_config_get "${xpath}/log_enable")
     local large_client_header_buffers=$(omv_config_get "${xpath}/large_client_header_buffers")
-
-    # Extra options
-    local extra_options=$(omv_config_get "${xpath}/extra_options")
 
     # Start generating config
     echo "server {" >> ${config}
 
+    # Non SSL config
     # Always listen to port unless SSL is forced
     if [ $ssl_force -ne 1 ]; then
-        default_server=""
-
         if [ $port_default_server -eq 1 ]; then
             default_server=" default_server"
         fi
 
-        echo "    listen ${port}${default_server};" >> ${config}
+        echo "    listen [::]:${port}${default_server} ipv6only=off;" >> ${config}
     fi
 
+    # SSL config
     if [ $ssl_enable -eq 1 ]; then
-        default_server=""
-
         if [ $ssl_port_default_server -eq 1 ]; then
-            default_server=" default_server"
+            ssl_default_server=" default_server"
         fi
 
-        echo "    listen ${ssl_port}${default_server} ssl;" >> ${config}
+        echo "    listen [::]:${ssl_port}${ssl_default_server} ssl ipv6only=off;" >> ${config}
         echo "    ssl_certificate     ${OMV_CERTIFICATE_DIR}/certs/${OMV_CERTIFICATE_PREFIX}${sslcertificateref}.crt;" >> ${config}
         echo "    ssl_certificate_key ${OMV_CERTIFICATE_DIR}/private/${OMV_CERTIFICATE_PREFIX}${sslcertificateref}.key;" >> ${config}
     fi
 
-    if [ $host_type = ${HOST_TYPE_NAME} ]; then
+    # Set the server_name option if the server is name-based.
+    if [ $host_type = $HOST_TYPE_NAME ]; then
         echo "    server_name ${server_name};" >> ${config}
     fi
 
-    local index_files=""
-
-    # Add root directory
     if [ -n "${root}" ]; then
+        # Add root_path variable.
         echo "    set \$root_path \"${root}\";" >> ${config}
-        echo "    root \$root_path;" >> ${config}
 
-        # Add valid index files
-        index_files="index.html"
+        # Set the root option if it's enabled.
+        if [ $use_root -eq 1 ]; then
+            echo "    root \$root_path;" >> ${config}
+        fi
     fi
 
-    # Only add index.php to index_files if the document root is set
-    if [ $php_enable -eq 1 -a -n "${root}" ]; then
-        index_files="${index_files} index.php"
+    # Add valid index files.
+    if [ $use_index -eq 1 ]; then
+        local index_files=""
+
+        if [ $use_index_html -eq 1 ]; then
+            index_files+=" index.html"
+        fi
+
+        if [ $use_index_php -eq 1 ]; then
+            index_files+=" index.php"
+        fi
+
+        echo "    index${index_files};" >> ${config}
     fi
 
-    # If the index_files variable is empty we don't add the index option
-    if [ -n "${index_files}" ]; then
-        echo "    index ${index_files};" >> ${config}
-    fi
-
-    # Add $socket variable
+    # Add $socket variable if PHP is enabled.
     if [ $php_enable -eq 1 ]; then
         echo "    set \$socket \"unix:/var/run/fpm-${php_pool_ref}.sock\";" >> ${config}
     fi
 
-    # Add default PHP configuration
+    # Add default PHP configuration if it's enabled.
     if [ $php_enable -eq 1 -a $php_use_default_config  -eq 1 ]; then
         echo "    location ~ \.php$ {" >> ${config}
         echo "        fastcgi_split_path_info ^(.+\.php)(/.+)$;" >> ${config}
@@ -178,13 +183,13 @@ generate_server_nginx_config()
         echo "    }" >> ${config}
     fi
 
-    # Add logs
+    # Enable logs.
     if [ $log_enable -eq 1 ]; then
         echo "    access_log ${NGINX_LOG_DIR}/${uuid}-access.log;" >> ${config}
         echo "    error_log  ${NGINX_LOG_DIR}/${uuid}-error.log;" >> ${config}
     fi
 
-    # Add options
+    # Add other options.
     if [ $autoindex -eq 1 ]; then
         echo "    autoindex on;" >> ${config}
     fi
@@ -197,7 +202,7 @@ generate_server_nginx_config()
 
     echo "    large_client_header_buffers 4 ${large_client_header_buffers}k;" >> ${config}
 
-    # Add other options
+    # Add extra options.
     xmlstarlet sel -t -m "${xpath}" \
         -i "string-length(extra_options) > 0" \
             -o "    " -v extra_options -n \
