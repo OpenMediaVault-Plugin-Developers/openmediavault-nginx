@@ -151,10 +151,47 @@ Ext.define("OMV.module.admin.service.nginx.window.Pool", {
                 fieldLabel : _("Max upload filesize (MB)"),
                 minValue   : 1,
                 value      : 2
+            }]
+        },{
+            xtype : "fieldset",
+            title : _("Process manager"),
+            items : [{
+                xtype      : "numberfield",
+                name       : "pm_max_children",
+                fieldLabel : _("Max children"),
+                minValue   : 1,
+                value      : 5
             },{
+                xtype      : "numberfield",
+                name       : "pm_start_servers",
+                fieldLabel : _("Start servers"),
+                minValue   : 1,
+                value      : 2
+            },{
+                xtype      : "numberfield",
+                name       : "pm_min_spare_servers",
+                fieldLabel : _("Min spare servers"),
+                minValue   : 1,
+                value      : 1
+            },{
+                xtype      : "numberfield",
+                name       : "pm_max_spare_servers",
+                fieldLabel : _("Max spare servers"),
+                minValue   : 1,
+                value      : 3
+            },{
+                xtype      : "numberfield",
+                name       : "pm_max_requests",
+                fieldLabel : _("Max requests"),
+                minValue   : 0,
+                value      : 0
+            }]
+        },{
+            xtype : "fieldset",
+            title : _("Extra options"),
+            items : [{
                 xtype      : "textarea",
                 name       : "extra_options",
-                fieldLabel : _("Extra options"),
                 allowBlank : true
             }]
         }];
