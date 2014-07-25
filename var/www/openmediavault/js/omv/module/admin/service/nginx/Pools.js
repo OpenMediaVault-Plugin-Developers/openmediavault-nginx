@@ -31,6 +31,9 @@ Ext.define("OMV.module.admin.service.nginx.Pools", {
         "OMV.module.admin.service.nginx.window.Pool"
     ],
 
+    hidePagingToolbar : false,
+    reloadOnActivate  : true,
+
     columns : [{
         header    : _("UUID"),
         hidden    : true,
@@ -47,36 +50,29 @@ Ext.define("OMV.module.admin.service.nginx.Pools", {
         dataIndex : "description"
     }],
 
-    initComponent : function() {
-        var me = this;
-
-        Ext.apply(me, {
-            store : Ext.create("OMV.data.Store", {
-                autoload   : true,
-                remoteSort : false,
-                model      : OMV.data.Model.createImplicit({
-                    idProperty   : "uuid",
-                    totalPoperty : "total",
-                    fields       : [
-                        { name : "uuid" },
-                        { name : "name" },
-                        { name : "description" }
-                    ]
-                }),
-                proxy : {
-                    type    : "rpc",
-                    rpcData : {
-                        "service" : "PhpFpm",
-                        "method"  : "getList"
-                    }
-                }
-            })
-        });
-
-        me.doReload();
-
-        me.callParent(arguments);
-    },
+    store : Ext.create("OMV.data.Store", {
+        autoload : true,
+        model    : OMV.data.Model.createImplicit({
+            idProperty : "uuid",
+            fields     : [
+                { name : "uuid" },
+                { name : "name" },
+                { name : "description" }
+            ]
+        }),
+        proxy : {
+            type    : "rpc",
+            rpcData : {
+                "service" : "PhpFpm",
+                "method"  : "getList"
+            }
+        },
+        remoteSort : true,
+        sorters    : [{
+            direction : "ASC",
+            property  : "name"
+        }]
+    }),
 
     onAddButton : function() {
         var me = this;
