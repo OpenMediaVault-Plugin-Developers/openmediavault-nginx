@@ -77,12 +77,13 @@ generate_server_nginx_config()
     local root=""
     local use_root=$(omv_config_get "${xpath}/use_root")
     local use_public_directory=$(omv_config_get "${xpath}/use_public_directory")
+    local public_directory=$(omv_config_get "${xpath}/public_directory")
 
     if [ -n "${root_ref}" ]; then
         root=$(omv_get_sharedfolder_path "${root_ref}")
 
         if [ $use_root -eq 1 -a ${use_public_directory} -eq 1 ]; then
-            root="${root}/$(omv_config_get "${xpath}/public_directory")"
+            root="${root}/${public_directory}"
         fi
     fi
 
