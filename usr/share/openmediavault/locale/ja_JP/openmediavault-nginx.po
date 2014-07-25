@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-nginx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-05 12:52-0500\n"
-"PO-Revision-Date: 2014-07-07 00:48+0000\n"
-"Last-Translator: Toshihiro Kan <kansuke4649@gmail.com>\n"
+"POT-Creation-Date: 2014-07-25 05:25-0500\n"
+"PO-Revision-Date: 2014-07-25 10:26+0000\n"
+"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/projects/p/openmediavault-nginx/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,6 +20,9 @@ msgstr ""
 
 msgid "A PHP-FPM pool with the given name already exists"
 msgstr "設定したPHP-FPMプールの名前は既に使用されています。"
+
+msgid "Access log"
+msgstr ""
 
 msgid "Add pool"
 msgstr "プールの追加"
@@ -48,11 +51,11 @@ msgstr "デフォルトサーバ"
 msgid "Description"
 msgstr "詳細"
 
+msgid "Directory"
+msgstr ""
+
 msgid "Display errors"
 msgstr "エラーの表示"
-
-msgid "Document root"
-msgstr "ドキュメントルート"
 
 msgid "Don't serve .htaccess"
 msgstr ".htaccess は使えません"
@@ -72,11 +75,14 @@ msgstr "PHPを有効にする"
 msgid "Enable SSL"
 msgstr "SSLを有効にする"
 
-msgid "Enable logging"
-msgstr "ログの有効化"
+msgid "Enable log"
+msgstr ""
 
 msgid "Enabled"
 msgstr "有効化済み"
+
+msgid "Error log"
+msgstr ""
 
 msgid "Event"
 msgstr "イベント"
@@ -102,17 +108,44 @@ msgstr "ヘッダバッファサイズ"
 msgid "Host type"
 msgstr "ホストタイプ"
 
+msgid "Index"
+msgstr ""
+
+msgid "Line"
+msgstr ""
+
+msgid "Log"
+msgstr ""
+
 msgid "Max POST size (MB)"
 msgstr "最大POSTサイズ(MB)"
 
+msgid "Max children"
+msgstr ""
+
 msgid "Max execution time (s)"
 msgstr "最大実行時間(s)"
+
+msgid "Max requests"
+msgstr ""
+
+msgid "Max spare servers"
+msgstr ""
 
 msgid "Max upload filesize (MB)"
 msgstr "最大アップロードファイルサイズ(MB)"
 
 msgid "Memory limit (MB)"
 msgstr "メモリ上限(MB)"
+
+msgid "Message"
+msgstr ""
+
+msgid "Message - row {0}"
+msgstr ""
+
+msgid "Min spare servers"
+msgstr ""
 
 msgid "Name"
 msgstr "名前"
@@ -134,6 +167,9 @@ msgstr "プール"
 
 msgid "Port"
 msgstr "ポート"
+
+msgid "Process manager"
+msgstr ""
 
 msgid "Public directory"
 msgstr "公開ディレクトリ"
@@ -171,13 +207,26 @@ msgstr "PHPスクリプトを実行するユーザーを設定します。"
 msgid "Settings"
 msgstr "設定"
 
+msgid "Start servers"
+msgstr ""
+
 msgid "The SSL certificate."
 msgstr "SSL証明書。"
 
 msgid ""
 "The location needs to have at least read permissions for the user/group www-"
-"data"
-msgstr "この場所は www-data ユーザー/グループが少なくとも読み込み権限を持っている必要があります"
+"data."
+msgstr ""
+
+msgid ""
+"This enables PHP and makes the $socket variable (for the chosen PHP-FPM "
+"pool) available in extra options."
+msgstr ""
+
+msgid ""
+"This option will populate the $root_path variable for usage in extra options"
+" or as document root."
+msgstr ""
 
 msgid ""
 "This setting affects the max upload filesize and should preferably be "
@@ -195,6 +244,14 @@ msgstr "URL"
 msgid "UUID"
 msgstr "UUID"
 
+msgid ""
+"Uncheck this if you want to use your own configuration to connect to the PHP"
+" socket."
+msgstr ""
+
+msgid "Use 'Directory' as document root."
+msgstr ""
+
 msgid "Use HTML tags in error messages."
 msgstr "エラーメッセージにHTMLタグを使用します。"
 
@@ -204,16 +261,17 @@ msgid ""
 "create an additional shared folder in such cases."
 msgstr "あなたがpublic_htmlやpublicのようなサブフォルダに公開ファイルを格納する場合に使用します。このフォルダはドキュメントルートとなります。また、このような場合に追加の共有フォルダを作成する必要性を回避します。"
 
+msgid "Use index"
+msgstr ""
+
 msgid "Use public directory"
 msgstr "公開ディレクトリを使用します。"
 
+msgid "Use root"
+msgstr ""
+
 msgid "Use the default Nginx config for PHP."
 msgstr "PHPのためのデフォルトのNginx設定を使用します。"
-
-msgid ""
-"Use the variable $root_path to insert the document root. Use the variable "
-"$socket to insert the socket."
-msgstr "ドキュメントルートを挿入するために変数$root_pathを使用してください。 ソケットを挿入する場合は変数$socketを使用してください。"
 
 msgid "User"
 msgstr "ユーザー"

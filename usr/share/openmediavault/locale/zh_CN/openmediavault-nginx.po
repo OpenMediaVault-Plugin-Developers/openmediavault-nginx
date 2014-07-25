@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-nginx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-05 12:52-0500\n"
-"PO-Revision-Date: 2014-07-06 00:39+0000\n"
-"Last-Translator: songming <by@songming.me>\n"
+"POT-Creation-Date: 2014-07-25 05:25-0500\n"
+"PO-Revision-Date: 2014-07-25 10:26+0000\n"
+"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/openmediavault-nginx/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "A PHP-FPM pool with the given name already exists"
+msgstr ""
+
+msgid "Access log"
 msgstr ""
 
 msgid "Add pool"
@@ -48,11 +51,11 @@ msgstr "默认服务器"
 msgid "Description"
 msgstr "描述"
 
+msgid "Directory"
+msgstr ""
+
 msgid "Display errors"
 msgstr "显示错误"
-
-msgid "Document root"
-msgstr "文档根目录"
 
 msgid "Don't serve .htaccess"
 msgstr ""
@@ -72,11 +75,14 @@ msgstr "启用PHP"
 msgid "Enable SSL"
 msgstr "启用SSL"
 
-msgid "Enable logging"
-msgstr "启用日志"
+msgid "Enable log"
+msgstr ""
 
 msgid "Enabled"
 msgstr "启用"
+
+msgid "Error log"
+msgstr ""
 
 msgid "Event"
 msgstr "事件"
@@ -102,17 +108,44 @@ msgstr "头缓冲大小"
 msgid "Host type"
 msgstr "主机类型"
 
+msgid "Index"
+msgstr ""
+
+msgid "Line"
+msgstr ""
+
+msgid "Log"
+msgstr ""
+
 msgid "Max POST size (MB)"
 msgstr "最大POST大小(MB)"
 
+msgid "Max children"
+msgstr ""
+
 msgid "Max execution time (s)"
 msgstr "最大执行时间(s)"
+
+msgid "Max requests"
+msgstr ""
+
+msgid "Max spare servers"
+msgstr ""
 
 msgid "Max upload filesize (MB)"
 msgstr "最大上传文件大小(MB)"
 
 msgid "Memory limit (MB)"
 msgstr "内存限制(MB)"
+
+msgid "Message"
+msgstr ""
+
+msgid "Message - row {0}"
+msgstr ""
+
+msgid "Min spare servers"
+msgstr ""
 
 msgid "Name"
 msgstr "名称"
@@ -134,6 +167,9 @@ msgstr ""
 
 msgid "Port"
 msgstr "端口"
+
+msgid "Process manager"
+msgstr ""
 
 msgid "Public directory"
 msgstr "公共目录"
@@ -171,12 +207,25 @@ msgstr ""
 msgid "Settings"
 msgstr "设置"
 
+msgid "Start servers"
+msgstr ""
+
 msgid "The SSL certificate."
 msgstr "SSL证书。"
 
 msgid ""
 "The location needs to have at least read permissions for the user/group www-"
-"data"
+"data."
+msgstr ""
+
+msgid ""
+"This enables PHP and makes the $socket variable (for the chosen PHP-FPM "
+"pool) available in extra options."
+msgstr ""
+
+msgid ""
+"This option will populate the $root_path variable for usage in extra options"
+" or as document root."
 msgstr ""
 
 msgid ""
@@ -195,6 +244,14 @@ msgstr "URL"
 msgid "UUID"
 msgstr "UUID"
 
+msgid ""
+"Uncheck this if you want to use your own configuration to connect to the PHP"
+" socket."
+msgstr ""
+
+msgid "Use 'Directory' as document root."
+msgstr ""
+
 msgid "Use HTML tags in error messages."
 msgstr ""
 
@@ -204,15 +261,16 @@ msgid ""
 "create an additional shared folder in such cases."
 msgstr ""
 
+msgid "Use index"
+msgstr ""
+
 msgid "Use public directory"
 msgstr "使用公共目录"
 
-msgid "Use the default Nginx config for PHP."
+msgid "Use root"
 msgstr ""
 
-msgid ""
-"Use the variable $root_path to insert the document root. Use the variable "
-"$socket to insert the socket."
+msgid "Use the default Nginx config for PHP."
 msgstr ""
 
 msgid "User"
