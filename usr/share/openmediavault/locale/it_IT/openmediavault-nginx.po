@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-nginx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-05 12:52-0500\n"
-"PO-Revision-Date: 2014-07-07 20:59+0000\n"
-"Last-Translator: Paolo Velati <paolo.velati@gmail.com>\n"
+"POT-Creation-Date: 2014-07-25 05:25-0500\n"
+"PO-Revision-Date: 2014-07-25 10:26+0000\n"
+"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/openmediavault-nginx/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "A PHP-FPM pool with the given name already exists"
+msgstr ""
+
+msgid "Access log"
 msgstr ""
 
 msgid "Add pool"
@@ -48,11 +51,11 @@ msgstr "Server predefinito"
 msgid "Description"
 msgstr "Descrizione"
 
+msgid "Directory"
+msgstr ""
+
 msgid "Display errors"
 msgstr "Mostra errori"
-
-msgid "Document root"
-msgstr "Cartella radice"
 
 msgid "Don't serve .htaccess"
 msgstr "Non utilizzare .htaccess"
@@ -72,11 +75,14 @@ msgstr "Abilita PHP"
 msgid "Enable SSL"
 msgstr "Abilita SSL"
 
-msgid "Enable logging"
-msgstr "Abilita logging"
+msgid "Enable log"
+msgstr ""
 
 msgid "Enabled"
 msgstr "Abilita"
+
+msgid "Error log"
+msgstr ""
 
 msgid "Event"
 msgstr "Evento"
@@ -102,17 +108,44 @@ msgstr "Dimensione buffer header"
 msgid "Host type"
 msgstr "Tipo host"
 
+msgid "Index"
+msgstr ""
+
+msgid "Line"
+msgstr ""
+
+msgid "Log"
+msgstr ""
+
 msgid "Max POST size (MB)"
 msgstr "Dimensione massima POST (MB)"
 
+msgid "Max children"
+msgstr ""
+
 msgid "Max execution time (s)"
 msgstr "Tempo di esecuzione massimo (secondi)"
+
+msgid "Max requests"
+msgstr ""
+
+msgid "Max spare servers"
+msgstr ""
 
 msgid "Max upload filesize (MB)"
 msgstr "Dimensione massima upload (MB)"
 
 msgid "Memory limit (MB)"
 msgstr "Limite memoria (MB)"
+
+msgid "Message"
+msgstr ""
+
+msgid "Message - row {0}"
+msgstr ""
+
+msgid "Min spare servers"
+msgstr ""
 
 msgid "Name"
 msgstr "Nome"
@@ -134,6 +167,9 @@ msgstr ""
 
 msgid "Port"
 msgstr "Porta"
+
+msgid "Process manager"
+msgstr ""
 
 msgid "Public directory"
 msgstr "Cartella pubblica"
@@ -171,13 +207,26 @@ msgstr "Imposta l'utente con cui gli script PHP devono essere eseguiti."
 msgid "Settings"
 msgstr "Impostazioni"
 
+msgid "Start servers"
+msgstr ""
+
 msgid "The SSL certificate."
 msgstr "Il certificato SSL."
 
 msgid ""
 "The location needs to have at least read permissions for the user/group www-"
-"data"
-msgstr "La posizione deve avere i permessi di lettura almeno per l'utente/gruppo www-data"
+"data."
+msgstr ""
+
+msgid ""
+"This enables PHP and makes the $socket variable (for the chosen PHP-FPM "
+"pool) available in extra options."
+msgstr ""
+
+msgid ""
+"This option will populate the $root_path variable for usage in extra options"
+" or as document root."
+msgstr ""
 
 msgid ""
 "This setting affects the max upload filesize and should preferably be "
@@ -195,6 +244,14 @@ msgstr "URL"
 msgid "UUID"
 msgstr "UUID"
 
+msgid ""
+"Uncheck this if you want to use your own configuration to connect to the PHP"
+" socket."
+msgstr ""
+
+msgid "Use 'Directory' as document root."
+msgstr ""
+
 msgid "Use HTML tags in error messages."
 msgstr "Usa tag HTML nei messaggi di errore."
 
@@ -204,16 +261,17 @@ msgid ""
 "create an additional shared folder in such cases."
 msgstr "Utilizzare se si servono i file pubblici in una sottocartella come public_html o pubblica. Questa cartella sarà la radice del documento. Si evita inoltre la necessità di creare una cartella condivisa aggiuntiva in questo caso."
 
+msgid "Use index"
+msgstr ""
+
 msgid "Use public directory"
 msgstr "Utilizza cartella pubblica"
 
+msgid "Use root"
+msgstr ""
+
 msgid "Use the default Nginx config for PHP."
 msgstr "Usa la configurazione predefinita di Nginx per PHP"
-
-msgid ""
-"Use the variable $root_path to insert the document root. Use the variable "
-"$socket to insert the socket."
-msgstr ""
 
 msgid "User"
 msgstr "Utente"

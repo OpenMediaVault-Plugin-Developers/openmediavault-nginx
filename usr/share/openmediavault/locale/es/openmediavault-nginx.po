@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-nginx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-05 12:52-0500\n"
-"PO-Revision-Date: 2014-07-06 16:15+0000\n"
-"Last-Translator: Raul Fernandez Garcia <raulfg3@gmail.com>\n"
+"POT-Creation-Date: 2014-07-25 05:25-0500\n"
+"PO-Revision-Date: 2014-07-25 10:26+0000\n"
+"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/openmediavault-nginx/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,6 +20,9 @@ msgstr ""
 
 msgid "A PHP-FPM pool with the given name already exists"
 msgstr "Un pool PHP-FPM con ese nombre ya existe"
+
+msgid "Access log"
+msgstr ""
 
 msgid "Add pool"
 msgstr "Añadir pool"
@@ -48,11 +51,11 @@ msgstr "Servidor por defecto"
 msgid "Description"
 msgstr "Descripción"
 
+msgid "Directory"
+msgstr ""
+
 msgid "Display errors"
 msgstr "Mostrar errores"
-
-msgid "Document root"
-msgstr "Raíz de documentos"
 
 msgid "Don't serve .htaccess"
 msgstr "No servir .htaccess"
@@ -72,11 +75,14 @@ msgstr "Habilitar PHP"
 msgid "Enable SSL"
 msgstr "Habilitar SSL"
 
-msgid "Enable logging"
-msgstr "Habilitar log"
+msgid "Enable log"
+msgstr ""
 
 msgid "Enabled"
 msgstr "Habilitado"
+
+msgid "Error log"
+msgstr ""
 
 msgid "Event"
 msgstr "Evento"
@@ -102,17 +108,44 @@ msgstr "Tamaño del buffer"
 msgid "Host type"
 msgstr "Tipo de host"
 
+msgid "Index"
+msgstr ""
+
+msgid "Line"
+msgstr ""
+
+msgid "Log"
+msgstr ""
+
 msgid "Max POST size (MB)"
 msgstr "Tamaño Max. de POST (MB)"
 
+msgid "Max children"
+msgstr ""
+
 msgid "Max execution time (s)"
 msgstr "Tiempo Max. de ejecución (s)"
+
+msgid "Max requests"
+msgstr ""
+
+msgid "Max spare servers"
+msgstr ""
 
 msgid "Max upload filesize (MB)"
 msgstr "Tamaño max. de subida (MB)"
 
 msgid "Memory limit (MB)"
 msgstr "Limite de memoria (MB)"
+
+msgid "Message"
+msgstr ""
+
+msgid "Message - row {0}"
+msgstr ""
+
+msgid "Min spare servers"
+msgstr ""
 
 msgid "Name"
 msgstr "Nombre"
@@ -134,6 +167,9 @@ msgstr "Pools"
 
 msgid "Port"
 msgstr "Puerto"
+
+msgid "Process manager"
+msgstr ""
 
 msgid "Public directory"
 msgstr "Directorio publico"
@@ -171,13 +207,26 @@ msgstr "Defina el usuario con el que se ejecutarán los scripts PHP."
 msgid "Settings"
 msgstr "Configuración"
 
+msgid "Start servers"
+msgstr ""
+
 msgid "The SSL certificate."
 msgstr "Certificado SSL"
 
 msgid ""
 "The location needs to have at least read permissions for the user/group www-"
-"data"
-msgstr "La ubicación necesita al menos permiso de lectura del usuario/grupo www-data"
+"data."
+msgstr ""
+
+msgid ""
+"This enables PHP and makes the $socket variable (for the chosen PHP-FPM "
+"pool) available in extra options."
+msgstr ""
+
+msgid ""
+"This option will populate the $root_path variable for usage in extra options"
+" or as document root."
+msgstr ""
 
 msgid ""
 "This setting affects the max upload filesize and should preferably be "
@@ -195,6 +244,14 @@ msgstr "URL"
 msgid "UUID"
 msgstr "UUID"
 
+msgid ""
+"Uncheck this if you want to use your own configuration to connect to the PHP"
+" socket."
+msgstr ""
+
+msgid "Use 'Directory' as document root."
+msgstr ""
+
 msgid "Use HTML tags in error messages."
 msgstr "Usar Tags HTML en los mensajes de error."
 
@@ -204,16 +261,17 @@ msgid ""
 "create an additional shared folder in such cases."
 msgstr "Usar si tiene sus archivos publicos en una subcarpeta llamada public_html o public. Está carpeta será la raíz de documentos. Evita tener que crear carpetas compartidas adicionales en algunos casos."
 
+msgid "Use index"
+msgstr ""
+
 msgid "Use public directory"
 msgstr "Usar directorio público"
 
+msgid "Use root"
+msgstr ""
+
 msgid "Use the default Nginx config for PHP."
 msgstr "Usar la configuración por defecto de Nginx para PHP."
-
-msgid ""
-"Use the variable $root_path to insert the document root. Use the variable "
-"$socket to insert the socket."
-msgstr "Usar la variable $root_path para insertar la ruta al raiz. Usar la variable $socket  para insertar el socket."
 
 msgid "User"
 msgstr "Usuario"
