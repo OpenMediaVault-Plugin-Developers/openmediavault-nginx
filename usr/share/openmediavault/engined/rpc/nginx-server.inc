@@ -262,7 +262,9 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             );
 
             if ($server["use_root"] && $server["use_public_directory"]) {
-                $rootFullPath = $rootFullPath . $server["public_directory"];
+                $rootFullPath = $rootFullPath
+                              . DIRECTORY_SEPARATOR
+                              . $server["public_directory"];
             }
         }
 
@@ -343,14 +345,14 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         );
 
         $server = array(
-            "uuid"                 =>
+            "uuid" =>
                 ($params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"]) ?
                 OMVUtil::uuid() : $params["uuid"],
             "enable"               => boolval($params["enable"]),
             "sharedfolderref"      => $params["sharedfolderref"],
-            "use_root"    => boolval($params["use_root"]),
+            "use_root"             => boolval($params["use_root"]),
             "use_public_directory" => boolval($params["use_public_directory"]),
-            "public_directory"     => $params["public_directory"],
+            "public_directory"     => trim(trim($params["public_directory"]), DIRECTORY_SEPARATOR),
             "host_type"            => $params["host_type"],
             "server_name"          => $params["server_name"],
             "port"                 => intval($params["port"]),
@@ -377,6 +379,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             "extra_options" => trim($params["extra_options"]),
         );
 
+        $server = $this->sanitizeServer($server);
         $server = $this->validateServer($server);
 
         // Save configuration
@@ -502,6 +505,15 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             "total" => count($logRows),
             "data"  => $logRows,
         );
+    }
+
+    private function sanitizeServer($server)
+    {
+        // Trim whitespace and then trim / at start and end
+        $server["public_directory"] = trim($server["public_directory"]);
+        $server["public_directory"] = trim($server["public_directory"], DIRECTORY_SEPARATOR);
+
+        return $server;
     }
 
     private function validateServer($server)
@@ -671,19 +683,13 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 
         $xPath = sprintf("//system/shares/sharedfolder[uuid='%s']", $uuid);
         $sharedFolder = $xmlConfig->get($xPath);
+        $sharedFolderRelDirPath = trim($sharedFolder["reldirpath"], DIRECTORY_SEPARATOR);
 
         $xPath = sprintf("//system/fstab/mntent[uuid='%s']", $sharedFolder["mntentref"]);
         $mountPoint = $xmlConfig->get($xPath);
+        $mountPointDir = rtrim($mountPoint["dir"], DIRECTORY_SEPARATOR);
 
-        $path = sprintf(
-            "%s/%s",
-            $mountPoint["dir"],
-            $sharedFolder["reldirpath"]
-        );
-
-        $path = str_replace("//", "/", $path);
-
-        return $path;
+        return $mountPointDir . DIRECTORY_SEPARATOR . $sharedFolderRelDirPath;
     }
 }
 
