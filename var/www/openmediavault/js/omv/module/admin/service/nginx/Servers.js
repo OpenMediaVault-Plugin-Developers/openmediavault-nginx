@@ -33,6 +33,7 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
         "OMV.module.admin.service.nginx.window.Server"
     ],
 
+    hidePagingToolbar   : false,
     accessLogButtonText : _("Access log"),
     errorLogButtonText  : _("Error log"),
     reloadOnActivate    : true,
@@ -115,12 +116,10 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
     }],
 
     store : Ext.create("OMV.data.Store", {
-        autoload   : true,
-        remoteSort : false,
-        model      : OMV.data.Model.createImplicit({
-            idProperty   : "uuid",
-            totalPoperty : "total",
-            fields       : [
+        autoload : true,
+        model    : OMV.data.Model.createImplicit({
+            idProperty : "uuid",
+            fields     : [
                 { name : "uuid" },
                 { name : "enable" },
                 { name : "log_enable" },
@@ -138,7 +137,8 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
                 "service" : "Nginx",
                 "method"  : "getList"
             }
-        }
+        },
+        remoteSort : true
     }),
 
     getTopToolbarItems : function() {
