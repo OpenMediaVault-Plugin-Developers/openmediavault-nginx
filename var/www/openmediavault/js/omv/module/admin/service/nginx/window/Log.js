@@ -45,7 +45,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Log", {
             items : [ grid ]
         });
 
-        store.reload();
+        //store.reload();
         me.callParent(arguments);
     },
 
@@ -65,7 +65,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Log", {
                 dataIndex : "message"
             }],
             store : Ext.create("OMV.data.Store", {
-                autoload : true,
+                autoLoad : true,
                 model    : OMV.data.Model.createImplicit({
                     idProperty : "id",
                     fields     : [
@@ -91,7 +91,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Log", {
                 }]
             }),
             listeners : {
-                "cellclick" : function(grid, td, cellIndex, record) {
+                cellclick : function(grid, td, cellIndex, record) {
                     Ext.MessageBox.show({
                         title : Ext.String.format(
                             _("Message - row {0}"),

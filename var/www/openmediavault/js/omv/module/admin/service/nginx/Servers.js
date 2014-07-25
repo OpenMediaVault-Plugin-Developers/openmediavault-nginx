@@ -116,7 +116,7 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
     }],
 
     store : Ext.create("OMV.data.Store", {
-        autoload : true,
+        autoLoad : true,
         model    : OMV.data.Model.createImplicit({
             idProperty : "uuid",
             fields     : [
