@@ -271,7 +271,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 fieldLabel : _("Enable SSL"),
                 checked    : false,
                 listeners  : {
-                    "change" : function(field, newValue) {
+                    change : function(field, newValue) {
                         var sslForceField = me.findField("ssl_force");
                         sslForceField.setValue(false);
                     }
