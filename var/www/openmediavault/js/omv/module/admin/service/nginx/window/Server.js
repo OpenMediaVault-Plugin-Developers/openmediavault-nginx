@@ -211,7 +211,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                 displayField  : "value",
                 valueField    : "value",
                 allowBlank    : false,
-                editable      : false,
+                editable      : true,
                 triggerAction : "all",
                 value         : "public_html"
             },{
