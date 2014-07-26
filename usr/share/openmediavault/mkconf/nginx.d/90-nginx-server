@@ -121,6 +121,8 @@ generate_server_nginx_config()
     # Non SSL config
     # Always listen to port unless SSL is forced
     if [ $ssl_force -ne 1 ]; then
+        local default_server=""
+
         if [ $port_default_server -eq 1 ]; then
             default_server=" default_server"
         fi
@@ -130,6 +132,8 @@ generate_server_nginx_config()
 
     # SSL config
     if [ $ssl_enable -eq 1 ]; then
+        local ssl_default_server=""
+
         if [ $ssl_port_default_server -eq 1 ]; then
             ssl_default_server=" default_server"
         fi
