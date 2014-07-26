@@ -1,9 +1,15 @@
+openmediavault-nginx (1.0.9) unstable; urgency=low
+
+  * Fix error in mkconf causing multiple default servers on same port
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 26 Jul 2014 15:58:47 +0200
+
 openmediavault-nginx (1.0.8) unstable; urgency=low
 
   * Don't limit public directory to only public and public_html
   * Various JS fixes
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 25 Jul 2014 14:12:27 +0200
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 26 Jul 2014 15:58:07 +0200
 
 openmediavault-nginx (1.0.7) unstable; urgency=low
 
