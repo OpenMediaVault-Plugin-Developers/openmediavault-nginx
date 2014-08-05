@@ -48,12 +48,12 @@ case "$1" in
         remove_nginx_logs
         remove_fpm_configs
 
-        if [ -e "/etc/init.d/nginx" ]; then
-            /etc/init.d/nginx reload
+        if [ -x "/etc/init.d/nginx" ]; then
+            invoke-rc.d nginx reload
         fi
 
-        if [ -e "/etc/init.d/php5-fpm" ]; then
-            /etc/init.d/php5-fpm reload
+        if [ -x "/etc/init.d/php5-fpm" ]; then
+            invoke-rc.d php5-fpm reload
         fi
     ;;
 
