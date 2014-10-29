@@ -1,3 +1,11 @@
+openmediavault-nginx (1.0.10) unstable; urgency=low
+
+  * Disallow removal of FPM pool in use
+  * Disallow renaming pool
+  * Various fixes 
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 29 Oct 2014 15:12:58 +0100
+
 openmediavault-nginx (1.0.9) unstable; urgency=low
 
   * Fix error in mkconf causing multiple default servers on same port
