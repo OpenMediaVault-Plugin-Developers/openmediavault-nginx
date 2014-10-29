@@ -216,16 +216,10 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         $xPath = null;
 
         if ($params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"]) {
-            $xPath = sprintf(
-                "%s/pool[name='%s']",
-                $this->getPoolsXPath(),
-                $params["name"]
-            );
-
-            if (true === $xmlConfig->exists($xPath)) {
+            if (!$this->validateNewPool($pool)) {
                 throw new OMVException(
-                    OMVErrorMsg::E_CONFIG_OBJECT_UNIQUENESS,
-                    gettext("A PHP-FPM pool with the given name already exists")
+                    OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
+                    sprintf("%s is in use.", $pool["name"])
                 );
             }
 
@@ -292,6 +286,29 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
             $this->getEventMessagePath(),
             $pool
         );
+    }
+
+    /**
+     * Validate the values of a new FPM pool. Throws exceptions depending
+     * on the validation error.
+     *
+     * @param array @pool
+     *
+     * @return boolean
+     */
+    private function validateNewPool($pool)
+    {
+        $xPath = sprintf(
+            "%s/pool[name='%s']",
+            $this->getPoolsXPath(),
+            $pool["name"]
+        );
+
+        if (true === $xmlConfig->exists($xPath)) {
+            return false;
+        }
+
+        return true;
     }
 }
 
