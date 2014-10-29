@@ -37,7 +37,7 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
 
     private function getPoolsXpath()
     {
-        return sprintf("%s/pools", $this->getXpath(), $uuid);
+        return sprintf("%s/pools", $this->getXpath());
     }
 
     private function getPoolXpathByUuid($uuid)
@@ -102,7 +102,7 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         return $this->applyFilter(
             $pools,
             $params["start"],
-            $params["count"],
+            $params["limit"],
             $params["sortfield"],
             $params["sortdir"]
         );
@@ -137,7 +137,7 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
             );
         }
 
-        // General
+        // General.
         $pool["pm_max_children"]         = intval($pool["pm_max_children"]);
         $pool["pm_start_servers"]        = intval($pool["pm_start_servers"]);
         $pool["pm_min_spare_servers"]    = intval($pool["pm_min_spare_servers"]);
@@ -193,7 +193,6 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
             "uuid"                    =>
                 ($params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"])
                 ? OMVUtil::uuid() : $params["uuid"],
-            "name"                    => $params["name"],
             "description"             => $params["description"],
             "user"                    => $params["user"],
             "group"                   => $params["group"],
@@ -211,11 +210,14 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
             "extra_options"           => trim($params["extra_options"]),
         );
 
-        // Save configuration
+        // Save the configuration.
         $success = false;
         $xpath = null;
 
         if ($params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"]) {
+            // Only set the name when creating a new pool.
+            $pool["name"] = $params["name"];
+
             if (!$this->validateNewPool($pool)) {
                 throw new OMVException(
                     OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
@@ -239,10 +241,11 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
             throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND, $xpath);
         }
 
-        // Notify configuration changes
+        // Notify configuration changes.
         $dispatcher = &OMVNotifyDispatcher::getInstance();
         $dispatcher->notify(
-            empty($params["uuid"]) ? OMV_NOTIFY_CREATE : OMV_NOTIFY_MODIFY,
+            $params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"] ?
+            OMV_NOTIFY_CREATE : OMV_NOTIFY_MODIFY,
             $this->getEventMessagePath(),
             $pool
         );
@@ -307,6 +310,8 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
      */
     private function validateNewPool($pool)
     {
+        global $xmlConfig;
+
         $xpath = sprintf(
             "%s/pool[name='%s']",
             $this->getPoolsXpath(),

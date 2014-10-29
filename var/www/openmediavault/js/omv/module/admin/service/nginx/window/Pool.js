@@ -49,7 +49,8 @@ Ext.define("OMV.module.admin.service.nginx.window.Pool", {
                 xtype      : "textfield",
                 name       : "name",
                 fieldLabel : _("Name"),
-                allowBlank : false
+                allowBlank : false,
+                readOnly   : !me.isNew()
             },{
                 xtype      : "textfield",
                 name       : "description",
