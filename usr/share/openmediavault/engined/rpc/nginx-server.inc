@@ -35,19 +35,19 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         return "org.openmediavault.services.nginx";
     }
 
-    private function getXPath()
+    private function getXpath()
     {
         return "//services/nginx";
     }
 
-    private function getServersXPath()
+    private function getServersXpath()
     {
-        return sprintf("%s/servers", $this->getXPath(), $uuid);
+        return sprintf("%s/servers", $this->getXpath(), $uuid);
     }
 
-    private function getServerXPathByUuid($uuid)
+    private function getServerXpathByUuid($uuid)
     {
-        return sprintf("%s/server[uuid='%s']", $this->getServersXPath(), $uuid);
+        return sprintf("%s/server[uuid='%s']", $this->getServersXpath(), $uuid);
     }
 
     public function getName()
@@ -80,9 +80,9 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         ));
 
         // Get configuration object
-        $object = $xmlConfig->get($this->getXPath());
+        $object = $xmlConfig->get($this->getXpath());
         if (is_null($object)) {
-            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $this->getXPath());
+            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $this->getXpath());
         }
 
         // Modify result data
@@ -120,16 +120,16 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         );
 
         // Get old configuration object
-        $oldConfig = $xmlConfig->get($this->getXPath());
+        $oldConfig = $xmlConfig->get($this->getXpath());
         if (is_null($object)) {
-            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $this->getXPath());
+            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $this->getXpath());
         }
 
         $object["servers"] = $oldConfig["servers"];
 
         // Set configuration object
-        if (false === $xmlConfig->replace($this->getXPath(), $object)) {
-            throw new OMVException(OMVErrorMsg::E_CONFIG_SET_OBJECT_FAILED, $this->$xPath);
+        if (false === $xmlConfig->replace($this->getXpath(), $object)) {
+            throw new OMVException(OMVErrorMsg::E_CONFIG_SET_OBJECT_FAILED, $this->$xpath);
         }
 
         // Notify configuration changes
@@ -163,11 +163,11 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         );
 
         // Get configuration object
-        $xPath = sprintf("%s/server/uuid", $this->getServersXPath());
-        $uuids = $xmlConfig->getList($xPath);
+        $xpath = sprintf("%s/server/uuid", $this->getServersXpath());
+        $uuids = $xmlConfig->getList($xpath);
 
         if (is_null($uuids)) {
-            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $xPath);
+            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $xpath);
         }
 
         $servers = array();
@@ -209,18 +209,18 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             }'
         );
 
-        $server = $xmlConfig->get($this->getServerXPathByUuid($params["uuid"]));
+        $server = $xmlConfig->get($this->getServerXpathByUuid($params["uuid"]));
 
         if (is_null($server)) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $this->getServerXPathByUuid($params["uuid"])
+                $this->getServerXpathByUuid($params["uuid"])
             );
         }
 
         // General
         $server["enable"]               = boolval($server["enable"]);
-        $server["use_root"]    = boolval($server["use_root"]);
+        $server["use_root"]             = boolval($server["use_root"]);
         $server["use_public_directory"] = boolval($server["use_public_directory"]);
         $server["port"]                 = intval($server["port"]);
         $server["port_default_server"]  = boolval($server["port_default_server"]);
@@ -384,23 +384,23 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 
         // Save configuration
         $success = false;
-        $xPath = null;
+        $xpath = null;
 
         if ($params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"]) {
             $success = $xmlConfig->set(
-                $xPath = $this->getServersXPath(),
+                $xpath = $this->getServersXpath(),
                 array("server" => $server),
                 $server
             );
         } else {
             $success = $xmlConfig->replace(
-                $xPath = $this->getServerXPathByUuid($params["uuid"]),
+                $xpath = $this->getServerXpathByUuid($params["uuid"]),
                 $server
             );
         }
 
         if (!$success) {
-            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND, $xPath);
+            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND, $xpath);
         }
 
         // Notify configuration changes
@@ -434,12 +434,12 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             }'
         );
 
-        $server = $xmlConfig->delete($this->getServerXPathByUuid($params["uuid"]));
+        $server = $xmlConfig->delete($this->getServerXpathByUuid($params["uuid"]));
 
         if (is_null($server)) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND,
-                $this->getServerXPathByUuid($params["uuid"])
+                $this->getServerXpathByUuid($params["uuid"])
             );
         }
 
@@ -590,10 +590,10 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
     {
         global $xmlConfig;
 
-        $xPath = sprintf("%s/server[port='%s' and ssl_force='0']", $this->getServersXPath(), $port);
-        $server = $xmlConfig->get($xPath);
+        $xpath = sprintf("%s/server[port='%s' and ssl_force='0']", $this->getServersXpath(), $port);
+        $server = $xmlConfig->get($xpath);
 
-        $sslXPath = sprintf("%s/server[ssl_port='%s' and ssl_enable='1']", $this->getServersXPath(), $port);
+        $sslXPath = sprintf("%s/server[ssl_port='%s' and ssl_enable='1']", $this->getServersXpath(), $port);
         $sslServer = $xmlConfig->get($sslXPath);
 
         // If not empty and not the same as
@@ -656,37 +656,37 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
     private function validatePortDefaultServer($port, $uuid, $ssl = false)
     {
         global $xmlConfig;
-        $xPath = "";
+        $xpath = "";
 
         if ($ssl) {
-            $xPath = sprintf(
+            $xpath = sprintf(
                 "%s/server[ssl_port='%s' and ssl_port_default_server='1' and uuid!='%s']",
-                $this->getServersXPath(),
+                $this->getServersXpath(),
                 $port,
                 $uuid
             );
         } else {
-            $xPath = sprintf(
+            $xpath = sprintf(
                 "%s/server[port='%s' and port_default_server='1' and uuid!='%s']",
-                $this->getServersXPath(),
+                $this->getServersXpath(),
                 $port,
                 $uuid
             );
         }
 
-        return $xmlConfig->count($xPath) === 0;
+        return $xmlConfig->count($xpath) === 0;
     }
 
     private function getSharedFolderPathByUuid($uuid)
     {
         global $xmlConfig;
 
-        $xPath = sprintf("//system/shares/sharedfolder[uuid='%s']", $uuid);
-        $sharedFolder = $xmlConfig->get($xPath);
+        $xpath = sprintf("//system/shares/sharedfolder[uuid='%s']", $uuid);
+        $sharedFolder = $xmlConfig->get($xpath);
         $sharedFolderRelDirPath = trim($sharedFolder["reldirpath"], DIRECTORY_SEPARATOR);
 
-        $xPath = sprintf("//system/fstab/mntent[uuid='%s']", $sharedFolder["mntentref"]);
-        $mountPoint = $xmlConfig->get($xPath);
+        $xpath = sprintf("//system/fstab/mntent[uuid='%s']", $sharedFolder["mntentref"]);
+        $mountPoint = $xmlConfig->get($xpath);
         $mountPointDir = rtrim($mountPoint["dir"], DIRECTORY_SEPARATOR);
 
         return $mountPointDir . DIRECTORY_SEPARATOR . $sharedFolderRelDirPath;

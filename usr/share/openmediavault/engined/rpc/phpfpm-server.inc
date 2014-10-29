@@ -30,19 +30,19 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         return "org.openmediavault.services.phpfpm";
     }
 
-    private function getXPath()
+    private function getXpath()
     {
         return "//services/phpfpm";
     }
 
-    private function getPoolsXPath()
+    private function getPoolsXpath()
     {
-        return sprintf("%s/pools", $this->getXPath(), $uuid);
+        return sprintf("%s/pools", $this->getXpath(), $uuid);
     }
 
-    private function getPoolXPathByUuid($uuid)
+    private function getPoolXpathByUuid($uuid)
     {
-        return sprintf("%s/pool[uuid='%s']", $this->getPoolsXPath(), $uuid);
+        return sprintf("%s/pool[uuid='%s']", $this->getPoolsXpath(), $uuid);
     }
 
     public function getName()
@@ -82,11 +82,11 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         );
 
         // Get configuration object
-        $xPath = sprintf("%s/pool/uuid", $this->getPoolsXPath());
-        $uuids = $xmlConfig->getList($xPath);
+        $xpath = sprintf("%s/pool/uuid", $this->getPoolsXpath());
+        $uuids = $xmlConfig->getList($xpath);
 
         if (is_null($uuids)) {
-            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $xPath);
+            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $xpath);
         }
 
         $pools = array();
@@ -128,12 +128,12 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
             }'
         );
 
-        $pool = $xmlConfig->get($this->getPoolXPathByUuid($params["uuid"]));
+        $pool = $xmlConfig->get($this->getPoolXpathByUuid($params["uuid"]));
 
         if (is_null($pool)) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $this->getPoolXPathByUuid($params["uuid"])
+                $this->getPoolXpathByUuid($params["uuid"])
             );
         }
 
@@ -213,7 +213,7 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
 
         // Save configuration
         $success = false;
-        $xPath = null;
+        $xpath = null;
 
         if ($params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"]) {
             if (!$this->validateNewPool($pool)) {
@@ -224,19 +224,19 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
             }
 
             $success = $xmlConfig->set(
-                $xPath = $this->getPoolsXPath(),
+                $xpath = $this->getPoolsXpath(),
                 array("pool" => $pool),
                 $pool
             );
         } else {
             $success = $xmlConfig->replace(
-                $xPath = $this->getPoolXPathByUuid($params["uuid"]),
+                $xpath = $this->getPoolXpathByUuid($params["uuid"]),
                 $pool
             );
         }
 
         if (!$success) {
-            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND, $xPath);
+            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND, $xpath);
         }
 
         // Notify configuration changes
@@ -270,12 +270,21 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
             }'
         );
 
-        $pool = $xmlConfig->delete($this->getPoolXPathByUuid($params["uuid"]));
+        $xpath = sprintf(
+            "//services/nginx/servers/server[php_pool_ref='%s']",
+            $params["uuid"]
+        );
+
+        if ($xmlConfig->count($xpath) > 0) {
+            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INUSE);
+        }
+
+        $pool = $xmlConfig->delete($this->getPoolXpathByUuid($params["uuid"]));
 
         if (is_null($pool)) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND,
-                $this->getPoolXPathByUuid($params["uuid"])
+                $this->getPoolXpathByUuid($params["uuid"])
             );
         }
 
@@ -298,13 +307,13 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
      */
     private function validateNewPool($pool)
     {
-        $xPath = sprintf(
+        $xpath = sprintf(
             "%s/pool[name='%s']",
-            $this->getPoolsXPath(),
+            $this->getPoolsXpath(),
             $pool["name"]
         );
 
-        if (true === $xmlConfig->exists($xPath)) {
+        if (true === $xmlConfig->exists($xpath)) {
             return false;
         }
 
