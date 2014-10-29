@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: openmediavault-nginx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-25 05:25-0500\n"
-"PO-Revision-Date: 2014-07-25 10:26+0000\n"
-"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
+"PO-Revision-Date: 2014-07-25 10:55+0000\n"
+"Last-Translator: Raul Fernandez Garcia <raulfg3@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/openmediavault-nginx/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgid "A PHP-FPM pool with the given name already exists"
 msgstr "Un pool PHP-FPM con ese nombre ya existe"
 
 msgid "Access log"
-msgstr ""
+msgstr "Log de acceso"
 
 msgid "Add pool"
 msgstr "Añadir pool"
@@ -52,7 +52,7 @@ msgid "Description"
 msgstr "Descripción"
 
 msgid "Directory"
-msgstr ""
+msgstr "Directorio"
 
 msgid "Display errors"
 msgstr "Mostrar errores"
@@ -76,13 +76,13 @@ msgid "Enable SSL"
 msgstr "Habilitar SSL"
 
 msgid "Enable log"
-msgstr ""
+msgstr "Habilitar log"
 
 msgid "Enabled"
 msgstr "Habilitado"
 
 msgid "Error log"
-msgstr ""
+msgstr "Log de Errores"
 
 msgid "Event"
 msgstr "Evento"
@@ -109,28 +109,28 @@ msgid "Host type"
 msgstr "Tipo de host"
 
 msgid "Index"
-msgstr ""
+msgstr "Indice"
 
 msgid "Line"
-msgstr ""
+msgstr "Linea"
 
 msgid "Log"
-msgstr ""
+msgstr "Log"
 
 msgid "Max POST size (MB)"
 msgstr "Tamaño Max. de POST (MB)"
 
 msgid "Max children"
-msgstr ""
+msgstr "Max. nº de hijos"
 
 msgid "Max execution time (s)"
 msgstr "Tiempo Max. de ejecución (s)"
 
 msgid "Max requests"
-msgstr ""
+msgstr "Max. nº de peticiones"
 
 msgid "Max spare servers"
-msgstr ""
+msgstr "Max. nº de servidores"
 
 msgid "Max upload filesize (MB)"
 msgstr "Tamaño max. de subida (MB)"
@@ -139,13 +139,13 @@ msgid "Memory limit (MB)"
 msgstr "Limite de memoria (MB)"
 
 msgid "Message"
-msgstr ""
+msgstr "Mensaje"
 
 msgid "Message - row {0}"
-msgstr ""
+msgstr "Mensaje - columna {0}"
 
 msgid "Min spare servers"
-msgstr ""
+msgstr "Min. nº de servidores"
 
 msgid "Name"
 msgstr "Nombre"
@@ -169,7 +169,7 @@ msgid "Port"
 msgstr "Puerto"
 
 msgid "Process manager"
-msgstr ""
+msgstr "Gestor de procesos"
 
 msgid "Public directory"
 msgstr "Directorio publico"
@@ -208,7 +208,7 @@ msgid "Settings"
 msgstr "Configuración"
 
 msgid "Start servers"
-msgstr ""
+msgstr "Iniciar servidores"
 
 msgid "The SSL certificate."
 msgstr "Certificado SSL"
@@ -216,17 +216,17 @@ msgstr "Certificado SSL"
 msgid ""
 "The location needs to have at least read permissions for the user/group www-"
 "data."
-msgstr ""
+msgstr "La ubicación necesita tener al menos permisos de lectura del usuario/grupo www-data"
 
 msgid ""
 "This enables PHP and makes the $socket variable (for the chosen PHP-FPM "
 "pool) available in extra options."
-msgstr ""
+msgstr "Esto habilita PHP y permite que la variable $socket esté disponible en las opciones (del pool PHP-FPM elegido)."
 
 msgid ""
 "This option will populate the $root_path variable for usage in extra options"
 " or as document root."
-msgstr ""
+msgstr "Esta opción hace publica la variable $root_path para su uso en opciones o como raíz de documentos."
 
 msgid ""
 "This setting affects the max upload filesize and should preferably be "
@@ -247,10 +247,10 @@ msgstr "UUID"
 msgid ""
 "Uncheck this if you want to use your own configuration to connect to the PHP"
 " socket."
-msgstr ""
+msgstr "Deseleccione esto si desea usar su propia configuración para conectar a un socket PHP."
 
 msgid "Use 'Directory' as document root."
-msgstr ""
+msgstr "Usar el directorio como raíz de documentos."
 
 msgid "Use HTML tags in error messages."
 msgstr "Usar Tags HTML en los mensajes de error."
@@ -262,13 +262,13 @@ msgid ""
 msgstr "Usar si tiene sus archivos publicos en una subcarpeta llamada public_html o public. Está carpeta será la raíz de documentos. Evita tener que crear carpetas compartidas adicionales en algunos casos."
 
 msgid "Use index"
-msgstr ""
+msgstr "Usar el indice"
 
 msgid "Use public directory"
 msgstr "Usar directorio público"
 
 msgid "Use root"
-msgstr ""
+msgstr "Usar root"
 
 msgid "Use the default Nginx config for PHP."
 msgstr "Usar la configuración por defecto de Nginx para PHP."
