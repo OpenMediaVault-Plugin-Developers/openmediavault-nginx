@@ -406,7 +406,8 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
         $dispatcher->notify(
-            empty($params["uuid"]) ? OMV_NOTIFY_CREATE : OMV_NOTIFY_MODIFY,
+            $params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"] ?
+            OMV_NOTIFY_CREATE : OMV_NOTIFY_MODIFY,
             $this->getEventMessagePath(),
             $server
         );
