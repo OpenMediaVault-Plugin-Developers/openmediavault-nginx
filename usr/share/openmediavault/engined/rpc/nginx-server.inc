@@ -42,7 +42,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 
     private function getServersXpath()
     {
-        return sprintf("%s/servers", $this->getXpath(), $uuid);
+        return sprintf("%s/servers", $this->getXpath());
     }
 
     private function getServerXpathByUuid($uuid)
@@ -183,7 +183,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         return $this->applyFilter(
             $servers,
             $params["start"],
-            $params["count"],
+            $params["limit"],
             $params["sortfield"],
             $params["sortdir"]
         );
