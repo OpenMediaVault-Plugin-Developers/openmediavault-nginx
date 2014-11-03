@@ -193,6 +193,7 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
             "uuid"                    =>
                 ($params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"])
                 ? OMVUtil::uuid() : $params["uuid"],
+            "name"                    => $params["name"],
             "description"             => $params["description"],
             "user"                    => $params["user"],
             "group"                   => $params["group"],
@@ -215,9 +216,6 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         $xpath = null;
 
         if ($params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"]) {
-            // Only set the name when creating a new pool.
-            $pool["name"] = $params["name"];
-
             if (!$this->validateNewPool($pool)) {
                 throw new OMVException(
                     OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
@@ -313,9 +311,10 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         global $xmlConfig;
 
         $xpath = sprintf(
-            "%s/pool[name='%s']",
+            "%s/pool[name='%s' and not(uuid'%s)]",
             $this->getPoolsXpath(),
-            $pool["name"]
+            $pool["name"],
+            $pool["uuid"]
         );
 
         if (true === $xmlConfig->exists($xpath)) {
