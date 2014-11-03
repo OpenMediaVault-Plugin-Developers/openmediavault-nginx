@@ -1,3 +1,9 @@
+openmediavault-nginx (1.0.11) stable; urgency=low
+
+  * Reallow renaming of pool 
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 03 Nov 2014 14:44:06 +0100
+
 openmediavault-nginx (1.0.10) unstable; urgency=low
 
   * Disallow removal of FPM pool in use
