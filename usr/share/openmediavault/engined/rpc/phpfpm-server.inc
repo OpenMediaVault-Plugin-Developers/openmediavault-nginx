@@ -311,7 +311,7 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         global $xmlConfig;
 
         $xpath = sprintf(
-            "%s/pool[name='%s' and not(uuid'%s)]",
+            "%s/pool[name='%s' and not(uuid='%s')]",
             $this->getPoolsXpath(),
             $pool["name"],
             $pool["uuid"]
