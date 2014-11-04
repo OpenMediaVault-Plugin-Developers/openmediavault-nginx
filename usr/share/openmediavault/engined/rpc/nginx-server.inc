@@ -35,6 +35,11 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         return "org.openmediavault.services.nginx";
     }
 
+    private function getPhpFpmEventMessagePath()
+    {
+        return "org.openmediavault.services.phpfpm";
+    }
+
     private function getXpath()
     {
         return "//services/nginx";
@@ -134,7 +139,15 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
-        $dispatcher->notify(OMV_NOTIFY_MODIFY, $this->getEventMessagePath(), $object);
+        $dispatcher->notify(
+            OMV_NOTIFY_MODIFY,
+            $this->getEventMessagePath(),
+            $object
+        );
+        $dispatcher->notify(
+            OMV_NOTIFY_MODIFY,
+            $this->getPhpFpmEventMessagePath()
+        );
 
         return $object;
     }
