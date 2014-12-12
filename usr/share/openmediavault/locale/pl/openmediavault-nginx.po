@@ -3,20 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Alexander Savchenko, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-nginx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-25 05:25-0500\n"
-"PO-Revision-Date: 2014-11-14 19:49+0000\n"
-"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/openmediavault-nginx/language/ru/)\n"
+"PO-Revision-Date: 2014-03-29 20:22+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Polish (http://www.transifex.com/projects/p/openmediavault-nginx/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 msgid "A PHP-FPM pool with the given name already exists"
 msgstr ""
@@ -28,10 +27,10 @@ msgid "Add pool"
 msgstr ""
 
 msgid "Add server"
-msgstr "Добавить сервер"
+msgstr ""
 
 msgid "Certificate"
-msgstr "Сертификат"
+msgstr ""
 
 msgid "Date & Time"
 msgstr ""
@@ -55,7 +54,7 @@ msgid "Directory"
 msgstr ""
 
 msgid "Display errors"
-msgstr "Показывать ошибки"
+msgstr ""
 
 msgid "Don't serve .htaccess"
 msgstr ""
@@ -67,13 +66,13 @@ msgid "Edit server"
 msgstr ""
 
 msgid "Enable"
-msgstr "Включить"
+msgstr ""
 
 msgid "Enable PHP"
-msgstr "Включить PHP"
+msgstr ""
 
 msgid "Enable SSL"
-msgstr "Включить SSL"
+msgstr ""
 
 msgid "Enable log"
 msgstr ""
@@ -88,13 +87,13 @@ msgid "Event"
 msgstr ""
 
 msgid "Extra options"
-msgstr "Дополнительный опции"
+msgstr ""
 
 msgid "Force SSL"
 msgstr ""
 
 msgid "General"
-msgstr "Общие"
+msgstr ""
 
 msgid "Group"
 msgstr ""
@@ -154,10 +153,10 @@ msgid "Name-based"
 msgstr ""
 
 msgid "Nginx"
-msgstr "Nginx"
+msgstr ""
 
 msgid "Options"
-msgstr "Опции"
+msgstr ""
 
 msgid "PHP-FPM pool"
 msgstr ""
@@ -166,7 +165,7 @@ msgid "Pools"
 msgstr ""
 
 msgid "Port"
-msgstr "Порт"
+msgstr ""
 
 msgid "Process manager"
 msgstr ""
@@ -181,13 +180,13 @@ msgid "Select a PHP-FPM pool ..."
 msgstr ""
 
 msgid "Server name"
-msgstr "Имя сервера"
+msgstr ""
 
 msgid "Server names hash bucket size"
 msgstr ""
 
 msgid "Servers"
-msgstr "Сервера"
+msgstr ""
 
 msgid "Set the group under which PHP scripts should be executed as."
 msgstr ""
@@ -205,7 +204,7 @@ msgid "Set the user under which PHP scripts should be executed as."
 msgstr ""
 
 msgid "Settings"
-msgstr "Настройки"
+msgstr ""
 
 msgid "Start servers"
 msgstr ""
@@ -274,4 +273,4 @@ msgid "Use the default Nginx config for PHP."
 msgstr ""
 
 msgid "User"
-msgstr "Пользователь"
+msgstr ""
