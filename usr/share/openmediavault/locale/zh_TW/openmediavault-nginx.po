@@ -3,240 +3,240 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Stefan Thrane Overby <stoverby@gmail.com>, 2014
+# kochin <kochinc@outlook.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-nginx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-25 05:25-0500\n"
-"PO-Revision-Date: 2014-11-14 19:49+0000\n"
-"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
-"Language-Team: Danish (http://www.transifex.com/projects/p/openmediavault-nginx/language/da/)\n"
+"PO-Revision-Date: 2014-11-21 20:32+0000\n"
+"Last-Translator: kochin <kochinc@outlook.com>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/openmediavault-nginx/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "A PHP-FPM pool with the given name already exists"
-msgstr "En PHP-FPM pool med det givende navn eksistere allerede "
+msgstr "一個所給名稱的 PHP-FPM 集用場已經存在。"
 
 msgid "Access log"
-msgstr "Tilgangs log"
+msgstr "存取日誌"
 
 msgid "Add pool"
-msgstr "Tilføj pool"
+msgstr "新增集用場"
 
 msgid "Add server"
-msgstr "Tilføj server"
+msgstr "新增伺服器"
 
 msgid "Certificate"
-msgstr "Certifikat"
+msgstr "證書"
 
 msgid "Date & Time"
-msgstr "Dato & Tid"
+msgstr "日期與時間"
 
 msgid "Default"
-msgstr "Standard"
+msgstr "預設"
 
 msgid "Default (SSL)"
-msgstr "Standard (SSL)"
+msgstr "預設 (SSL)"
 
 msgid "Default config"
-msgstr "Standard konfig"
+msgstr "預設配置"
 
 msgid "Default server"
-msgstr "Standard server"
+msgstr "預設伺服器"
 
 msgid "Description"
-msgstr "Beskrivelse"
+msgstr "敘述"
 
 msgid "Directory"
-msgstr "Bibliotek"
+msgstr "目錄"
 
 msgid "Display errors"
-msgstr "Vis fejl"
+msgstr "顯示錯誤"
 
 msgid "Don't serve .htaccess"
-msgstr "Betjen ikke .htaccess"
+msgstr "不要送出 .htaccess"
 
 msgid "Edit pool"
-msgstr "Rediger pool"
+msgstr "編輯集用場"
 
 msgid "Edit server"
-msgstr "Rediger server"
+msgstr "編輯伺服器"
 
 msgid "Enable"
-msgstr "Aktiver"
+msgstr "啟用"
 
 msgid "Enable PHP"
-msgstr "Aktiver PHP"
+msgstr "啟用 PHP"
 
 msgid "Enable SSL"
-msgstr "Aktiver SSL"
+msgstr "啟用 SSL"
 
 msgid "Enable log"
-msgstr "Aktiver log"
+msgstr "啟用日誌"
 
 msgid "Enabled"
-msgstr "Aktiveret"
+msgstr "已啟用"
 
 msgid "Error log"
-msgstr "Fejl log"
+msgstr "錯誤日誌"
 
 msgid "Event"
-msgstr "Begivenhed"
+msgstr "事件"
 
 msgid "Extra options"
-msgstr "Ekstra valgmuligheder"
+msgstr "額外選項"
 
 msgid "Force SSL"
-msgstr "Tving SSL"
+msgstr "強制 SSL"
 
 msgid "General"
-msgstr "Generelt"
+msgstr "一般"
 
 msgid "Group"
-msgstr "Gruppe"
+msgstr "群組"
 
 msgid "HTML errors"
-msgstr "HTML fejl"
+msgstr "HTML 錯誤"
 
 msgid "Header buffer size"
-msgstr "Header buffer størrelse"
+msgstr "標頭緩衝大小"
 
 msgid "Host type"
-msgstr "Værts type"
+msgstr "主機型式"
 
 msgid "Index"
-msgstr "Indeks"
+msgstr "Index"
 
 msgid "Line"
-msgstr "Linie"
+msgstr "列號"
 
 msgid "Log"
-msgstr "Log"
+msgstr "日誌"
 
 msgid "Max POST size (MB)"
-msgstr "Maks POST størrelse (MB)"
+msgstr "最大 POST 大小 (MB)"
 
 msgid "Max children"
-msgstr "Maks forgreninger"
+msgstr "最多子程序數"
 
 msgid "Max execution time (s)"
-msgstr "Maks udførelses tid (s)"
+msgstr "最長執行時間 (s)"
 
 msgid "Max requests"
-msgstr "Maks anmodninger"
+msgstr "最多請求數"
 
 msgid "Max spare servers"
-msgstr "Maks reserve servere"
+msgstr "最多備用伺服器數"
 
 msgid "Max upload filesize (MB)"
-msgstr "Maks upload filstørrelse (MB)"
+msgstr "最大上傳檔案大小 (MB)"
 
 msgid "Memory limit (MB)"
-msgstr "Hukommelse grænse (MB)"
+msgstr "記憶體限制 (MB)"
 
 msgid "Message"
-msgstr "Besked"
+msgstr "訊息"
 
 msgid "Message - row {0}"
-msgstr "Besked - række {0}"
+msgstr "訊息 - row {0}"
 
 msgid "Min spare servers"
-msgstr "Mininum reserve servere"
+msgstr "最少備用伺服器數"
 
 msgid "Name"
-msgstr "Navn"
+msgstr "名稱"
 
 msgid "Name-based"
-msgstr "Navne-baseret"
+msgstr "根據名稱"
 
 msgid "Nginx"
 msgstr "Nginx"
 
 msgid "Options"
-msgstr "Valgmuligheder"
+msgstr "選項"
 
 msgid "PHP-FPM pool"
-msgstr "PHP-FPM pool"
+msgstr "PHP-FPM 集用場"
 
 msgid "Pools"
-msgstr "Pools"
+msgstr "集用場"
 
 msgid "Port"
-msgstr "Port"
+msgstr "通訊埠"
 
 msgid "Process manager"
-msgstr "Proces håndtering"
+msgstr "程序管理員"
 
 msgid "Public directory"
-msgstr "Offentlig bibliotek "
+msgstr "公用目錄"
 
 msgid "Root"
-msgstr "Rod"
+msgstr "根目錄"
 
 msgid "Select a PHP-FPM pool ..."
-msgstr "Vælg en PHP-FPM pool ..."
+msgstr "選擇一個 PHP-FPM 集用場 ..."
 
 msgid "Server name"
-msgstr "Server navn"
+msgstr "伺服器名稱"
 
 msgid "Server names hash bucket size"
-msgstr "Server navne hash bucket størrelse"
+msgstr "伺服器雜湊桶(hash bucket)大小"
 
 msgid "Servers"
-msgstr "Servere"
+msgstr "伺服器"
 
 msgid "Set the group under which PHP scripts should be executed as."
-msgstr "Indstil gruppen som PHP scripts skal udføres som."
+msgstr "設定 PHP 腳本程式執行時用的群組。"
 
 msgid ""
 "Set the max execution time of a script. Using the value 0 means no limit."
-msgstr "Sæt maks udførelses tid for et script. Brug af værdien 0 betyder ingen grænse."
+msgstr "設定腳本程式最長的執行時間。使用 0 代表沒有限制。"
 
 msgid ""
 "Set the server as the default one to be served if no server name matches on "
 "the selected port."
-msgstr "Indstil serveren som standard til at betjene hvis intet server navn matcher på den valgte port. "
+msgstr "設定此伺服器為預設，當在所選的通訊埠上沒有伺服器名稱符合時，則提供此伺服器。"
 
 msgid "Set the user under which PHP scripts should be executed as."
-msgstr "Indstil brugeren som PHP scripts skal udføres som."
+msgstr "設定 PHP 腳本程式執行時用的用戶。"
 
 msgid "Settings"
-msgstr "Indstillinger"
+msgstr "設定"
 
 msgid "Start servers"
-msgstr "Start servere"
+msgstr "啟動伺服器"
 
 msgid "The SSL certificate."
-msgstr "SSL certifikatet."
+msgstr "SSL 證書"
 
 msgid ""
 "The location needs to have at least read permissions for the user/group www-"
 "data."
-msgstr "Placeringen skal mindst have læse tilladelser for brugeren/gruppen www-data."
+msgstr "該位置必須至少對 用戶/群組 www-data 有讀取的權限。"
 
 msgid ""
 "This enables PHP and makes the $socket variable (for the chosen PHP-FPM "
 "pool) available in extra options."
-msgstr "Dette aktiver PHP og gør $socket variablen (for den valgte PHP-FPM pool) tilgængelig i ekstra valgmuligheder."
+msgstr "這啟用 PHP 並使 $socket 變數 (對所選定的 PHP-FPM 集用場) 可用於額外選項中。"
 
 msgid ""
 "This option will populate the $root_path variable for usage in extra options"
 " or as document root."
-msgstr "Denne mulighed vil henvise $rod_sti variablen til brug i ekstra valgmuligheder eller som dokument rod."
+msgstr "此選項將填入 $root_path 變數以使用於額外選項內或做為文件根目錄。"
 
 msgid ""
 "This setting affects the max upload filesize and should preferably be "
 "higher."
-msgstr "Denne indstilling berører den maksimale upload filstørrelse og skal gerne være højre."
+msgstr "此設定會影響最大上傳檔案大小，應該最好較高一些。"
 
 msgid ""
 "This setting should be higher than the post max size. Setting a value of -1 "
 "makes it unlimited."
-msgstr "Denne indstilling skal være højre end post maks størrelse. Indstillingen af en værdi på -1 gør den uendelig."
+msgstr "此設定應該高於最大 post 大小。設定成 -1 則使它沒限制。"
 
 msgid "URL"
 msgstr "URL"
@@ -247,31 +247,31 @@ msgstr "UUID"
 msgid ""
 "Uncheck this if you want to use your own configuration to connect to the PHP"
 " socket."
-msgstr "Fjern flueben hvis du vil bruge din egen konfiguration for at forbinde til PHP socket."
+msgstr "不要勾選此項如果您要使用自己的配置來連接到 PHP 插槽。"
 
 msgid "Use 'Directory' as document root."
-msgstr "Brug 'Bibliotek' som dokument rod."
+msgstr "使用 '目錄' 做為文件的根目錄。"
 
 msgid "Use HTML tags in error messages."
-msgstr "Brug HTML tags i fejl beskeder."
+msgstr "在錯誤訊息內使用 HTML 標籤。"
 
 msgid ""
 "Use if you serve your public files in a subfolder like public_html or "
 "public. This folder will be the document root. It also avoids the need to "
 "create an additional shared folder in such cases."
-msgstr "Brug hvis du betjener dine offentligt filer i en undermappe som public_html eller public. Denne mappe vil være dokument rod. Hermed undgås det i tilfældet, at være nød til at oprette en ekstra delt mappe."
+msgstr "使用此項如果您提供公用檔案於子目錄像是 public_html 或 public。此檔案夾將是文件根目錄。在這種情況下，它也避免需要建立一個額外的共享檔案夾。"
 
 msgid "Use index"
-msgstr "Brug indeks"
+msgstr "使用 index"
 
 msgid "Use public directory"
-msgstr "Brug offentligt bibliotek"
+msgstr "使用公用目錄"
 
 msgid "Use root"
-msgstr "Brug rod"
+msgstr "使用根目錄"
 
 msgid "Use the default Nginx config for PHP."
-msgstr "Brug den standard Nginx konfig til PHP."
+msgstr "讓 PHP 使用預設 Nginx 配置。"
 
 msgid "User"
-msgstr "Bruger"
+msgstr "用戶"

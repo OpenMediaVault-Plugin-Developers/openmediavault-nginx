@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Ettore Atalan <atalanttore@googlemail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-nginx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-25 05:25-0500\n"
-"PO-Revision-Date: 2014-03-29 20:22+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2014-11-15 01:25+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/openmediavault-nginx/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,40 +22,40 @@ msgid "A PHP-FPM pool with the given name already exists"
 msgstr ""
 
 msgid "Access log"
-msgstr ""
+msgstr "Zugriffsprotokoll"
 
 msgid "Add pool"
 msgstr ""
 
 msgid "Add server"
-msgstr ""
+msgstr "Server hinzufügen"
 
 msgid "Certificate"
-msgstr ""
+msgstr "Zertifikat"
 
 msgid "Date & Time"
-msgstr ""
+msgstr "Datum & Zeit"
 
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 msgid "Default (SSL)"
-msgstr ""
+msgstr "Standard (SSL)"
 
 msgid "Default config"
-msgstr ""
+msgstr "Standardkonfiguration"
 
 msgid "Default server"
-msgstr ""
+msgstr "Standardserver"
 
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 msgid "Directory"
-msgstr ""
+msgstr "Verzeichnis"
 
 msgid "Display errors"
-msgstr ""
+msgstr "Fehler anzeigen"
 
 msgid "Don't serve .htaccess"
 msgstr ""
@@ -63,100 +64,100 @@ msgid "Edit pool"
 msgstr ""
 
 msgid "Edit server"
-msgstr ""
+msgstr "Server bearbeiten"
 
 msgid "Enable"
-msgstr ""
+msgstr "Aktivieren"
 
 msgid "Enable PHP"
-msgstr ""
+msgstr "PHP aktivieren"
 
 msgid "Enable SSL"
-msgstr ""
+msgstr "SSL aktivieren"
 
 msgid "Enable log"
-msgstr ""
+msgstr "Protokollierung aktivieren"
 
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiviert"
 
 msgid "Error log"
-msgstr ""
+msgstr "Fehlerprotokoll"
 
 msgid "Event"
-msgstr ""
+msgstr "Ereignis"
 
 msgid "Extra options"
-msgstr ""
+msgstr "Zusätzliche Optionen"
 
 msgid "Force SSL"
-msgstr ""
+msgstr "SSL erzwingen"
 
 msgid "General"
-msgstr ""
+msgstr "Allgemein"
 
 msgid "Group"
-msgstr ""
+msgstr "Gruppe"
 
 msgid "HTML errors"
-msgstr ""
+msgstr "HTML-Fehler"
 
 msgid "Header buffer size"
-msgstr ""
+msgstr "Kopfzeilen-Puffergröße"
 
 msgid "Host type"
-msgstr ""
+msgstr "Hosttyp"
 
 msgid "Index"
-msgstr ""
+msgstr "Index"
 
 msgid "Line"
-msgstr ""
+msgstr "Zeile"
 
 msgid "Log"
-msgstr ""
+msgstr "Protokoll"
 
 msgid "Max POST size (MB)"
-msgstr ""
+msgstr "Maximale POST-Größe (MB)"
 
 msgid "Max children"
 msgstr ""
 
 msgid "Max execution time (s)"
-msgstr ""
+msgstr "Maximale Ausführungszeit (s)"
 
 msgid "Max requests"
-msgstr ""
+msgstr "Maximale Anfragen"
 
 msgid "Max spare servers"
 msgstr ""
 
 msgid "Max upload filesize (MB)"
-msgstr ""
+msgstr "Maximale Hochlade-Dateigröße (MB)"
 
 msgid "Memory limit (MB)"
-msgstr ""
+msgstr "Speicherbegrenzung (MB)"
 
 msgid "Message"
-msgstr ""
+msgstr "Meldung"
 
 msgid "Message - row {0}"
-msgstr ""
+msgstr "Meldung - Zeile {0}"
 
 msgid "Min spare servers"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 msgid "Name-based"
-msgstr ""
+msgstr "Namensbasiert"
 
 msgid "Nginx"
-msgstr ""
+msgstr "Nginx"
 
 msgid "Options"
-msgstr ""
+msgstr "Optionen"
 
 msgid "PHP-FPM pool"
 msgstr ""
@@ -165,28 +166,28 @@ msgid "Pools"
 msgstr ""
 
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 msgid "Process manager"
-msgstr ""
+msgstr "Prozessmanager"
 
 msgid "Public directory"
-msgstr ""
+msgstr "Öffentliches Verzeichnis"
 
 msgid "Root"
-msgstr ""
+msgstr "Root"
 
 msgid "Select a PHP-FPM pool ..."
 msgstr ""
 
 msgid "Server name"
-msgstr ""
+msgstr "Servername"
 
 msgid "Server names hash bucket size"
 msgstr ""
 
 msgid "Servers"
-msgstr ""
+msgstr "Server"
 
 msgid "Set the group under which PHP scripts should be executed as."
 msgstr ""
@@ -204,13 +205,13 @@ msgid "Set the user under which PHP scripts should be executed as."
 msgstr ""
 
 msgid "Settings"
-msgstr ""
+msgstr "Einstellungen"
 
 msgid "Start servers"
-msgstr ""
+msgstr "Server starten"
 
 msgid "The SSL certificate."
-msgstr ""
+msgstr "Das SSL-Zertifikat."
 
 msgid ""
 "The location needs to have at least read permissions for the user/group www-"
@@ -238,10 +239,10 @@ msgid ""
 msgstr ""
 
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 msgid "UUID"
-msgstr ""
+msgstr "UUID"
 
 msgid ""
 "Uncheck this if you want to use your own configuration to connect to the PHP"
@@ -261,16 +262,16 @@ msgid ""
 msgstr ""
 
 msgid "Use index"
-msgstr ""
+msgstr "Index verwenden"
 
 msgid "Use public directory"
-msgstr ""
+msgstr "Öffentliches Verzeichnis verwenden"
 
 msgid "Use root"
-msgstr ""
+msgstr "root verwenden"
 
 msgid "Use the default Nginx config for PHP."
-msgstr ""
+msgstr "Standard-Nginx-Konfiguration für PHP verwenden."
 
 msgid "User"
-msgstr ""
+msgstr "Benutzer"

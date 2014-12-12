@@ -1,0 +1,277 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Hyeonkyu Chu <hyeonkyu@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault-nginx\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-25 05:25-0500\n"
+"PO-Revision-Date: 2014-11-22 13:35+0000\n"
+"Last-Translator: Hyeonkyu Chu <hyeonkyu@gmail.com>\n"
+"Language-Team: Korean (Korea) (http://www.transifex.com/projects/p/openmediavault-nginx/language/ko_KR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko_KR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "A PHP-FPM pool with the given name already exists"
+msgstr "지정된 이름의 PHP-FPM 풀은 이미 존재 합니다"
+
+msgid "Access log"
+msgstr "접근 기록"
+
+msgid "Add pool"
+msgstr "풀 추가"
+
+msgid "Add server"
+msgstr "서버 추가"
+
+msgid "Certificate"
+msgstr "인증서"
+
+msgid "Date & Time"
+msgstr "날짜 & 시간"
+
+msgid "Default"
+msgstr "기본"
+
+msgid "Default (SSL)"
+msgstr "기본 (SSL)"
+
+msgid "Default config"
+msgstr "기본 설정"
+
+msgid "Default server"
+msgstr "기본 서버"
+
+msgid "Description"
+msgstr "상세"
+
+msgid "Directory"
+msgstr "디렉터리"
+
+msgid "Display errors"
+msgstr "오류 표시"
+
+msgid "Don't serve .htaccess"
+msgstr ".htaccess 제공 안함."
+
+msgid "Edit pool"
+msgstr "풀 편집"
+
+msgid "Edit server"
+msgstr "서버 편집"
+
+msgid "Enable"
+msgstr "활성화"
+
+msgid "Enable PHP"
+msgstr "PHP 활성화"
+
+msgid "Enable SSL"
+msgstr "SSL 활성화"
+
+msgid "Enable log"
+msgstr "기록 활성화"
+
+msgid "Enabled"
+msgstr "활성화됨"
+
+msgid "Error log"
+msgstr "오류 기록"
+
+msgid "Event"
+msgstr "이벤트"
+
+msgid "Extra options"
+msgstr "추가 옵션"
+
+msgid "Force SSL"
+msgstr "SSL 강제"
+
+msgid "General"
+msgstr "일반"
+
+msgid "Group"
+msgstr "그룹"
+
+msgid "HTML errors"
+msgstr "HTML 오류"
+
+msgid "Header buffer size"
+msgstr "헤더 버퍼 크기"
+
+msgid "Host type"
+msgstr "호스트 유형"
+
+msgid "Index"
+msgstr "Index"
+
+msgid "Line"
+msgstr "Line"
+
+msgid "Log"
+msgstr "기록"
+
+msgid "Max POST size (MB)"
+msgstr "최대 POST 크기 (MB)"
+
+msgid "Max children"
+msgstr "최대 자식"
+
+msgid "Max execution time (s)"
+msgstr "최대 실행 시간 (s)"
+
+msgid "Max requests"
+msgstr "최대 요청"
+
+msgid "Max spare servers"
+msgstr "최대 예비 서버"
+
+msgid "Max upload filesize (MB)"
+msgstr "최대 올려주기 파일 크기 (MB)"
+
+msgid "Memory limit (MB)"
+msgstr "메모리 제한 (MB)"
+
+msgid "Message"
+msgstr "메시지"
+
+msgid "Message - row {0}"
+msgstr "메시지 - 열 {0}"
+
+msgid "Min spare servers"
+msgstr "최소 예비 서버"
+
+msgid "Name"
+msgstr "이름"
+
+msgid "Name-based"
+msgstr "이름-기반"
+
+msgid "Nginx"
+msgstr "Nginx"
+
+msgid "Options"
+msgstr "옵션"
+
+msgid "PHP-FPM pool"
+msgstr "PHP-FPM 풀"
+
+msgid "Pools"
+msgstr "풀"
+
+msgid "Port"
+msgstr "포트"
+
+msgid "Process manager"
+msgstr "프로세스 관리자"
+
+msgid "Public directory"
+msgstr "공용 디렉터리"
+
+msgid "Root"
+msgstr "루트"
+
+msgid "Select a PHP-FPM pool ..."
+msgstr "PHP-FPM 풀 선택 ..."
+
+msgid "Server name"
+msgstr "서버 이름"
+
+msgid "Server names hash bucket size"
+msgstr "서버 이름 해시 버킷 크기"
+
+msgid "Servers"
+msgstr "서버"
+
+msgid "Set the group under which PHP scripts should be executed as."
+msgstr "PHP 스크립트는 다음과 같이 실행해야 하는 그룹을 설정합니다."
+
+msgid ""
+"Set the max execution time of a script. Using the value 0 means no limit."
+msgstr "스크립트의 최대 실행 시간을 설정합니다. 값 0을 사용하면 제한이 없음을 의미합니다."
+
+msgid ""
+"Set the server as the default one to be served if no server name matches on "
+"the selected port."
+msgstr "선택한 포트에 일치하는 서버 이름이 없는 경우, 기본으로 제공하는 하나의 서버를 설정합니다."
+
+msgid "Set the user under which PHP scripts should be executed as."
+msgstr "PHP 스크립트는 다음과 같이 실행해야 하는 사용자를 설정합니다."
+
+msgid "Settings"
+msgstr "설정"
+
+msgid "Start servers"
+msgstr "서버 시작"
+
+msgid "The SSL certificate."
+msgstr "SSL 인증서"
+
+msgid ""
+"The location needs to have at least read permissions for the user/group www-"
+"data."
+msgstr "이 위치는 사용자/그룹 www-data에 대해 최소 읽기 권한을 가져야 합니다."
+
+msgid ""
+"This enables PHP and makes the $socket variable (for the chosen PHP-FPM "
+"pool) available in extra options."
+msgstr "활성화 하면 PHP를 가능하게 하고, 추가 옵션에서 사용 가능한 $socket 변수(선택한 PHP-FPM 풀에 대한)를 만듭니다."
+
+msgid ""
+"This option will populate the $root_path variable for usage in extra options"
+" or as document root."
+msgstr "이 옵션은 추가 옵션 또는 문서 루트로 사용을 위한 $root_path 변수를 채웁니다."
+
+msgid ""
+"This setting affects the max upload filesize and should preferably be "
+"higher."
+msgstr "이 설정은 최대 올려주기 파일 크기에 영향을 주며 높을 수록 좋습니다."
+
+msgid ""
+"This setting should be higher than the post max size. Setting a value of -1 "
+"makes it unlimited."
+msgstr "이 설정은 최대 post 크기보다 더 높아야 합니다. 값을 -1로 설정하면 무제한이 됩니다."
+
+msgid "URL"
+msgstr "URL"
+
+msgid "UUID"
+msgstr "UUID"
+
+msgid ""
+"Uncheck this if you want to use your own configuration to connect to the PHP"
+" socket."
+msgstr "PHP 소켓에의 연결에 자신의 구성을 사용하려면 이 선택을 취소합니다."
+
+msgid "Use 'Directory' as document root."
+msgstr "문서 루트로 '디렉터리'를 사용합니다."
+
+msgid "Use HTML tags in error messages."
+msgstr "오류 메시지에 HTML 태그를 사용합니다."
+
+msgid ""
+"Use if you serve your public files in a subfolder like public_html or "
+"public. This folder will be the document root. It also avoids the need to "
+"create an additional shared folder in such cases."
+msgstr "public_html 또는 public과 같은 하위 폴더에 공개 파일을 제공하는 경우 사용합니다. 이 폴더는 문서 루트가 될 것입니다. 또한, 이러한 경우에 추가적인 공유 폴더를 생성 할 필요가 없습니다."
+
+msgid "Use index"
+msgstr "index 사용"
+
+msgid "Use public directory"
+msgstr "공용 디렉터리 사용"
+
+msgid "Use root"
+msgstr "루트 사용"
+
+msgid "Use the default Nginx config for PHP."
+msgstr "PHP에 기본 Nginx 설정 사용"
+
+msgid "User"
+msgstr "사용자"
