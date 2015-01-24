@@ -655,11 +655,13 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             $forceSslOnly    = boolval($webadminConfig["forcesslonly"]);
             $enableSsl       = boolval($webadminConfig["enablessl"]);
 
-            if ($webadminPort == $port && !$forceSslOnly) {
+            if ($webadminPort == $port && !$forceSslOnly && $server["host_type"] == self::HOST_TYPE_PORT) {
+	        // name based port sharing is allowed in nginx
                 return false;
             }
 
-            if ($webadminSslPort == $port && $enableSsl) {
+            if ($webadminSslPort == $port && $enableSsl && $server["host_type"] == self::HOST_TYPE_PORT) {
+	        // name based port sharing is allowed in nginx
                 return false;
             }
         }
