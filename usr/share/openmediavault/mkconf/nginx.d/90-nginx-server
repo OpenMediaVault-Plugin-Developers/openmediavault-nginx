@@ -127,7 +127,7 @@ generate_server_nginx_config()
             default_server=" default_server"
         fi
 
-        echo "    listen ${port}${default_server};" >> ${config}
+        echo "    listen [::]:${port}${default_server};" >> ${config}
     fi
 
     # SSL config
@@ -138,7 +138,7 @@ generate_server_nginx_config()
             ssl_default_server=" default_server"
         fi
 
-        echo "    listen ${ssl_port}${ssl_default_server} ssl;" >> ${config}
+        echo "    listen [::]:${ssl_port}${ssl_default_server} ssl;" >> ${config}
         echo "    ssl_certificate     ${OMV_CERTIFICATE_DIR}/certs/${OMV_CERTIFICATE_PREFIX}${sslcertificateref}.crt;" >> ${config}
         echo "    ssl_certificate_key ${OMV_CERTIFICATE_DIR}/private/${OMV_CERTIFICATE_PREFIX}${sslcertificateref}.key;" >> ${config}
     fi
