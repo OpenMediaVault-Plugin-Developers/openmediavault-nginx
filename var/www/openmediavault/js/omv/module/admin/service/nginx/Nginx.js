@@ -20,7 +20,7 @@
 OMV.WorkspaceManager.registerNode({
     id      : "nginx",
     path    : "/service",
-    text    : _("Nginx Websites"),
+    text    : _("Nginx (websites)"),
     icon16  : "images/nginx.png",
     iconSvg : "images/nginx.svg"
 });
