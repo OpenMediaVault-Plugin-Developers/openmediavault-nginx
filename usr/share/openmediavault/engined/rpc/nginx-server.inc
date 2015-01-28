@@ -613,7 +613,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         // If not empty and not the same as
         // the current one, check if port types
         // mismatches and then if any of them
-        // are port based
+        // are port based.
         if (!empty($server)) {
             if ($server["uuid"] != $uuid) {
                 if ($sslPort) {
@@ -646,16 +646,18 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             }
         }
 
-        // Validate with webadmin ports
+        // Validate with webadmin ports.
         $webadminConfig = $xmlConfig->get("//webadmin");
 
         if (!empty($webadminConfig)) {
             $webadminPort    = intval($webadminConfig["port"]);
             $webadminSslPort = intval($webadminConfig["sslport"]);
-            $forceSslOnly    = boolval($webadminConfig["forcesslonly"]);
             $enableSsl       = boolval($webadminConfig["enablessl"]);
 
-            if ($webadminPort == $port && !$forceSslOnly) {
+            // We don't need to check if force SSL only is enabled since the web
+            // interface configuration still uses the http port to redirect to
+            // https.
+            if ($webadminPort == $port) {
                 return false;
             }
 
