@@ -12,29 +12,29 @@ NGINX_ENABLED_DIR=/etc/nginx/sites-enabled
 
 remove_fpm_configs()
 {
-    /usr/bin/find /etc/php5/fpm/pool.d -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
+    find /etc/php5/fpm/pool.d -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
 }
 
 remove_nginx_configs()
 {
     if [ -e "${OMV_NGINX_CUSTOM_CONF}" ]; then
-        /bin/rm "${OMV_NGINX_CUSTOM_CONF}"
+        rm "${OMV_NGINX_CUSTOM_CONF}"
     fi
 
     # Remove file in sites-enabled
     if [ -e "${NGINX_ENABLED_DIR}/${1}" ]; then
-        /bin/rm "${NGINX_ENABLED_DIR}/${1}"
+        rm "${NGINX_ENABLED_DIR}/${1}"
     fi
 
     # Remove file in sites-available
     if [ -e "${NGINX_AVAILABLE_DIR}/${1}" ]; then
-        /bin/rm "${NGINX_AVAILABLE_DIR}/${1}"
+        rm "${NGINX_AVAILABLE_DIR}/${1}"
     fi
 }
 
 remove_nginx_logs()
 {
-    /usr/bin/find /var/log/nginx -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
+    find /var/log/nginx -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
 }
 
 case "$1" in

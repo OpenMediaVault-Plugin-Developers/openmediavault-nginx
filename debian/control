@@ -1,14 +1,16 @@
 Source: openmediavault-nginx
 Section: net
-XB-Plugin-Section: network
 Priority: optional
 Maintainer: OpenMediaVault Plugin Developers <plugins@omv-extras.org>
-Build-Depends: debhelper (>= 9.0.0)
-Standards-Version: 3.9.3
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+XB-Plugin-Section: network
 
 Package: openmediavault-nginx
 Architecture: all
 Depends: openmediavault (>= 1.0.7), nginx, php5-fpm, ${misc:Depends}
 Description: Nginx plugin for OpenMediaVault.
-  Nginx ("engine X") is a high-performance web server. It can be used to serve your web pages.
-  This plugin also provides PHP support through php-fpm (http://php-fpm.org)
+ Nginx ("engine X") is a high-performance web server. It can be used to serve
+ your web pages.
+ .
+ This plugin also provides PHP support through php-fpm (http://php-fpm.org).
