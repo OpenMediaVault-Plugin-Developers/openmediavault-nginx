@@ -49,10 +49,28 @@ remove_server()
     fi
 }
 
+listen_options_undefined()
+{
+    # Match UUID with first result matching the port. This should only match
+    # once and therefore set the options once.
+    local port="${1}"
+    local uuid="${2}"
+    local xpath="${OMV_NGINX_SERVER_XPATH}[port='${port}' or ssl_port='${port}'][1][uuid='${uuid}']"
+
+    # Check count.
+    local count=$(omv_config_get_count "${xpath}")
+
+    if [ ${count} -gt 0 ]; then
+        return 0
+    fi
+
+    return 1
+}
+
 generate_server_nginx_config()
 {
-    local xpath=${1}
-    local config=${2}
+    local xpath="${1}"
+    local config="${2}"
 
     # Get document root if it's set
     local root_ref=$(omv_config_get "${xpath}/sharedfolderref")
@@ -103,24 +121,32 @@ generate_server_nginx_config()
     # Non SSL config
     # Always listen to port unless SSL is forced
     if [ $ssl_force -ne 1 ]; then
-        local default_server=""
+        local listen_options="[::]:${port}"
 
         if [ $port_default_server -eq 1 ]; then
-            default_server=" default_server"
+            listen_options+=" default_server"
         fi
 
-        echo "    listen ${port}${default_server};" >> ${config}
+        if listen_options_undefined ${port} ${uuid}; then
+            listen_options+=" ipv6only=off"
+        fi
+
+        echo "    listen ${listen_options};" >> ${config}
     fi
 
     # SSL config
     if [ $ssl_enable -eq 1 ]; then
-        local ssl_default_server=""
+        local ssl_listen_options="[::]:${ssl_port} ssl"
 
         if [ $ssl_port_default_server -eq 1 ]; then
-            ssl_default_server=" default_server"
+            ssl_listen_options+=" default_server"
         fi
 
-        echo "    listen ${ssl_port}${ssl_default_server} ssl;" >> ${config}
+        if listen_options_undefined ${ssl_port} ${uuid}; then
+            ssl_listen_options+=" ipv6only=off"
+        fi
+
+        echo "    listen ${ssl_listen_options};" >> ${config}
         echo "    ssl_certificate     ${OMV_CERTIFICATE_DIR}/certs/${OMV_CERTIFICATE_PREFIX}${sslcertificateref}.crt;" >> ${config}
         echo "    ssl_certificate_key ${OMV_CERTIFICATE_DIR}/private/${OMV_CERTIFICATE_PREFIX}${sslcertificateref}.key;" >> ${config}
     fi
