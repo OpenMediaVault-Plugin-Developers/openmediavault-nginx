@@ -45,7 +45,7 @@ remove_server()
     nginx_ensite ${1} || true
 
     if [ -e "${NGINX_AVAILABLE_DIR}/${1}" ]; then
-        /bin/rm "${NGINX_AVAILABLE_DIR}/${1}"
+        rm "${NGINX_AVAILABLE_DIR}/${1}"
     fi
 }
 
@@ -202,7 +202,7 @@ generate_server_nginx_config()
 
 remove_nginx_logs()
 {
-    /usr/bin/find ${NGINX_LOG_DIR} -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
+    find ${NGINX_LOG_DIR} -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
 }
 
 generate_nginx_config()

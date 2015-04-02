@@ -107,7 +107,7 @@ booleanToOnOff()
 
 remove_fpm_configurations()
 {
-    /usr/bin/find ${PHP_FPM_POOL_DIR} -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
+    find ${PHP_FPM_POOL_DIR} -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
 }
 
 remove_fpm_configurations
