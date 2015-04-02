@@ -24,12 +24,12 @@ OMV_PLUGIN_XPATH=//services/nginx
 OMV_NGINX_SERVERS_XPATH=${OMV_PLUGIN_XPATH}/servers
 OMV_NGINX_SERVER_XPATH=${OMV_NGINX_SERVERS_XPATH}/server
 
-# Nginx paths
+# Nginx paths.
 NGINX_AVAILABLE_DIR=/etc/nginx/sites-available
 NGINX_ENABLED_DIR=/etc/nginx/sites-enabled
 NGINX_LOG_DIR=/var/log/nginx
 
-# php-fpm paths
+# PHP-FPM paths.
 PHP_FPM_POOL_DIR=/etc/php5/fpm/pool.d/
 
 OMV_NGINX_CUSTOM_CONF=/etc/nginx/conf.d/openmediavault-nginx.conf
@@ -72,7 +72,7 @@ generate_server_nginx_config()
     local xpath="${1}"
     local config="${2}"
 
-    # Get document root if it's set
+    # Get document root if it's set.
     local root_ref=$(omv_config_get "${xpath}/sharedfolderref")
     local root=""
     local use_root=$(omv_config_get "${xpath}/use_root")
@@ -87,26 +87,26 @@ generate_server_nginx_config()
         fi
     fi
 
-    # Variables
+    # Variables.
     local uuid=$(omv_config_get "${xpath}/uuid")
     local host_type=$(omv_config_get "${xpath}/host_type")
     local server_name=$(omv_config_get "${xpath}/server_name")
     local port=$(omv_config_get "${xpath}/port")
     local port_default_server=$(omv_config_get "${xpath}/port_default_server")
 
-    # SSL
+    # SSL.
     local ssl_enable=$(omv_config_get "${xpath}/ssl_enable")
     local ssl_port=$(omv_config_get "${xpath}/ssl_port")
     local ssl_port_default_server=$(omv_config_get "${xpath}/ssl_port_default_server")
     local sslcertificateref=$(omv_config_get "${xpath}/sslcertificateref")
     local ssl_force=$(omv_config_get "${xpath}/ssl_force")
 
-    # PHP variables
+    # PHP.
     local php_enable=$(omv_config_get "${xpath}/php_enable")
     local php_pool_ref=$(omv_config_get "${xpath}/php_pool_ref")
     local php_use_default_config=$(omv_config_get "${xpath}/php_use_default_config")
 
-    # Options
+    # Options.
     local use_index=$(omv_config_get "${xpath}/use_index")
     local use_index_html=$(omv_config_get "${xpath}/use_index_html")
     local use_index_php=$(omv_config_get "${xpath}/use_index_php")
@@ -115,11 +115,11 @@ generate_server_nginx_config()
     local log_enable=$(omv_config_get "${xpath}/log_enable")
     local large_client_header_buffers=$(omv_config_get "${xpath}/large_client_header_buffers")
 
-    # Start generating config
+    # Start generating configuration file.
     echo "server {" >> ${config}
 
-    # Non SSL config
-    # Always listen to port unless SSL is forced
+    # Non SSL configuration.
+    # Always listen to port unless SSL is forced.
     if [ $ssl_force -ne 1 ]; then
         local listen_options="[::]:${port}"
 
@@ -134,7 +134,7 @@ generate_server_nginx_config()
         echo "    listen ${listen_options};" >> ${config}
     fi
 
-    # SSL config
+    # SSL configuration.
     if [ $ssl_enable -eq 1 ]; then
         local ssl_listen_options="[::]:${ssl_port} ssl"
 
@@ -243,10 +243,10 @@ generate_nginx_config
 
 if [ "$(omv_config_get "${OMV_PLUGIN_XPATH}/enable")" -eq "1" ]; then
 
-    # Remove old config remove_config
+    # Remove old config remove_config.
     remove_server ${OMV_NGINX_CONF_NAME}
 
-    # Iterate through enabled servers
+    # Iterate through enabled servers.
     server_count=$(omv_config_get_count "${OMV_NGINX_SERVER_XPATH}[enable = '1']")
     index=1
 
