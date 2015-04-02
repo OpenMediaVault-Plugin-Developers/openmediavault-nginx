@@ -55,12 +55,16 @@ listen_options_undefined()
     # once and therefore set the options once.
     local port="${1}"
     local uuid="${2}"
+    local webadmin_xpath="/config/webadmin[port='${port}' or sslport='${port}']"
     local xpath="${OMV_NGINX_SERVER_XPATH}[port='${port}' or ssl_port='${port}'][1][uuid='${uuid}']"
 
-    # Check count.
-    local count=$(omv_config_get_count "${xpath}")
+    # If using the ports OpenMediaVault is using, no options should be set.
+    if [ $(omv_config_get_count "${webadmin_xpath}") -gt 0 ]; then
+        return 1
+    fi
 
-    if [ ${count} -gt 0 ]; then
+    # If we get a match this is the entry that will get listen options.
+    if [ $(omv_config_get_count "${xpath}") -gt 0 ]; then
         return 0
     fi
 
