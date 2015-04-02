@@ -673,6 +673,8 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 
     private function validatePortDefaultServer($port, $uuid, $ssl = false)
     {
+        // TODO: Currently not checking of it's the same port as the web
+        // interface.
         global $xmlConfig;
         $xpath = "";
 
