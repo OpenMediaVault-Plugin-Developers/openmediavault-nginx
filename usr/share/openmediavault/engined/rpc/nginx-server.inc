@@ -657,11 +657,14 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             // We don't need to check if force SSL only is enabled since the web
             // interface configuration still uses the http port to redirect to
             // https.
-            if ($webadminPort == $port) {
+            //
+            // If the host type is name-based we will still allow using the
+            // web interface ports.
+            if ($webadminPort == $port && $hostType == self::HOST_TYPE_PORT) {
                 return false;
             }
 
-            if ($webadminSslPort == $port && $enableSsl) {
+            if ($webadminSslPort == $port && $enableSsl && $hostType == self::HOST_TYPE_PORT) {
                 return false;
             }
         }
