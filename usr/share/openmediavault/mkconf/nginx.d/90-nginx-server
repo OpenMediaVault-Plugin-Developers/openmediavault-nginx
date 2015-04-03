@@ -251,7 +251,7 @@ if [ "$(omv_config_get "${OMV_PLUGIN_XPATH}/enable")" -eq "1" ]; then
     while [ $index -lt $server_count -o $index -eq $server_count ]; do
 
         current_server_xpath="${OMV_NGINX_SERVER_XPATH}[enable = '1'][${index}]"
-        generate_server_nginx_config "${current_server_xpath}" "${OMV_NGINX_CONF}"
+        generate_server_nginx_config "${current_server_xpath}" "${NGINX_AVAILABLE_DIR}/${OMV_NGINX_CONF}"
 
         index=$(( ${index} + 1 ))
 
