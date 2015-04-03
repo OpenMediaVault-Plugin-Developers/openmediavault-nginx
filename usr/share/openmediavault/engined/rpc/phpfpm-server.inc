@@ -71,12 +71,12 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         $this->validateMethodParams(
             $params,
             '{
-                "type"       : "object",
-                "properties" : {
-                    "start"     : { "type" : "integer" },
-                    "limit"     : {' . $GLOBALS["OMV_JSONSCHEMA_COUNTFIELD"] . '},
-                    "sortfield" : {' . $GLOBALS["OMV_JSONSCHEMA_SORTFIELD"] . '},
-                    "sortdir"   : {' . $GLOBALS["OMV_JSONSCHEMA_SORTDIR"] . '}
+                "type": "object",
+                "properties": {
+                    "start": { "type": "integer" },
+                    "limit: {' . $GLOBALS["OMV_JSONSCHEMA_COUNTFIELD"] . '},
+                    "sortfield": {' . $GLOBALS["OMV_JSONSCHEMA_SORTFIELD"] . '},
+                    "sortdir": {' . $GLOBALS["OMV_JSONSCHEMA_SORTDIR"] . '}
                 }
             }'
         );
@@ -121,9 +121,9 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         $this->validateMethodParams(
             $params,
             '{
-                "type"       : "object",
-                "properties" : {
-                    "uuid" : {' . $GLOBALS["OMV_JSONSCHEMA_UUID"] . '}
+                "type": "object",
+                "properties": {
+                    "uuid": {' . $GLOBALS["OMV_JSONSCHEMA_UUID"] . '}
                 }
             }'
         );
@@ -138,16 +138,16 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         }
 
         // General.
-        $pool["pm_max_children"]         = intval($pool["pm_max_children"]);
-        $pool["pm_start_servers"]        = intval($pool["pm_start_servers"]);
-        $pool["pm_min_spare_servers"]    = intval($pool["pm_min_spare_servers"]);
-        $pool["pm_max_spare_servers"]    = intval($pool["pm_max_spare_servers"]);
-        $pool["pm_max_requests"]         = intval($pool["pm_max_requests"]);
-        $pool["php_display_errors"]      = boolval($pool["php_display_errors"]);
-        $pool["php_html_errors"]         = boolval($pool["php_html_errors"]);
-        $pool["php_max_execution_time"]  = intval($pool["php_max_execution_time"]);
-        $pool["php_memory_limit"]        = intval($pool["php_memory_limit"]);
-        $pool["php_post_max_size"]       = intval($pool["php_post_max_size"]);
+        $pool["pm_max_children"] = intval($pool["pm_max_children"]);
+        $pool["pm_start_servers"] = intval($pool["pm_start_servers"]);
+        $pool["pm_min_spare_servers"] = intval($pool["pm_min_spare_servers"]);
+        $pool["pm_max_spare_servers"] = intval($pool["pm_max_spare_servers"]);
+        $pool["pm_max_requests"] = intval($pool["pm_max_requests"]);
+        $pool["php_display_errors"] = boolval($pool["php_display_errors"]);
+        $pool["php_html_errors"] = boolval($pool["php_html_errors"]);
+        $pool["php_max_execution_time"] = intval($pool["php_max_execution_time"]);
+        $pool["php_memory_limit"] = intval($pool["php_memory_limit"]);
+        $pool["php_post_max_size"] = intval($pool["php_post_max_size"]);
         $pool["php_upload_max_filesize"] = intval($pool["php_upload_max_filesize"]);
 
         return $pool;
@@ -166,49 +166,49 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         $this->validateMethodParams(
             $params,
             '{
-                "type"       : "object",
-                "properties" : {
-                    "uuid"                    : {' . $GLOBALS["OMV_JSONSCHEMA_UUID_UNDEFINED"] . '},
-                    "name"                    : { "type" : "string" },
-                    "description"             : { "type" : "string" },
-                    "user"                    : { "type" : "string" },
-                    "group"                   : { "type" : "string" },
-                    "pm_max_children"         : { "type" : "integer", "minimum" : 1 },
-                    "pm_start_servers"        : { "type" : "integer", "minimum" : 1 },
-                    "pm_min_spare_servers"    : { "type" : "integer", "minimum" : 1 },
-                    "pm_max_spare_servers"    : { "type" : "integer", "minimum" : 1 },
-                    "pm_max_requests"         : { "type" : "integer", "minimum" : 0 },
-                    "php_display_errors"      : { "type" : "boolean" },
-                    "php_html_errors"         : { "type" : "boolean" },
-                    "php_max_execution_time"  : { "type" : "integer", "minimum" : 0 },
-                    "php_memory_limit"        : { "type" : "integer", "minimum" : -1 },
-                    "php_post_max_size"       : { "type" : "integer", "minimum" : 1 },
-                    "php_upload_max_filesize" : { "type" : "integer", "minimum" : 1 },
-                    "extra_options"           : { "type" : "string" }
+                "type": "object",
+                "properties": {
+                    "uuid": {' . $GLOBALS["OMV_JSONSCHEMA_UUID_UNDEFINED"] . '},
+                    "name": { "type": "string" },
+                    "description": { "type": "string" },
+                    "user": { "type": "string" },
+                    "group": { "type": "string" },
+                    "pm_max_children": { "type": "integer", "minimum": 1 },
+                    "pm_start_servers": { "type": "integer", "minimum": 1 },
+                    "pm_min_spare_servers": { "type": "integer", "minimum": 1 },
+                    "pm_max_spare_servers": { "type": "integer", "minimum": 1 },
+                    "pm_max_requests": { "type": "integer", "minimum": 0 },
+                    "php_display_errors": { "type": "boolean" },
+                    "php_html_errors": { "type": "boolean" },
+                    "php_max_execution_time": { "type": "integer", "minimum": 0 },
+                    "php_memory_limit": { "type": "integer", "minimum": -1 },
+                    "php_post_max_size": { "type": "integer", "minimum": 1 },
+                    "php_upload_max_filesize": { "type": "integer", "minimum": 1 },
+                    "extra_options": { "type": "string" }
                 }
             }'
         );
 
         $pool = array(
-            "uuid"                    =>
+            "uuid" =>
                 ($params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"])
                 ? OMVUtil::uuid() : $params["uuid"],
-            "name"                    => $params["name"],
-            "description"             => $params["description"],
-            "user"                    => $params["user"],
-            "group"                   => $params["group"],
-            "pm_max_children"         => intval($params["pm_max_children"]),
-            "pm_start_servers"        => intval($params["pm_start_servers"]),
-            "pm_min_spare_servers"    => intval($params["pm_min_spare_servers"]),
-            "pm_max_spare_servers"    => intval($params["pm_max_spare_servers"]),
-            "pm_max_requests"         => intval($params["pm_max_requests"]),
-            "php_display_errors"      => boolval($params["php_display_errors"]),
-            "php_html_errors"         => boolval($params["php_html_errors"]),
-            "php_memory_limit"        => intval($params["php_memory_limit"]),
-            "php_max_execution_time"  => intval($params["php_max_execution_time"]),
-            "php_post_max_size"       => intval($params["php_post_max_size"]),
+            "name" => $params["name"],
+            "description" => $params["description"],
+            "user" => $params["user"],
+            "group" => $params["group"],
+            "pm_max_children" => intval($params["pm_max_children"]),
+            "pm_start_servers" => intval($params["pm_start_servers"]),
+            "pm_min_spare_servers" => intval($params["pm_min_spare_servers"]),
+            "pm_max_spare_servers" => intval($params["pm_max_spare_servers"]),
+            "pm_max_requests" => intval($params["pm_max_requests"]),
+            "php_display_errors" => boolval($params["php_display_errors"]),
+            "php_html_errors" => boolval($params["php_html_errors"]),
+            "php_memory_limit" => intval($params["php_memory_limit"]),
+            "php_max_execution_time" => intval($params["php_max_execution_time"]),
+            "php_post_max_size" => intval($params["php_post_max_size"]),
             "php_upload_max_filesize" => intval($params["php_upload_max_filesize"]),
-            "extra_options"           => trim($params["extra_options"]),
+            "extra_options" => trim($params["extra_options"]),
         );
 
         // Save the configuration.
@@ -264,9 +264,9 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         $this->validateMethodParams(
             $params,
             '{
-                "type"       : "object",
-                "properties" : {
-                    "uuid" : {' . $GLOBALS["OMV_JSONSCHEMA_UUID_NONE"] . '}
+                "type": "object",
+                "properties": {
+                    "uuid": {' . $GLOBALS["OMV_JSONSCHEMA_UUID_NONE"] . '}
                 }
             }'
         );
