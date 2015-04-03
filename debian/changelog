@@ -1,4 +1,4 @@
-openmediavault-nginx (1.3~2) UNRELEASED; urgency=medium
+openmediavault-nginx (1.3) stable; urgency=medium
 
   * Add IPv6 support.
   * Allow using the same port as the web interface when using name-based 
@@ -6,7 +6,7 @@ openmediavault-nginx (1.3~2) UNRELEASED; urgency=medium
   * Fix issue which caused omv-mkconf to fail when enabled servers was 
     preceded by a disabled server in config.xml. 
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 02 Apr 2015 21:13:23 +0200
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 03 Apr 2015 21:12:18 +0200
 
 openmediavault-nginx (1.1) stable; urgency=low
 
