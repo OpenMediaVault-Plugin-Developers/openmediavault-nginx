@@ -1,4 +1,4 @@
-openmediavault-nginx (1.3~1) UNRELEASED; urgency=medium
+openmediavault-nginx (1.3~2) UNRELEASED; urgency=medium
 
   * Add IPv6 support.
   * Allow using the same port as the web interface when using name-based 
