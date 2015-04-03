@@ -393,7 +393,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         );
 
         $server = $this->sanitizeServer($server);
-        $server = $this->validateServer($server);
+        $this->validateServer($server);
 
         // Save configuration.
         $success = false;
@@ -521,18 +521,17 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         );
     }
 
+    /**
+     * Sanitize a server configuration. Corrects different configuration
+     * options.
+     *
+     * @param array $server The configuration to sanitize.
+     *
+     * @return array Returns the sanitized server configuration.
+     */
     private function sanitizeServer($server)
     {
-        // Trim whitespace and then trim / at start and end
-        $server["public_directory"] = trim($server["public_directory"]);
-        $server["public_directory"] = trim($server["public_directory"], DIRECTORY_SEPARATOR);
-
-        return $server;
-    }
-
-    private function validateServer($server)
-    {
-        // Remove current port number if not used.
+        // Remove port numbers that aren't used.
         if ($server["ssl_force"]) {
             $server["port"] = null;
         }
@@ -541,6 +540,41 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             $server["ssl_port"] = null;
         }
 
+        // Reset the default_server option to false when the port isn't used.
+        if ($server["ssl_force"]) {
+            $server["port_default_server"] = false;
+        }
+
+        if (!$server["ssl_enable"]) {
+            $server["ssl_port_default_server"] = false;
+        }
+
+        // Trim whitespace and then trim slashes at start and end from the
+        // public directory.
+        $server["public_directory"] = trim($server["public_directory"]);
+        $server["public_directory"] = trim($server["public_directory"], DIRECTORY_SEPARATOR);
+
+        // Trim and replace all spaces in the server_name with a single space to
+        // allow for easy exploding of the string.
+        $serverName = $server["server_name"];
+        $serverName = trim($serverName);
+        $serverName = preg_replace("/\s+/", " ", $serverName);
+        $server["server_name"] = $serverName;
+
+        return $server;
+    }
+
+    /**
+     * Validate server options. Throws exceptions when errors occurs.
+     *
+     * @param array $server The server configuration to validate.
+     *
+     * @throws Exception
+     *
+     * @return void
+     */
+    private function validateServer($server)
+    {
         // Perform port checks.
         if ($server["port"] == $server["ssl_port"]) {
             throw new OMVException(
@@ -552,14 +586,14 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         if (!$this->validatePort($server["port"], $server["uuid"], $server["host_type"])) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
-                "Selected port is already used"
+                "The selected port is already in use."
             );
         }
 
         if (!$this->validatePort($server["ssl_port"], $server["uuid"], $server["host_type"], true)) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
-                "Selected port (SSL) is already used"
+                "The selected SSL port is already in use."
             );
         }
 
@@ -573,8 +607,6 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
                     );
                 }
             }
-        } else {
-            $server["port_default_server"] = false;
         }
 
         if ($server["ssl_enable"]) {
@@ -586,18 +618,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
                     );
                 }
             }
-        } else {
-            $server["ssl_port_default_server"] = false;
         }
-
-        // Trim and replace all spaces with a single space to allow exploding
-        // in the get method.
-        $serverName = $server["server_name"];
-        $serverName = trim($serverName);
-        $serverName = preg_replace("/\s+/", " ", $serverName);
-        $server["server_name"] = $serverName;
-
-        return $server;
     }
 
     /**
