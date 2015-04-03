@@ -74,7 +74,7 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
                 "type": "object",
                 "properties": {
                     "start": { "type": "integer" },
-                    "limit: {' . $GLOBALS["OMV_JSONSCHEMA_COUNTFIELD"] . '},
+                    "limit": {' . $GLOBALS["OMV_JSONSCHEMA_COUNTFIELD"] . '},
                     "sortfield": {' . $GLOBALS["OMV_JSONSCHEMA_SORTFIELD"] . '},
                     "sortdir": {' . $GLOBALS["OMV_JSONSCHEMA_SORTDIR"] . '}
                 }
