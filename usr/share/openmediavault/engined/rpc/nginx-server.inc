@@ -600,58 +600,37 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         return $server;
     }
 
+    /**
+     * Validate port usage.
+     *
+     * Using the same ports as the web interface is only allowed with a
+     * name-based server with matching SSL setting (on/off).
+     *
+     * A port can only be used multiple times when it's used in a name-based
+     * server.
+     *
+     * Mixing SSL servers with non SSL servers is not allowed and will also fail
+     * the validation.
+     *
+     * @param int $port The port to check.
+     * @param string $uuid ID of server to check.
+     * @param string $hostType Indicate if the port is used in a port or
+     * name-based setup.
+     * @param bool $sslPort Indicate wether the port is used as an SSL port.
+     *
+     * @return bool
+     */
     private function validatePort($port, $uuid, $hostType, $sslPort = false)
     {
         global $xmlConfig;
 
-        // Get the server configurations matching the port to validage against.
-        $xpath = sprintf("%s/server[port='%s' and ssl_force='0']", $this->getServersXpath(), $port);
-        $server = $xmlConfig->get($xpath);
-
-        $sslXPath = sprintf("%s/server[ssl_port='%s' and ssl_enable='1']", $this->getServersXpath(), $port);
-        $sslServer = $xmlConfig->get($sslXPath);
-
-        // If not empty and not the same as the current one, check if port types
-        // mismatches and then if any of them are port based.
-        if (!empty($server)) {
-            if ($server["uuid"] != $uuid) {
-                if ($sslPort) {
-                    return false;
-                }
-
-                if ($hostType == self::HOST_TYPE_PORT || $server["host_type"] == self::HOST_TYPE_PORT) {
-                    return false;
-                }
-            } else {
-                if ($sslPort) {
-                    return false;
-                }
-            }
-        }
-
-        if (!empty($sslServer)) {
-            if ($sslServer["uuid"] != $uuid) {
-                if (!$sslPort) {
-                    return false;
-                }
-
-                if ($hostType == self::HOST_TYPE_PORT || $server["host_type"] == self::HOST_TYPE_PORT) {
-                    return false;
-                }
-            } else {
-                if (!$sslPort) {
-                    return false;
-                }
-            }
-        }
-
-        // Validate with webadmin ports.
-        $webadminConfig = $xmlConfig->get("//webadmin");
+        // Validate against web interface ports.
+        $webadminConfig = $xmlConfig->get("/config/webadmin");
 
         if (!empty($webadminConfig)) {
-            $webadminPort    = intval($webadminConfig["port"]);
+            $webadminPort = intval($webadminConfig["port"]);
             $webadminSslPort = intval($webadminConfig["sslport"]);
-            $enableSsl       = boolval($webadminConfig["enablessl"]);
+            $enableSsl = boolval($webadminConfig["enablessl"]);
 
             // We don't need to check if force SSL only is enabled since the web
             // interface configuration still uses the http port to redirect to
@@ -665,6 +644,41 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 
             if ($webadminSslPort == $port && $enableSsl && $hostType == self::HOST_TYPE_PORT) {
                 return false;
+            }
+        }
+
+        // Get the server configurations matching the port to validage against.
+        // When SSL is forced the non SSL port isn't used, so there's no need to
+        // validate those entries.
+        $xpath = sprintf("%s/server[port='%s' and ssl_force='0']", $this->getServersXpath(), $port);
+        $server = $xmlConfig->get($xpath);
+
+        $sslXPath = sprintf("%s/server[ssl_port='%s' and ssl_enable='1']", $this->getServersXpath(), $port);
+        $sslServer = $xmlConfig->get($sslXPath);
+
+        if (!empty($server)) {
+            // SSL and non SSL port mismatch.
+            if ($sslPort) {
+                return false;
+            }
+
+            if ($server["uuid"] != $uuid) {
+                if ($hostType == self::HOST_TYPE_PORT || $server["host_type"] == self::HOST_TYPE_PORT) {
+                    return false;
+                }
+            }
+        }
+
+        if (!empty($sslServer)) {
+            // Non SSL and SSL port mismatch.
+            if (!$sslPort) {
+                return false;
+            }
+
+            if ($sslServer["uuid"] != $uuid) {
+                if ($hostType == self::HOST_TYPE_PORT || $server["host_type"] == self::HOST_TYPE_PORT) {
+                    return false;
+                }
             }
         }
 
