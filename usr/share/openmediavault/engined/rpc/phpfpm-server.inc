@@ -32,7 +32,7 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
 
     private function getXpath()
     {
-        return "//services/phpfpm";
+        return "/config/services/phpfpm";
     }
 
     private function getPoolsXpath()
@@ -45,11 +45,21 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         return sprintf("%s/pool[uuid='%s']", $this->getPoolsXpath(), $uuid);
     }
 
+    /**
+     * Get the name of the RPC service.
+     *
+     * @return string
+     */
     public function getName()
     {
         return "PhpFpm";
     }
 
+    /**
+     * Initialize the RPC service.
+     *
+     * @return void
+     */
     public function initialize()
     {
         $this->registerMethod("getList");
@@ -58,6 +68,14 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         $this->registerMethod("delete");
     }
 
+    /**
+     * Get the list of pool configurations.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
     public function getList($params, $context)
     {
         global $xmlConfig;
@@ -81,7 +99,7 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
             }'
         );
 
-        // Get configuration object
+        // Get configuration object.
         $xpath = sprintf("%s/pool/uuid", $this->getPoolsXpath());
         $uuids = $xmlConfig->getList($xpath);
 
@@ -108,6 +126,14 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         );
     }
 
+    /**
+     * Get a single pool configuration by its UUID.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
     public function get($params, $context)
     {
         global $xmlConfig;
@@ -153,6 +179,14 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         return $pool;
     }
 
+    /**
+     * Set a single pool configuration and return the new configuration.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
     public function set($params, $context)
     {
         global $xmlConfig;
@@ -251,6 +285,14 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         return $pool;
     }
 
+    /**
+     * Delete a pool configuration by its UUID.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return void
+     */
     public function delete($params, $context)
     {
         global $xmlConfig;
@@ -299,12 +341,12 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
     }
 
     /**
-     * Validate the values of a new FPM pool. Throws exceptions depending
-     * on the validation error.
+     * Validate the values of a new FPM pool. Throws an exception when the
+     * validation fails.
      *
-     * @param array @pool
+     * @param array $pool
      *
-     * @return boolean
+     * @return bool
      */
     private function validateNewPool($pool)
     {

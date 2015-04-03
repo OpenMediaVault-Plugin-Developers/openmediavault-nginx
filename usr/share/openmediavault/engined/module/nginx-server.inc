@@ -37,6 +37,8 @@ class OMVModuleNginxServer extends OMVModuleServiceAbstract implements OMVINotif
 
     /**
      * Get the module name.
+     *
+     * @return string
      */
     public function getName()
     {
@@ -45,6 +47,10 @@ class OMVModuleNginxServer extends OMVModuleServiceAbstract implements OMVINotif
 
     /**
      * Bind listeners.
+     *
+     * @param OMVNotifyDispatcher $dispatcher The dispatcher object.
+     *
+     * @return void
      */
     public function bindListeners(OMVNotifyDispatcher $dispatcher)
     {
@@ -64,6 +70,6 @@ class OMVModuleNginxServer extends OMVModuleServiceAbstract implements OMVINotif
     }
 }
 
-// Register module
+// Register module.
 $moduleMgr = &OMVModuleMgr::getInstance();
 $moduleMgr->registerModule(new OMVModuleNginxServer());

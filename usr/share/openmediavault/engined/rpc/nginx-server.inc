@@ -42,7 +42,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 
     private function getXpath()
     {
-        return "//services/nginx";
+        return "/config/services/nginx";
     }
 
     private function getServersXpath()
@@ -55,11 +55,21 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         return sprintf("%s/server[uuid='%s']", $this->getServersXpath(), $uuid);
     }
 
+    /**
+     * Get the name of the RPC service.
+     *
+     * @return string
+     */
     public function getName()
     {
         return "Nginx";
     }
 
+    /**
+     * Initialize the RPC service.
+     *
+     * @return void
+     */
     public function initialize()
     {
         $this->registerMethod("getSettings");
@@ -75,6 +85,14 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         $this->registerMethod("getLog");
     }
 
+    /**
+     * Get main settings.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
     public function getSettings($params, $context)
     {
         global $xmlConfig;
@@ -97,6 +115,14 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         return $settingsObject;
     }
 
+    /**
+     * Set main settings.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
     public function setSettings($params, $context)
     {
         global $xmlConfig;
@@ -152,6 +178,14 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         return $object;
     }
 
+    /**
+     * Get the list of server configurations.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
     public function getList($params, $context)
     {
         global $xmlConfig;
@@ -202,6 +236,14 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         );
     }
 
+    /**
+     * Get a single server configuration by its UUID.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
     public function get($params, $context)
     {
         global $xmlConfig;
@@ -308,6 +350,14 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         return $server;
     }
 
+    /**
+     * Set a single server configuration and return the new configuration.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
     public function set($params, $context)
     {
         global $xmlConfig;
@@ -428,6 +478,14 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         return $server;
     }
 
+    /**
+     * Delete a server configuration by its UUID.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return void
+     */
     public function delete($params, $context)
     {
         global $xmlConfig;
@@ -462,6 +520,15 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         $dispatcher->notify(OMV_NOTIFY_DELETE, $this->getEventMessagePath(), $server);
     }
 
+    /**
+     * Get a Nginx server log. Returns either the access or error-log in array
+     * format.
+     *
+     * @param array $params
+     * @param array $context
+     *
+     * @return array
+     */
     public function getLog($params, $context)
     {
         global $xmlConfig;
