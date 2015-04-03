@@ -636,13 +636,13 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             // interface configuration still uses the http port to redirect to
             // https.
             //
-            // If the host type is name-based we will still allow using the
-            // web interface ports.
-            if ($webadminPort == $port && $hostType == self::HOST_TYPE_PORT) {
+            // If the host type is name-based we will still allow using the web
+            // interface ports.
+            if ($webadminPort == $port && ($hostType == self::HOST_TYPE_PORT || $sslPort)) {
                 return false;
             }
 
-            if ($webadminSslPort == $port && $enableSsl && $hostType == self::HOST_TYPE_PORT) {
+            if ($webadminSslPort == $port && $enableSsl && ($hostType == self::HOST_TYPE_PORT || !$sslPort)) {
                 return false;
             }
         }
