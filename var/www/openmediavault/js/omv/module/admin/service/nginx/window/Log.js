@@ -22,82 +22,79 @@
 // require("js/omv/data/Store.js")
 
 Ext.define("OMV.module.admin.service.nginx.window.Log", {
-    extend   : "OMV.window.Window",
-    requires : [
+    extend: "OMV.window.Window",
+    requires: [
         "OMV.data.Model",
         "OMV.data.proxy.Rpc",
         "OMV.data.Store"
     ],
 
-    title : _("Log"),
+    title: _("Log"),
 
-    width  : 550,
-    height : 400,
-    layout : "fit",
+    width: 550,
+    height: 400,
+    layout: "fit",
 
-    initComponent : function() {
-        var me = this;
-
-        var grid = me.getGrid();
+    initComponent: function() {
+        var grid = this.getGrid();
         var store = grid.getStore();
 
-        Ext.apply(me, {
-            items : [ grid ]
+        Ext.apply(this, {
+            items: [grid]
         });
 
         //store.reload();
-        me.callParent(arguments);
+        this.callParent(arguments);
     },
 
-    getGrid : function() {
-        var me = this;
-
+    getGrid: function() {
         return Ext.create("Ext.grid.Panel", {
-            columns : [{
-                header    : _("Line"),
-                width     : 50,
-                sortable  : true,
-                dataIndex : "id"
-            },{
-                header    : _("Message"),
-                flex      : 1,
-                sortable  : false,
-                dataIndex : "message"
+            columns: [{
+                header: _("Line"),
+                width: 50,
+                sortable: true,
+                dataIndex: "id"
+            }, {
+                header: _("Message"),
+                flex: 1,
+                sortable: false,
+                dataIndex: "message"
             }],
-            store : Ext.create("OMV.data.Store", {
-                autoLoad : true,
-                model    : OMV.data.Model.createImplicit({
-                    idProperty : "id",
-                    fields     : [
-                        { name : "id" },
-                        { name : "message" }
-                    ]
+            store: Ext.create("OMV.data.Store", {
+                autoLoad: true,
+                model: OMV.data.Model.createImplicit({
+                    idProperty: "id",
+                    fields: [{
+                        name: "id"
+                    }, {
+                        name: "message"
+                    }]
                 }),
-                proxy : {
-                    type    : "rpc",
-                    rpcData : {
-                        "service" : "Nginx",
-                        "method"  : "getLog"
+                proxy: {
+                    type: "rpc",
+                    rpcData: {
+                        "service": "Nginx",
+                        "method": "getLog"
                     },
-                    extraParams : {
-                        uuid  : me.uuid,
-                        type  : me.logType
+                    extraParams: {
+                        uuid: this.uuid,
+                        type: this.logType
                     }
                 },
-                remoteSort : false,
-                sorters    : [{
-                    direction : "DESC",
-                    property  : "id"
+                remoteSort: false,
+                sorters: [{
+                    direction: "DESC",
+                    property: "id"
                 }]
             }),
-            listeners : {
-                cellclick : function(grid, td, cellIndex, record) {
+            listeners: {
+                cellclick: function(grid, td, cellIndex, record) {
                     Ext.MessageBox.show({
-                        title : Ext.String.format(
+                        title: Ext.String.format(
                             _("Message - row {0}"),
                             record.get("id")
                         ),
-                        msg   : record.get("message")
+                        msg: record.get("message")
                     });
                 }
             }

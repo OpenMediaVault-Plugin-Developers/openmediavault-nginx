@@ -22,177 +22,177 @@
 // require("js/omv/form/field/UserComboBox.js")
 
 Ext.define("OMV.module.admin.service.nginx.window.Pool", {
-    extend   : "OMV.workspace.window.Form",
-    requires : [
+    extend: "OMV.workspace.window.Form",
+    requires: [
         "OMV.workspace.window.plugin.ConfigObject",
         "OMV.form.plugin.LinkedFields",
         "OMV.form.field.UserComboBox"
     ],
 
-    plugins : [{
-        ptype : "configobject"
+    plugins: [{
+        ptype: "configobject"
     }],
 
-    rpcService   : "PhpFpm",
-    rpcSetMethod : "set",
+    rpcService: "PhpFpm",
+    rpcSetMethod: "set",
 
-    height          : 600,
-    hideResetButton : true,
+    height: 600,
+    hideResetButton: true,
 
-    getFormItems : function() {
-        var me = this;
-
+    getFormItems: function() {
         return [{
-            xtype : "fieldset",
-            title : _("General"),
-            items : [{
-                xtype      : "textfield",
-                name       : "name",
-                fieldLabel : _("Name"),
-                allowBlank : false
-            },{
-                xtype      : "textfield",
-                name       : "description",
-                fieldLabel : _("Description"),
-                allowBlank : true
-            },{
-                xtype      : "usercombo",
-                name       : "user",
-                fieldLabel : _("User"),
-                userType   : "normal",
-                editable   : false,
-                onLoad     : Ext.Function.interceptBefore(OMV.form.field.UserComboBox.prototype, "onLoad", function(store, records, success) {
+            xtype: "fieldset",
+            title: _("General"),
+            items: [{
+                xtype: "textfield",
+                name: "name",
+                fieldLabel: _("Name"),
+                allowBlank: false
+            }, {
+                xtype: "textfield",
+                name: "description",
+                fieldLabel: _("Description"),
+                allowBlank: true
+            }, {
+                xtype: "usercombo",
+                name: "user",
+                fieldLabel: _("User"),
+                userType: "normal",
+                editable: false,
+                onLoad: Ext.Function.interceptBefore(OMV.form.field.UserComboBox.prototype, "onLoad", function(store, records, success) {
                     if (success) {
                         store.add({
-                            name : "openmediavault"
-                        },{
-                            name : "www-data"
+                            name: "openmediavault"
+                        }, {
+                            name: "www-data"
                         });
                     }
                 }),
-                plugins : [{
-                    ptype : "fieldinfo",
-                    text  : _("Set the user under which PHP scripts should be executed as.")
+                plugins: [{
+                    ptype: "fieldinfo",
+                    text: _("Set the user under which PHP scripts should be executed as.")
                 }]
-            },{
-                xtype      : "groupcombo",
-                name       : "group",
-                fieldLabel : _("Group"),
-                groupType  : "normal",
-                editable   : false,
-                onLoad     : Ext.Function.interceptBefore(OMV.form.field.GroupComboBox.prototype, "onLoad", function(store, records, success) {
+            }, {
+                xtype: "groupcombo",
+                name: "group",
+                fieldLabel: _("Group"),
+                groupType: "normal",
+                editable: false,
+                onLoad: Ext.Function.interceptBefore(OMV.form.field.GroupComboBox.prototype, "onLoad", function(store, records, success) {
                     if (success) {
-                        store.add(
-                            { name : "openmediavault" },
-                            { name : "www-data" },
-                            { name : "users" }
-                        );
+                        store.add({
+                            name: "openmediavault"
+                        }, {
+                            name: "www-data"
+                        }, {
+                            name: "users"
+                        });
                     }
                 }),
-                plugins : [{
-                    ptype : "fieldinfo",
-                    text  : _("Set the group under which PHP scripts should be executed as.")
+                plugins: [{
+                    ptype: "fieldinfo",
+                    text: _("Set the group under which PHP scripts should be executed as.")
                 }]
-            },{
-                xtype      : "checkbox",
-                name       : "php_display_errors",
-                fieldLabel : _("Display errors"),
-                checked    : false
-            },{
-                xtype      : "checkbox",
-                name       : "php_html_errors",
-                fieldLabel : _("HTML errors"),
-                checked    : true,
-                plugins    : [{
-                    ptype : "fieldinfo",
-                    text  : _("Use HTML tags in error messages."),
+            }, {
+                xtype: "checkbox",
+                name: "php_display_errors",
+                fieldLabel: _("Display errors"),
+                checked: false
+            }, {
+                xtype: "checkbox",
+                name: "php_html_errors",
+                fieldLabel: _("HTML errors"),
+                checked: true,
+                plugins: [{
+                    ptype: "fieldinfo",
+                    text: _("Use HTML tags in error messages."),
                 }]
-            },{
-                xtype      : "numberfield",
-                name       : "php_max_execution_time",
-                fieldLabel : _("Max execution time (s)"),
-                minValue   : 0,
-                value      : 30,
-                plugins    : [{
-                    ptype : "fieldinfo",
-                    text  : _("Set the max execution time of a script. Using the value 0 means no limit."),
+            }, {
+                xtype: "numberfield",
+                name: "php_max_execution_time",
+                fieldLabel: _("Max execution time (s)"),
+                minValue: 0,
+                value: 30,
+                plugins: [{
+                    ptype: "fieldinfo",
+                    text: _("Set the max execution time of a script. Using the value 0 means no limit."),
                 }]
-            },{
-                xtype      : "numberfield",
-                name       : "php_memory_limit",
-                fieldLabel : _("Memory limit (MB)"),
-                minValue   : -1,
-                value      : 128,
-                plugins    : [{
-                    ptype : "fieldinfo",
-                    text  : _("This setting should be higher than the post max size. Setting a value of -1 makes it unlimited."),
+            }, {
+                xtype: "numberfield",
+                name: "php_memory_limit",
+                fieldLabel: _("Memory limit (MB)"),
+                minValue: -1,
+                value: 128,
+                plugins: [{
+                    ptype: "fieldinfo",
+                    text: _("This setting should be higher than the post max size. Setting a value of -1 makes it unlimited."),
                 }]
-            },{
-                xtype      : "numberfield",
-                name       : "php_post_max_size",
-                fieldLabel : _("Max POST size (MB)"),
-                minValue   : 1,
-                value      : 8,
-                plugins    : [{
-                    ptype : "fieldinfo",
-                    text  : _("This setting affects the max upload filesize and should preferably be higher."),
+            }, {
+                xtype: "numberfield",
+                name: "php_post_max_size",
+                fieldLabel: _("Max POST size (MB)"),
+                minValue: 1,
+                value: 8,
+                plugins: [{
+                    ptype: "fieldinfo",
+                    text: _("This setting affects the max upload filesize and should preferably be higher."),
                 }],
-                validator : function(value) {
-                    var otherField = me.findField("php_upload_max_filesize");
+                validator: Ext.bind(function(value) {
+                    var otherField = this.findField("php_upload_max_filesize");
 
                     if (value < otherField.getValue())
-                        return "Value should be higher than max upload filesize";
+                        return "Value should be higher than max upload filesize.";
 
                     return true;
-                }
-            },{
-                xtype      : "numberfield",
-                name       : "php_upload_max_filesize",
-                fieldLabel : _("Max upload filesize (MB)"),
-                minValue   : 1,
-                value      : 2
+                }, this)
+            }, {
+                xtype: "numberfield",
+                name: "php_upload_max_filesize",
+                fieldLabel: _("Max upload filesize (MB)"),
+                minValue: 1,
+                value: 2
             }]
-        },{
-            xtype : "fieldset",
-            title : _("Process manager"),
-            items : [{
-                xtype      : "numberfield",
-                name       : "pm_max_children",
-                fieldLabel : _("Max children"),
-                minValue   : 1,
-                value      : 5
-            },{
-                xtype      : "numberfield",
-                name       : "pm_start_servers",
-                fieldLabel : _("Start servers"),
-                minValue   : 1,
-                value      : 2
-            },{
-                xtype      : "numberfield",
-                name       : "pm_min_spare_servers",
-                fieldLabel : _("Min spare servers"),
-                minValue   : 1,
-                value      : 1
-            },{
-                xtype      : "numberfield",
-                name       : "pm_max_spare_servers",
-                fieldLabel : _("Max spare servers"),
-                minValue   : 1,
-                value      : 3
-            },{
-                xtype      : "numberfield",
-                name       : "pm_max_requests",
-                fieldLabel : _("Max requests"),
-                minValue   : 0,
-                value      : 0
+        }, {
+            xtype: "fieldset",
+            title: _("Process manager"),
+            items: [{
+                xtype: "numberfield",
+                name: "pm_max_children",
+                fieldLabel: _("Max children"),
+                minValue: 1,
+                value: 5
+            }, {
+                xtype: "numberfield",
+                name: "pm_start_servers",
+                fieldLabel: _("Start servers"),
+                minValue: 1,
+                value: 2
+            }, {
+                xtype: "numberfield",
+                name: "pm_min_spare_servers",
+                fieldLabel: _("Min spare servers"),
+                minValue: 1,
+                value: 1
+            }, {
+                xtype: "numberfield",
+                name: "pm_max_spare_servers",
+                fieldLabel: _("Max spare servers"),
+                minValue: 1,
+                value: 3
+            }, {
+                xtype: "numberfield",
+                name: "pm_max_requests",
+                fieldLabel: _("Max requests"),
+                minValue: 0,
+                value: 0
             }]
-        },{
-            xtype : "fieldset",
-            title : _("Extra options"),
-            items : [{
-                xtype      : "textarea",
-                name       : "extra_options",
-                allowBlank : true
+        }, {
+            xtype: "fieldset",
+            title: _("Extra options"),
+            items: [{
+                xtype: "textarea",
+                name: "extra_options",
+                allowBlank: true
             }]
         }];
     }

@@ -23,111 +23,108 @@
 // require("js/omv/module/admin/service/nginx/window/Pool.js")
 
 Ext.define("OMV.module.admin.service.nginx.Pools", {
-    extend   : "OMV.workspace.grid.Panel",
-    requires : [
+    extend: "OMV.workspace.grid.Panel",
+    requires: [
         "OMV.data.Store",
         "OMV.data.Model",
         "OMV.data.proxy.Rpc",
         "OMV.module.admin.service.nginx.window.Pool"
     ],
 
-    hidePagingToolbar : false,
-    reloadOnActivate  : true,
+    hidePagingToolbar: false,
+    reloadOnActivate: true,
 
-    columns : [{
-        header    : _("UUID"),
-        hidden    : true,
-        dataIndex : "uuid"
-    },{
-        header    : _("Name"),
-        flex      : 1,
-        sortable  : true,
-        dataIndex : "name"
-    },{
-        header    : _("Description"),
-        flex      : 1,
-        sortable  : true,
-        dataIndex : "description"
+    columns: [{
+        header: _("UUID"),
+        hidden: true,
+        dataIndex: "uuid"
+    }, {
+        header: _("Name"),
+        flex: 1,
+        sortable: true,
+        dataIndex: "name"
+    }, {
+        header: _("Description"),
+        flex: 1,
+        sortable: true,
+        dataIndex: "description"
     }],
 
-    store : Ext.create("OMV.data.Store", {
-        autoLoad : true,
-        model    : OMV.data.Model.createImplicit({
-            idProperty : "uuid",
-            fields     : [
-                { name : "uuid" },
-                { name : "name" },
-                { name : "description" }
-            ]
+    store: Ext.create("OMV.data.Store", {
+        autoLoad: true,
+        model: OMV.data.Model.createImplicit({
+            idProperty: "uuid",
+            fields: [{
+                name: "uuid"
+            }, {
+                name: "name"
+            }, {
+                name: "description"
+            }]
         }),
-        proxy : {
-            type    : "rpc",
-            rpcData : {
-                "service" : "PhpFpm",
-                "method"  : "getList"
+        proxy: {
+            type: "rpc",
+            rpcData: {
+                "service": "PhpFpm",
+                "method": "getList"
             }
         },
-        remoteSort : true,
-        sorters    : [{
-            direction : "ASC",
-            property  : "name"
+        remoteSort: true,
+        sorters: [{
+            direction: "ASC",
+            property: "name"
         }]
     }),
 
-    onAddButton : function() {
-        var me = this;
-
+    onAddButton: function() {
         Ext.create("OMV.module.admin.service.nginx.window.Pool", {
-            title        : _("Add pool"),
-            uuid         : OMV.UUID_UNDEFINED,
-            listeners    : {
-                scope  : me,
-                submit : function() {
-                    me.doReload();
+            title: _("Add pool"),
+            uuid: OMV.UUID_UNDEFINED,
+            listeners: {
+                scope: this,
+                submit: function() {
+                    this.doReload();
                 }
             }
         }).show();
     },
 
-    onEditButton : function() {
-        var me = this;
-        var record = me.getSelected();
+    onEditButton: function() {
+        var record = this.getSelected();
 
         Ext.create("OMV.module.admin.service.nginx.window.Pool", {
-            rpcGetMethod : "get",
-            title        : _("Edit pool"),
-            uuid         : record.get("uuid"),
-            listeners    : {
-                scope  : me,
-                submit : function() {
-                    me.doReload();
+            rpcGetMethod: "get",
+            title: _("Edit pool"),
+            uuid: record.get("uuid"),
+            listeners: {
+                scope: this,
+                submit: function() {
+                    this.doReload();
                 }
             }
         }).show();
     },
 
-    doDeletion : function(record) {
-        var me = this;
-
+    doDeletion: function(record) {
         OMV.Rpc.request({
-            scope : me,
-            callback : me.onDeletion,
-            rpcData : {
-                service : "PhpFpm",
-                method : "delete",
-                params : {
-                    uuid : record.get("uuid")
+            callback: this.onDeletion,
+            rpcData: {
+                service: "PhpFpm",
+                method: "delete",
+                params: {
+                    uuid: record.get("uuid")
                 }
-            }
+            },
+            scope: this
         });
     }
 
 });
 
 OMV.WorkspaceManager.registerPanel({
-    id        : "pools",
-    path      : "/service/nginx",
-    text      : _("Pools"),
-    position  : 30,
-    className : "OMV.module.admin.service.nginx.Pools"
+    id: "pools",
+    path: "/service/nginx",
+    text: _("Pools"),
+    position: 30,
+    className: "OMV.module.admin.service.nginx.Pools"
 });

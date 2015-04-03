@@ -24,8 +24,8 @@
 // require("js/omv/module/admin/service/nginx/window/Log.js")
 
 Ext.define("OMV.module.admin.service.nginx.Servers", {
-    extend   : "OMV.workspace.grid.Panel",
-    requires : [
+    extend: "OMV.workspace.grid.Panel",
+    requires: [
         "OMV.data.Model",
         "OMV.data.proxy.Rpc",
         "OMV.data.Store",
@@ -33,76 +33,76 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
         "OMV.module.admin.service.nginx.window.Server"
     ],
 
-    hidePagingToolbar   : false,
-    accessLogButtonText : _("Access log"),
-    errorLogButtonText  : _("Error log"),
-    reloadOnActivate    : true,
+    hidePagingToolbar: false,
+    accessLogButtonText: _("Access log"),
+    errorLogButtonText: _("Error log"),
+    reloadOnActivate: true,
 
-    columns : [{
-        header    : _("UUID"),
-        hidden    : true,
-        dataIndex : "uuid"
-    },{
-        xtype     : "booleaniconcolumn",
-        header    : _("Enabled"),
-        sortable  : true,
-        dataIndex : "enable",
-        align     : "center",
-        width     : 80,
-        resizable : false,
-        trueIcon  : "switch_on.png",
-        falseIcon : "switch_off.png"
-    },{
-        xtype     : "booleaniconcolumn",
-        header    : "SSL",
-        sortable  : true,
-        dataIndex : "ssl_enable",
-        align     : "center",
-        width     : 60,
-        resizable : false,
-        trueIcon  : "switch_on.png",
-        falseIcon : "switch_off.png"
-    },{
-        xtype     : "booleaniconcolumn",
-        header    : "PHP",
-        sortable  : true,
-        dataIndex : "php_enable",
-        align     : "center",
-        width     : 60,
-        resizable : false,
-        trueIcon  : "switch_on.png",
-        falseIcon : "switch_off.png"
-    },{
-        xtype     : "booleaniconcolumn",
-        header    : _("Default"),
-        sortable  : true,
-        dataIndex : "port_default_server",
-        align     : "center",
-        width     : 60,
-        resizable : false,
-        trueIcon  : "switch_on.png",
-        falseIcon : "switch_off.png"
-    },{
-        xtype     : "booleaniconcolumn",
-        header    : _("Default (SSL)"),
-        sortable  : true,
-        dataIndex : "ssl_port_default_server",
-        align     : "center",
-        width     : 80,
-        resizable : false,
-        trueIcon  : "switch_on.png",
-        falseIcon : "switch_off.png"
-    },{
-        header    : _("Root"),
-        flex      : 1,
-        sortable  : true,
-        dataIndex : "root_full_path"
-    },{
-        header    : _("URL"),
-        flex      : 1,
-        sortable  : true,
-        dataIndex : "urls",
-        renderer  : function(urls) {
+    columns: [{
+        header: _("UUID"),
+        hidden: true,
+        dataIndex: "uuid"
+    }, {
+        xtype: "booleaniconcolumn",
+        header: _("Enabled"),
+        sortable: true,
+        dataIndex: "enable",
+        align: "center",
+        width: 80,
+        resizable: false,
+        trueIcon: "switch_on.png",
+        falseIcon: "switch_off.png"
+    }, {
+        xtype: "booleaniconcolumn",
+        header: "SSL",
+        sortable: true,
+        dataIndex: "ssl_enable",
+        align: "center",
+        width: 60,
+        resizable: false,
+        trueIcon: "switch_on.png",
+        falseIcon: "switch_off.png"
+    }, {
+        xtype: "booleaniconcolumn",
+        header: "PHP",
+        sortable: true,
+        dataIndex: "php_enable",
+        align: "center",
+        width: 60,
+        resizable: false,
+        trueIcon: "switch_on.png",
+        falseIcon: "switch_off.png"
+    }, {
+        xtype: "booleaniconcolumn",
+        header: _("Default"),
+        sortable: true,
+        dataIndex: "port_default_server",
+        align: "center",
+        width: 60,
+        resizable: false,
+        trueIcon: "switch_on.png",
+        falseIcon: "switch_off.png"
+    }, {
+        xtype: "booleaniconcolumn",
+        header: _("Default (SSL)"),
+        sortable: true,
+        dataIndex: "ssl_port_default_server",
+        align: "center",
+        width: 80,
+        resizable: false,
+        trueIcon: "switch_on.png",
+        falseIcon: "switch_off.png"
+    }, {
+        header: _("Root"),
+        flex: 1,
+        sortable: true,
+        dataIndex: "root_full_path"
+    }, {
+        header: _("URL"),
+        flex: 1,
+        sortable: true,
+        dataIndex: "urls",
+        renderer: function(urls) {
             var value = "";
 
             for (var i = 0; i < urls.length; i++)
@@ -115,136 +115,137 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
         }
     }],
 
-    store : Ext.create("OMV.data.Store", {
-        autoLoad : true,
-        model    : OMV.data.Model.createImplicit({
-            idProperty : "uuid",
-            fields     : [
-                { name : "uuid" },
-                { name : "enable" },
-                { name : "log_enable" },
-                { name : "ssl_enable" },
-                { name : "php_enable" },
-                { name : "port_default_server" },
-                { name : "ssl_port_default_server" },
-                { name : "root_full_path" },
-                { name : "urls" }
-            ]
+    store: Ext.create("OMV.data.Store", {
+        autoLoad: true,
+        model: OMV.data.Model.createImplicit({
+            idProperty: "uuid",
+            fields: [{
+                name: "uuid"
+            }, {
+                name: "enable"
+            }, {
+                name: "log_enable"
+            }, {
+                name: "ssl_enable"
+            }, {
+                name: "php_enable"
+            }, {
+                name: "port_default_server"
+            }, {
+                name: "ssl_port_default_server"
+            }, {
+                name: "root_full_path"
+            }, {
+                name: "urls"
+            }]
         }),
-        proxy : {
-            type    : "rpc",
-            rpcData : {
-                "service" : "Nginx",
-                "method"  : "getList"
+        proxy: {
+            type: "rpc",
+            rpcData: {
+                "service": "Nginx",
+                "method": "getList"
             }
         },
-        remoteSort : true
+        remoteSort: true
     }),
 
-    getTopToolbarItems : function() {
-        var me = this;
-        var items = me.callParent(arguments);
+    getTopToolbarItems: function() {
+        var items = this.callParent(arguments);
 
         Ext.Array.push(items, [{
-            xtype : "tbseparator"
-        },{
-            id       : me.getId() + "-access-log",
-            xtype    : "button",
-            text     : me.accessLogButtonText,
-            handler  : Ext.Function.bind(me.onViewLogButton, me, [ "access" ]),
-            scope    : me,
-            disabled : true,
-            selectionConfig : {
-                minSelections : 1,
-                maxSelections : 1,
-                enabledFn     : me.logButtonEnabled
+            xtype: "tbseparator"
+        }, {
+            id: this.getId() + "-access-log",
+            xtype: "button",
+            text: this.accessLogButtonText,
+            handler: Ext.Function.bind(this.onViewLogButton, this, ["access"]),
+            scope: this,
+            disabled: true,
+            selectionConfig: {
+                minSelections: 1,
+                maxSelections: 1,
+                enabledFn: Ext.Function.bind(this.logButtonEnabled, this)
             }
-        },{
-            id       : me.getId() + "-error-log",
-            xtype    : "button",
-            text     : me.errorLogButtonText,
-            handler  : Ext.Function.bind(me.onViewLogButton, me, [ "error" ]),
-            scope    : me,
-            disabled : true,
-            selectionConfig : {
-                minSelections : 1,
-                maxSelections : 1,
-                enabledFn     : me.logButtonEnabled
+        }, {
+            id: this.getId() + "-error-log",
+            xtype: "button",
+            text: this.errorLogButtonText,
+            handler: Ext.Function.bind(this.onViewLogButton, this, ["error"]),
+            scope: this,
+            disabled: true,
+            selectionConfig: {
+                minSelections: 1,
+                maxSelections: 1,
+                enabledFn: Ext.Function.bind(this.logButtonEnabled, this)
             }
         }]);
 
         return items;
     },
 
-    logButtonEnabled : function(button, records) {
+    logButtonEnabled: function(button, records) {
         var record = records[0];
 
         return record.get("log_enable");
     },
 
-    onAddButton : function() {
-        var me = this;
-
+    onAddButton: function() {
         Ext.create("OMV.module.admin.service.nginx.window.Server", {
-            title        : _("Add server"),
-            uuid         : OMV.UUID_UNDEFINED,
-            listeners    : {
-                scope  : me,
-                submit : function() {
-                    me.doReload();
+            title: _("Add server"),
+            uuid: OMV.UUID_UNDEFINED,
+            listeners: {
+                scope: this,
+                submit: function() {
+                    this.doReload();
                 }
             }
         }).show();
     },
 
-    onEditButton : function() {
-        var me = this;
-        var record = me.getSelected();
+    onEditButton: function() {
+        var record = this.getSelected();
 
         Ext.create("OMV.module.admin.service.nginx.window.Server", {
-            rpcGetMethod : "get",
-            title        : _("Edit server"),
-            uuid         : record.get("uuid"),
-            listeners    : {
-                scope  : me,
-                submit : function() {
-                    me.doReload();
+            rpcGetMethod: "get",
+            title: _("Edit server"),
+            uuid: record.get("uuid"),
+            listeners: {
+                scope: this,
+                submit: function() {
+                    this.doReload();
                 }
             }
         }).show();
     },
 
-    doDeletion : function(record) {
-        var me = this;
-
+    doDeletion: function(record) {
         OMV.Rpc.request({
-            scope    : me,
-            callback : me.onDeletion,
-            rpcData  : {
-                service : "Nginx",
-                method  : "delete",
-                params  : {
-                    uuid : record.get("uuid")
+            scope: this,
+            callback: this.onDeletion,
+            rpcData: {
+                service: "Nginx",
+                method: "delete",
+                params: {
+                    uuid: record.get("uuid")
                 }
             }
         });
     },
 
-    onViewLogButton : function(logType) {
-        var me = this;
-        var record = me.getSelected();
+    onViewLogButton: function(logType) {
+        var record = this.getSelected();
 
         Ext.create("OMV.module.admin.service.nginx.window.Log", {
-            uuid    : record.get("uuid"),
-            logType : logType
+            uuid: record.get("uuid"),
+            logType: logType
         }).show();
     }
 });
 
 OMV.WorkspaceManager.registerPanel({
-    id        : "servers",
-    path      : "/service/nginx",
-    text      : _("Servers"),
-    position  : 20,
-    className : "OMV.module.admin.service.nginx.Servers"
+    id: "servers",
+    path: "/service/nginx",
+    text: _("Servers"),
+    position: 20,
+    className: "OMV.module.admin.service.nginx.Servers"
 });

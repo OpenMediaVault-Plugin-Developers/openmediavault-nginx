@@ -19,57 +19,55 @@
 // require("js/omv/workspace/form/Panel.js")
 
 Ext.define("OMV.module.admin.service.nginx.Settings", {
-    extend : "OMV.workspace.form.Panel",
+    extend: "OMV.workspace.form.Panel",
 
-    rpcService   : "Nginx",
-    rpcGetMethod : "getSettings",
-    rpcSetMethod : "setSettings",
+    rpcService: "Nginx",
+    rpcGetMethod: "getSettings",
+    rpcSetMethod: "setSettings",
 
-    getFormItems : function() {
-        var me = this;
-
+    getFormItems: function() {
         return [{
-            xtype    : "fieldset",
-            title    : "General settings",
-            defaults : {
-                labelSeparator : ""
+            xtype: "fieldset",
+            title: "General settings",
+            defaults: {
+                labelSeparator: ""
             },
-            items : [{
-                xtype      : "checkbox",
-                name       : "enable",
-                fieldLabel : _("Enable"),
-                checked    : false
-            },{
-                xtype      : "combo",
-                name       : "server_names_hash_bucket_size",
-                fieldLabel : _("Server names hash bucket size"),
-                queryMode  : "local",
-                store      : Ext.create("Ext.data.ArrayStore", {
-                    fields : [
+            items: [{
+                xtype: "checkbox",
+                name: "enable",
+                fieldLabel: _("Enable"),
+                checked: false
+            }, {
+                xtype: "combo",
+                name: "server_names_hash_bucket_size",
+                fieldLabel: _("Server names hash bucket size"),
+                queryMode: "local",
+                store: Ext.create("Ext.data.ArrayStore", {
+                    fields: [
                         "value",
                         "text"
                     ],
-                    data   : [
-                        [ 32, "32" ],
-                        [ 64, "64" ],
-                        [ 128, "128" ],
+                    data: [
+                        [32, "32"],
+                        [64, "64"],
+                        [128, "128"],
                     ]
                 }),
-                displayField  : "text",
-                valueField    : "value",
-                allowBlank    : false,
-                editable      : false,
-                triggerAction : "all",
-                value         : 32
+                displayField: "text",
+                valueField: "value",
+                allowBlank: false,
+                editable: false,
+                triggerAction: "all",
+                value: 32
             }]
         }];
     }
 });
 
 OMV.WorkspaceManager.registerPanel({
-    id        : "settings",
-    path      : "/service/nginx",
-    text      : _("Settings"),
-    position  : 10,
-    className : "OMV.module.admin.service.nginx.Settings"
+    id: "settings",
+    path: "/service/nginx",
+    text: _("Settings"),
+    position: 10,
+    className: "OMV.module.admin.service.nginx.Settings"
 });

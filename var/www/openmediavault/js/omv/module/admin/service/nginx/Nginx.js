@@ -18,9 +18,9 @@
 // require("js/omv/WorkspaceManager.js")
 
 OMV.WorkspaceManager.registerNode({
-    id      : "nginx",
-    path    : "/service",
-    text    : _("Nginx (websites)"),
-    icon16  : "images/nginx.png",
-    iconSvg : "images/nginx.svg"
+    id: "nginx",
+    path: "/service",
+    text: _("Nginx (websites)"),
+    icon16: "images/nginx.png",
+    iconSvg: "images/nginx.svg"
 });

@@ -19,40 +19,40 @@
 // require("js/omv/module/admin/diagnostic/log/plugin/Plugin.js")
 
 Ext.define("OMV.module.admin.diagnostic.log.plugin.PhpFpm", {
-    extend : "OMV.module.admin.diagnostic.log.plugin.Plugin",
-    alias  : "omv.plugin.diagnostic.log.phpfpm",
+    extend: "OMV.module.admin.diagnostic.log.plugin.Plugin",
+    alias: "omv.plugin.diagnostic.log.phpfpm",
 
-    id      : "php-fpm",
-    text    : "PHP-FPM",
-    columns : [{
-        text      : _("Date & Time"),
-        sortable  : true,
-        dataIndex : "rownum",
-        stateId   : "date",
-        renderer  : function(value, metaData, record) {
+    id: "php-fpm",
+    text: "PHP-FPM",
+    columns: [{
+        text: _("Date & Time"),
+        sortable: true,
+        dataIndex: "rownum",
+        stateId: "date",
+        renderer: function(value, metaData, record) {
             return record.get("date");
         }
-    },{
-        text      : _("Event"),
-        sortable  : true,
-        dataIndex : "event",
-        stateId   : "event",
-        flex      : 1
+    }, {
+        text: _("Event"),
+        sortable: true,
+        dataIndex: "event",
+        stateId: "event",
+        flex: 1
     }],
-    rpcParams : {
-        id : "php-fpm"
+    rpcParams: {
+        id: "php-fpm"
     },
-    rpcFields : [{
-        name : "rownum",
-        type : "int"
-    },{
-        name : "ts",
-        type : "int"
-    },{
-        name : "date",
-        type : "string"
-    },{
-        name : "event",
-        type : "string"
+    rpcFields: [{
+        name: "rownum",
+        type: "int"
+    }, {
+        name: "ts",
+        type: "int"
+    }, {
+        name: "date",
+        type: "string"
+    }, {
+        name: "event",
+        type: "string"
     }]
 });
