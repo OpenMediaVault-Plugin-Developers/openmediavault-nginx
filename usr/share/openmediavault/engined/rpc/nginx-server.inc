@@ -671,23 +671,48 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         return true;
     }
 
+    /**
+     * Validate the default_server option.
+     *
+     * If the port is used by the web interface the validation will fail since
+     * the web interface always has the default_server option set.
+     *
+     * The validation succeeds if the selected port doesn't have the
+     * default_server option set in any existing server configuration. The
+     * validation will also succeed if the default_server option is set on the
+     * server configuration provided by ID reference.
+     *
+     * @param int $port The port number that should be checked.
+     * @param string $uuid ID of the server configuration to be checked.
+     * @param bool $ssl Indicate wether to validate against an SSL enabled
+     * server or not. Defaults to false.
+     *
+     * @return bool
+     */
     private function validatePortDefaultServer($port, $uuid, $ssl = false)
     {
-        // TODO: Currently not checking of it's the same port as the web
-        // interface.
         global $xmlConfig;
-        $xpath = "";
+
+        $webadminConfig = $xmlConfig->get("//webadmin");
+
+        if ($webadminConfig["port"] == $port) {
+            return false;
+        }
+
+        if ($webadminConfig["sslport"] == $port) {
+            return false;
+        }
+
+        $xpath = sprintf(
+            "%s/server[port='%s' and port_default_server='1' and uuid!='%s']",
+            $this->getServersXpath(),
+            $port,
+            $uuid
+        );
 
         if ($ssl) {
             $xpath = sprintf(
                 "%s/server[ssl_port='%s' and ssl_port_default_server='1' and uuid!='%s']",
-                $this->getServersXpath(),
-                $port,
-                $uuid
-            );
-        } else {
-            $xpath = sprintf(
-                "%s/server[port='%s' and port_default_server='1' and uuid!='%s']",
                 $this->getServersXpath(),
                 $port,
                 $uuid
