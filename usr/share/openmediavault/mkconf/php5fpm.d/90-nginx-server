@@ -26,12 +26,12 @@ OMV_PHPFPM_POOL_XPATH=${OMV_PHPFPM_POOLS_XPATH}/pool
 
 OMV_NGINX_PLUGIN_XPATH=//services/nginx
 
-# php-fpm paths
+# PHP-FPM paths.
 PHP_FPM_POOL_DIR=/etc/php5/fpm/pool.d/
 
 generate_fpm_config()
 {
-    local xpath=${1}
+    local xpath="${1}"
 
     local uuid=$(omv_config_get "${xpath}/uuid")
     local config="${PHP_FPM_POOL_DIR}/${uuid}.conf"
@@ -85,7 +85,6 @@ php_value[max_execution_time] = ${php_max_execution_time}
 php_value[memory_limit] = ${php_memory_limit}
 php_value[post_max_size] = ${php_post_max_size}M
 php_value[upload_max_filesize] = ${php_upload_max_filesize}M
-
 EOF
 
     xmlstarlet sel -t -m "${xpath}" \
@@ -107,20 +106,20 @@ booleanToOnOff()
 
 remove_fpm_configurations()
 {
-    /usr/bin/find ${PHP_FPM_POOL_DIR} -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
+    find ${PHP_FPM_POOL_DIR} -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
 }
 
 remove_fpm_configurations
 
 if [ "$(omv_config_get "${OMV_NGINX_PLUGIN_XPATH}/enable")" -eq "1" ]; then
 
-    # Iterate through enabled servers
+    # Iterate through enabled servers.
     server_count=$(omv_config_get_count "${OMV_PHPFPM_POOL_XPATH}")
     index=1
 
     while [ $index -lt $server_count -o $index -eq $server_count ]; do
 
-        current_server_xpath="${OMV_PHPFPM_POOL_XPATH}[position()=${index}]"
+        current_server_xpath="${OMV_PHPFPM_POOL_XPATH}[${index}]"
         generate_fpm_config "${current_server_xpath}"
 
         index=$(( ${index} + 1 ))
