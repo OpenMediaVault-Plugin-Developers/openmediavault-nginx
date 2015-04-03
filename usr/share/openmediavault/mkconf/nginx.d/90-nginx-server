@@ -20,29 +20,23 @@ set -e
 . /etc/default/openmediavault
 . /usr/share/openmediavault/scripts/helper-functions
 
-OMV_PLUGIN_XPATH=//services/nginx
+OMV_PLUGIN_XPATH=/config/services/nginx
 OMV_NGINX_SERVERS_XPATH=${OMV_PLUGIN_XPATH}/servers
 OMV_NGINX_SERVER_XPATH=${OMV_NGINX_SERVERS_XPATH}/server
 
 # Nginx paths.
 NGINX_AVAILABLE_DIR=/etc/nginx/sites-available
-NGINX_ENABLED_DIR=/etc/nginx/sites-enabled
 NGINX_LOG_DIR=/var/log/nginx
 
-# PHP-FPM paths.
-PHP_FPM_POOL_DIR=/etc/php5/fpm/pool.d/
-
 OMV_NGINX_CUSTOM_CONF=/etc/nginx/conf.d/openmediavault-nginx.conf
-OMV_NGINX_CONF_NAME=openmediavault-nginx
-OMV_NGINX_CONF=${NGINX_AVAILABLE_DIR}/${OMV_NGINX_CONF_NAME}
-OMV_NGINX_CONF_ENABLED=${NGINX_ENABLED_DIR}/${OMV_NGINX_CONF_NAME}
+OMV_NGINX_CONF=openmediavault-nginx
 
 HOST_TYPE_PORT="port"
 HOST_TYPE_NAME="name"
 
 remove_server()
 {
-    nginx_ensite ${1} || true
+    nginx_dissite ${1} || true
 
     if [ -e "${NGINX_AVAILABLE_DIR}/${1}" ]; then
         rm "${NGINX_AVAILABLE_DIR}/${1}"
@@ -241,14 +235,14 @@ generate_nginx_config()
     echo "server_names_hash_bucket_size ${size};" > ${OMV_NGINX_CUSTOM_CONF}
 }
 
-nginx_dissite ${OMV_NGINX_CONF_NAME} || true
+nginx_dissite ${OMV_NGINX_CONF} || true
 remove_nginx_logs
 generate_nginx_config
 
 if [ "$(omv_config_get "${OMV_PLUGIN_XPATH}/enable")" -eq "1" ]; then
 
     # Remove old config remove_config.
-    remove_server ${OMV_NGINX_CONF_NAME}
+    remove_server ${OMV_NGINX_CONF}
 
     # Iterate through enabled servers.
     server_count=$(omv_config_get_count "${OMV_NGINX_SERVER_XPATH}[enable = '1']")
@@ -263,7 +257,7 @@ if [ "$(omv_config_get "${OMV_PLUGIN_XPATH}/enable")" -eq "1" ]; then
 
     done
 
-    nginx_ensite ${OMV_NGINX_CONF_NAME} || true
+    nginx_ensite ${OMV_NGINX_CONF} || true
 fi
 
 exit 0
