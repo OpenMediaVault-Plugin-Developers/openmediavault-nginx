@@ -1,10 +1,10 @@
-openmediavault-nginx (1.3) stable; urgency=medium
+openmediavault-nginx (1.3-1) stable; urgency=medium
 
   * Add IPv6 support.
-  * Allow using the same port as the web interface when using name-based 
+  * Allow using the same port as the web interface when using name-based
     servers.
-  * Fix issue which caused omv-mkconf to fail when enabled servers was 
-    preceded by a disabled server in config.xml. 
+  * Fix issue which caused omv-mkconf to fail when enabled servers was
+    preceded by a disabled server in config.xml.
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 03 Apr 2015 21:12:18 +0200
 
@@ -36,7 +36,7 @@ openmediavault-nginx (1.0.12) stable; urgency=low
 
 openmediavault-nginx (1.0.11) stable; urgency=low
 
-  * Reallow renaming of pool 
+  * Reallow renaming of pool
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 03 Nov 2014 14:44:06 +0100
 
@@ -44,7 +44,7 @@ openmediavault-nginx (1.0.10) unstable; urgency=low
 
   * Disallow removal of FPM pool in use
   * Disallow renaming pool
-  * Various fixes 
+  * Various fixes
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 29 Oct 2014 15:12:58 +0100
 
@@ -76,33 +76,33 @@ openmediavault-nginx (1.0.0.8) unstable; urgency=low
 
 openmediavault-nginx (1.0.0.7) unstable; urgency=low
 
-  * Remove phpfpm config when purging 
+  * Remove phpfpm config when purging
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 07 Jul 2014 17:02:22 +0200
 
 openmediavault-nginx (1.0.0.6) unstable; urgency=low
 
-  * Add a log viewer for access and error logs 
+  * Add a log viewer for access and error logs
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 06 Jul 2014 23:03:32 +0200
 
 openmediavault-nginx (1.0.0.5) unstable; urgency=low
 
-  * Add ability to use $socket variable in extra options 
+  * Add ability to use $socket variable in extra options
   * Update locales
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 05 Jul 2014 12:52:33 -0500
 
 openmediavault-nginx (1.0.0.3) unstable; urgency=low
 
-  * Work with OMV 0.6.0.11 
+  * Work with OMV 0.6.0.11
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 22 May 2014 23:45:11 +0200
 
 openmediavault-nginx (1.0.0.2) unstable; urgency=low
 
   * Conform to OMV 0.6.0.6 trigger standards
-  * Change plugin to work with Nginx as default server for OMV 
+  * Change plugin to work with Nginx as default server for OMV
   * Add possibility to use $root_path variable in extra options
   * Add extra options for PHP-FPM pools
 
