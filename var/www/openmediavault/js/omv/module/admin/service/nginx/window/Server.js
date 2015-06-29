@@ -295,7 +295,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
                     text: _("Set the server as the default one to be served if no server name matches on the selected port.")
                 }]
             }, {
-                xtype: "certificatecombo",
+                xtype: "sslcertificatecombo",
                 name: "sslcertificateref",
                 fieldLabel: _("Certificate"),
                 allowNone: true,
