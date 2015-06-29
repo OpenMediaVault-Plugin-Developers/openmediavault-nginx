@@ -3,23 +3,24 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Alexander Savchenko, 2014
+# Alexander Savchenko, 2014-2015
+# артур Мудрых <arturmon82@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-nginx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-26 13:29-0600\n"
-"PO-Revision-Date: 2015-01-26 19:32+0000\n"
-"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
+"PO-Revision-Date: 2015-06-16 08:16+0000\n"
+"Last-Translator: артур Мудрых <arturmon82@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/openmediavault-nginx/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Access log"
-msgstr ""
+msgstr "Журнал доступа"
 
 msgid "Add pool"
 msgstr ""
@@ -31,37 +32,37 @@ msgid "Certificate"
 msgstr "Сертификат"
 
 msgid "Date & Time"
-msgstr ""
+msgstr "Дата и время"
 
 msgid "Default"
-msgstr ""
+msgstr "По умолчанию"
 
 msgid "Default (SSL)"
-msgstr ""
+msgstr "По умолчанию (SSL)"
 
 msgid "Default config"
-msgstr ""
+msgstr "Конфигурация по умолчанию"
 
 msgid "Default server"
-msgstr ""
+msgstr "Сервер по умолчанию"
 
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 msgid "Directory"
-msgstr ""
+msgstr "Каталог"
 
 msgid "Display errors"
 msgstr "Показывать ошибки"
 
 msgid "Don't serve .htaccess"
-msgstr ""
+msgstr "Не обслуживать .htaccess"
 
 msgid "Edit pool"
 msgstr ""
 
 msgid "Edit server"
-msgstr ""
+msgstr "Редактировать сервер"
 
 msgid "Enable"
 msgstr "Включить"
@@ -73,13 +74,13 @@ msgid "Enable SSL"
 msgstr "Включить SSL"
 
 msgid "Enable log"
-msgstr ""
+msgstr "Включить журнал"
 
 msgid "Enabled"
-msgstr ""
+msgstr "Включено"
 
 msgid "Error log"
-msgstr ""
+msgstr "Журнал ошибок"
 
 msgid "Event"
 msgstr ""
@@ -88,16 +89,16 @@ msgid "Extra options"
 msgstr "Дополнительный опции"
 
 msgid "Force SSL"
-msgstr ""
+msgstr "Принудительно SSL"
 
 msgid "General"
 msgstr "Общие"
 
 msgid "Group"
-msgstr ""
+msgstr "Группа"
 
 msgid "HTML errors"
-msgstr ""
+msgstr "ошибки HTML"
 
 msgid "Header buffer size"
 msgstr ""
@@ -112,7 +113,7 @@ msgid "Line"
 msgstr ""
 
 msgid "Log"
-msgstr ""
+msgstr "Журнал"
 
 msgid "Max POST size (MB)"
 msgstr ""
@@ -130,13 +131,13 @@ msgid "Max spare servers"
 msgstr ""
 
 msgid "Max upload filesize (MB)"
-msgstr ""
+msgstr "Макс размер файла загрузки (МБ)"
 
 msgid "Memory limit (MB)"
-msgstr ""
+msgstr "Ограничение по памяти (МБ)"
 
 msgid "Message"
-msgstr ""
+msgstr "Сообщение"
 
 msgid "Message - row {0}"
 msgstr ""
@@ -145,13 +146,13 @@ msgid "Min spare servers"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
 msgid "Name-based"
 msgstr ""
 
 msgid "Nginx Websites"
-msgstr ""
+msgstr "Nginx сайты"
 
 msgid "Options"
 msgstr "Опции"
@@ -166,13 +167,13 @@ msgid "Port"
 msgstr "Порт"
 
 msgid "Process manager"
-msgstr ""
+msgstr "Менеджер процессов"
 
 msgid "Public directory"
 msgstr ""
 
 msgid "Root"
-msgstr ""
+msgstr "Root"
 
 msgid "Select a PHP-FPM pool ..."
 msgstr ""
@@ -199,16 +200,16 @@ msgid ""
 msgstr ""
 
 msgid "Set the user under which PHP scripts should be executed as."
-msgstr ""
+msgstr "Установить пользователя, под которым будут выполняться скрипты PHP."
 
 msgid "Settings"
 msgstr "Настройки"
 
 msgid "Start servers"
-msgstr ""
+msgstr "Запуск сервисов"
 
 msgid "The SSL certificate."
-msgstr ""
+msgstr "Сертификат SSL."
 
 msgid ""
 "The location needs to have at least read permissions for the user/group www-"
@@ -236,10 +237,10 @@ msgid ""
 msgstr ""
 
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 msgid "UUID"
-msgstr ""
+msgstr "UUID"
 
 msgid ""
 "Uncheck this if you want to use your own configuration to connect to the PHP"
@@ -250,7 +251,7 @@ msgid "Use 'Directory' as document root."
 msgstr ""
 
 msgid "Use HTML tags in error messages."
-msgstr ""
+msgstr "Использовать HTML теги в сообщениях об ошибках."
 
 msgid ""
 "Use if you serve your public files in a subfolder like public_html or "
@@ -259,16 +260,16 @@ msgid ""
 msgstr ""
 
 msgid "Use index"
-msgstr ""
+msgstr "Использовать index"
 
 msgid "Use public directory"
 msgstr ""
 
 msgid "Use root"
-msgstr ""
+msgstr "Использовать root"
 
 msgid "Use the default Nginx config for PHP."
-msgstr ""
+msgstr "Используйте конфигурации Nginx по умолчанию для PHP."
 
 msgid "User"
 msgstr "Пользователь"

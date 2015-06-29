@@ -1,6 +1,7 @@
 openmediavault-nginx (2.0-1) UNRELEASED; urgency=low
 
   * Update ssl certificate combo for OMV 2.x
+  * Update locales
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 28 Jun 2015 19:54:18 -0500
 

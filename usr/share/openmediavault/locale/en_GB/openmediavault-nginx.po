@@ -3,158 +3,158 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Stefan Thrane Overby <stoverby@gmail.com>, 2014-2015
+# Andi Chandler <andi@gowling.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-nginx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-26 13:29-0600\n"
-"PO-Revision-Date: 2015-02-03 07:42+0000\n"
-"Last-Translator: Stefan Thrane Overby <stoverby@gmail.com>\n"
-"Language-Team: Danish (http://www.transifex.com/projects/p/openmediavault-nginx/language/da/)\n"
+"PO-Revision-Date: 2015-05-01 11:12+0000\n"
+"Last-Translator: Andi Chandler <andi@gowling.com>\n"
+"Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/openmediavault-nginx/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da\n"
+"Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Access log"
-msgstr "Tilgangs log"
+msgstr "Access log"
 
 msgid "Add pool"
-msgstr "Tilføj pool"
+msgstr "Add pool"
 
 msgid "Add server"
-msgstr "Tilføj server"
+msgstr "Add server"
 
 msgid "Certificate"
-msgstr "Certifikat"
+msgstr "Certificate"
 
 msgid "Date & Time"
-msgstr "Dato & Tid"
+msgstr "Date & Time"
 
 msgid "Default"
-msgstr "Standard"
+msgstr "Default"
 
 msgid "Default (SSL)"
-msgstr "Standard (SSL)"
+msgstr "Default (SSL)"
 
 msgid "Default config"
-msgstr "Standard konfig"
+msgstr "Default config"
 
 msgid "Default server"
-msgstr "Standard server"
+msgstr "Default server"
 
 msgid "Description"
-msgstr "Beskrivelse"
+msgstr "Description"
 
 msgid "Directory"
-msgstr "Bibliotek"
+msgstr "Directory"
 
 msgid "Display errors"
-msgstr "Vis fejl"
+msgstr "Display errors"
 
 msgid "Don't serve .htaccess"
-msgstr "Betjen ikke .htaccess"
+msgstr "Don't serve .htaccess"
 
 msgid "Edit pool"
-msgstr "Rediger pool"
+msgstr "Edit pool"
 
 msgid "Edit server"
-msgstr "Rediger server"
+msgstr "Edit server"
 
 msgid "Enable"
-msgstr "Aktiver"
+msgstr "Enable"
 
 msgid "Enable PHP"
-msgstr "Aktiver PHP"
+msgstr "Enable PHP"
 
 msgid "Enable SSL"
-msgstr "Aktiver SSL"
+msgstr "Enable SSL"
 
 msgid "Enable log"
-msgstr "Aktiver log"
+msgstr "Enable log"
 
 msgid "Enabled"
-msgstr "Aktiveret"
+msgstr "Enabled"
 
 msgid "Error log"
-msgstr "Fejl log"
+msgstr "Error log"
 
 msgid "Event"
-msgstr "Begivenhed"
+msgstr "Event"
 
 msgid "Extra options"
-msgstr "Ekstra valgmuligheder"
+msgstr "Extra options"
 
 msgid "Force SSL"
-msgstr "Tving SSL"
+msgstr "Force SSL"
 
 msgid "General"
-msgstr "Generelt"
+msgstr "General"
 
 msgid "Group"
-msgstr "Gruppe"
+msgstr "Group"
 
 msgid "HTML errors"
-msgstr "HTML fejl"
+msgstr "HTML errors"
 
 msgid "Header buffer size"
-msgstr "Header buffer størrelse"
+msgstr "Header buffer size"
 
 msgid "Host type"
-msgstr "Værts type"
+msgstr "Host type"
 
 msgid "Index"
-msgstr "Indeks"
+msgstr "Index"
 
 msgid "Line"
-msgstr "Linie"
+msgstr "Line"
 
 msgid "Log"
 msgstr "Log"
 
 msgid "Max POST size (MB)"
-msgstr "Maks POST størrelse (MB)"
+msgstr "Max POST size (MB)"
 
 msgid "Max children"
-msgstr "Maks forgreninger"
+msgstr "Max children"
 
 msgid "Max execution time (s)"
-msgstr "Maks udførelses tid (s)"
+msgstr "Max execution time (s)"
 
 msgid "Max requests"
-msgstr "Maks anmodninger"
+msgstr "Max requests"
 
 msgid "Max spare servers"
-msgstr "Maks reserve servere"
+msgstr "Max spare servers"
 
 msgid "Max upload filesize (MB)"
-msgstr "Maks upload filstørrelse (MB)"
+msgstr "Max upload filesize (MB)"
 
 msgid "Memory limit (MB)"
-msgstr "Hukommelse grænse (MB)"
+msgstr "Memory limit (MB)"
 
 msgid "Message"
-msgstr "Besked"
+msgstr "Message"
 
 msgid "Message - row {0}"
-msgstr "Besked - række {0}"
+msgstr "Message - row {0}"
 
 msgid "Min spare servers"
-msgstr "Mininum reserve servere"
+msgstr "Min spare servers"
 
 msgid "Name"
-msgstr "Navn"
+msgstr "Name"
 
 msgid "Name-based"
-msgstr "Navne-baseret"
+msgstr "Name-based"
 
 msgid "Nginx Websites"
-msgstr "Nginx Hjemmesider"
+msgstr "Nginx Websites"
 
 msgid "Options"
-msgstr "Valgmuligheder"
+msgstr "Options"
 
 msgid "PHP-FPM pool"
 msgstr "PHP-FPM pool"
@@ -166,74 +166,74 @@ msgid "Port"
 msgstr "Port"
 
 msgid "Process manager"
-msgstr "Proces håndtering"
+msgstr "Process manager"
 
 msgid "Public directory"
-msgstr "Offentlig bibliotek "
+msgstr "Public directory"
 
 msgid "Root"
-msgstr "Rod"
+msgstr "Root"
 
 msgid "Select a PHP-FPM pool ..."
-msgstr "Vælg en PHP-FPM pool ..."
+msgstr "Select a PHP-FPM pool ..."
 
 msgid "Server name"
-msgstr "Server navn"
+msgstr "Server name"
 
 msgid "Server names hash bucket size"
-msgstr "Server navne hash bucket størrelse"
+msgstr "Server names hash bucket size"
 
 msgid "Servers"
-msgstr "Servere"
+msgstr "Servers"
 
 msgid "Set the group under which PHP scripts should be executed as."
-msgstr "Indstil gruppen som PHP scripts skal udføres som."
+msgstr "Set the group under which PHP scripts should be executed as."
 
 msgid ""
 "Set the max execution time of a script. Using the value 0 means no limit."
-msgstr "Sæt maks udførelses tid for et script. Brug af værdien 0 betyder ingen grænse."
+msgstr "Set the max execution time of a script. Using the value 0 means no limit."
 
 msgid ""
 "Set the server as the default one to be served if no server name matches on "
 "the selected port."
-msgstr "Indstil serveren som standard til at betjene hvis intet server navn matcher på den valgte port. "
+msgstr "Set the server as the default one to be served if no server name matches on the selected port."
 
 msgid "Set the user under which PHP scripts should be executed as."
-msgstr "Indstil brugeren som PHP scripts skal udføres som."
+msgstr "Set the user under which PHP scripts should be executed as."
 
 msgid "Settings"
-msgstr "Indstillinger"
+msgstr "Settings"
 
 msgid "Start servers"
-msgstr "Start servere"
+msgstr "Start servers"
 
 msgid "The SSL certificate."
-msgstr "SSL certifikatet."
+msgstr "The SSL certificate."
 
 msgid ""
 "The location needs to have at least read permissions for the user/group www-"
 "data."
-msgstr "Placeringen skal mindst have læse tilladelser for brugeren/gruppen www-data."
+msgstr "The location needs to have at least read permissions for the user/group www-data."
 
 msgid ""
 "This enables PHP and makes the $socket variable (for the chosen PHP-FPM "
 "pool) available in extra options."
-msgstr "Dette aktiver PHP og gør $socket variablen (for den valgte PHP-FPM pool) tilgængelig i ekstra valgmuligheder."
+msgstr "This enables PHP and makes the $socket variable (for the chosen PHP-FPM pool) available in extra options."
 
 msgid ""
 "This option will populate the $root_path variable for usage in extra options"
 " or as document root."
-msgstr "Denne mulighed vil henvise $rod_sti variablen til brug i ekstra valgmuligheder eller som dokument rod."
+msgstr "This option will populate the $root_path variable for usage in extra options or as document root."
 
 msgid ""
 "This setting affects the max upload filesize and should preferably be "
 "higher."
-msgstr "Denne indstilling berører den maksimale upload filstørrelse og skal gerne være højre."
+msgstr "This setting affects the max upload filesize and should preferably be higher."
 
 msgid ""
 "This setting should be higher than the post max size. Setting a value of -1 "
 "makes it unlimited."
-msgstr "Denne indstilling skal være højre end post maks størrelse. Indstillingen af en værdi på -1 gør den uendelig."
+msgstr "This setting should be higher than the post max size. Setting a value of -1 makes it unlimited."
 
 msgid "URL"
 msgstr "URL"
@@ -244,31 +244,31 @@ msgstr "UUID"
 msgid ""
 "Uncheck this if you want to use your own configuration to connect to the PHP"
 " socket."
-msgstr "Fjern flueben hvis du vil bruge din egen konfiguration for at forbinde til PHP socket."
+msgstr "Uncheck this if you want to use your own configuration to connect to the PHP socket."
 
 msgid "Use 'Directory' as document root."
-msgstr "Brug 'Bibliotek' som dokument rod."
+msgstr "Use 'Directory' as document root."
 
 msgid "Use HTML tags in error messages."
-msgstr "Brug HTML tags i fejl beskeder."
+msgstr "Use HTML tags in error messages."
 
 msgid ""
 "Use if you serve your public files in a subfolder like public_html or "
 "public. This folder will be the document root. It also avoids the need to "
 "create an additional shared folder in such cases."
-msgstr "Brug hvis du betjener dine offentligt filer i en undermappe som public_html eller public. Denne mappe vil være dokument rod. Hermed undgås det i tilfældet, at være nød til at oprette en ekstra delt mappe."
+msgstr "Use if you serve your public files in a subfolder like public_html or public. This folder will be the document root. It also avoids the need to create an additional shared folder in such cases."
 
 msgid "Use index"
-msgstr "Brug indeks"
+msgstr "Use index"
 
 msgid "Use public directory"
-msgstr "Brug offentligt bibliotek"
+msgstr "Use public directory"
 
 msgid "Use root"
-msgstr "Brug rod"
+msgstr "Use root"
 
 msgid "Use the default Nginx config for PHP."
-msgstr "Brug den standard Nginx konfig til PHP."
+msgstr "Use the default Nginx config for PHP."
 
 msgid "User"
-msgstr "Bruger"
+msgstr "User"

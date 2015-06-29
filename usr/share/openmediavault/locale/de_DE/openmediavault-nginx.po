@@ -3,14 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Ettore Atalan <atalanttore@googlemail.com>, 2014
+# Ettore Atalan <atalanttore@googlemail.com>, 2014-2015
+# Raiko, 2015
+# WastlJ, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-nginx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-26 13:29-0600\n"
-"PO-Revision-Date: 2015-01-26 19:32+0000\n"
-"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
+"PO-Revision-Date: 2015-05-10 20:10+0000\n"
+"Last-Translator: Raiko\n"
 "Language-Team: German (http://www.transifex.com/projects/p/openmediavault-nginx/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +24,7 @@ msgid "Access log"
 msgstr "Zugriffsprotokoll"
 
 msgid "Add pool"
-msgstr ""
+msgstr "Pool hinzufügen"
 
 msgid "Add server"
 msgstr "Server hinzufügen"
@@ -58,7 +60,7 @@ msgid "Don't serve .htaccess"
 msgstr ""
 
 msgid "Edit pool"
-msgstr ""
+msgstr "Pool editieren"
 
 msgid "Edit server"
 msgstr "Server bearbeiten"
@@ -118,7 +120,7 @@ msgid "Max POST size (MB)"
 msgstr "Maximale POST-Größe (MB)"
 
 msgid "Max children"
-msgstr ""
+msgstr "Max Kindprozesse"
 
 msgid "Max execution time (s)"
 msgstr "Maximale Ausführungszeit (s)"
@@ -127,13 +129,13 @@ msgid "Max requests"
 msgstr "Maximale Anfragen"
 
 msgid "Max spare servers"
-msgstr ""
+msgstr "Max Ersatzserver"
 
 msgid "Max upload filesize (MB)"
 msgstr "Maximale Hochlade-Dateigröße (MB)"
 
 msgid "Memory limit (MB)"
-msgstr "Speicherbegrenzung (MB)"
+msgstr "Speicherlimit (MB)"
 
 msgid "Message"
 msgstr "Meldung"
@@ -142,7 +144,7 @@ msgid "Message - row {0}"
 msgstr "Meldung - Zeile {0}"
 
 msgid "Min spare servers"
-msgstr ""
+msgstr "Min Ersatzserver"
 
 msgid "Name"
 msgstr "Name"
@@ -151,7 +153,7 @@ msgid "Name-based"
 msgstr "Namensbasiert"
 
 msgid "Nginx Websites"
-msgstr ""
+msgstr "Nginx-Webseiten"
 
 msgid "Options"
 msgstr "Optionen"
@@ -160,7 +162,7 @@ msgid "PHP-FPM pool"
 msgstr ""
 
 msgid "Pools"
-msgstr ""
+msgstr "Pools"
 
 msgid "Port"
 msgstr "Port"
@@ -187,19 +189,19 @@ msgid "Servers"
 msgstr "Server"
 
 msgid "Set the group under which PHP scripts should be executed as."
-msgstr ""
+msgstr "Wähle die Gruppe unter welcher die PHP Scripte ausgeführt werden sollen."
 
 msgid ""
 "Set the max execution time of a script. Using the value 0 means no limit."
-msgstr ""
+msgstr "Legen Sie die maximale Ausführungszeit eines Skripts. Mit dem Wert 0 bedeutet keine Begrenzung."
 
 msgid ""
 "Set the server as the default one to be served if no server name matches on "
 "the selected port."
-msgstr ""
+msgstr "Stellen Sie den Server als den Standard, wenn der Servernamen nicht zum ausgewählten Port passt."
 
 msgid "Set the user under which PHP scripts should be executed as."
-msgstr ""
+msgstr "Wähle den Benutzer unter welchen die PHP Scripte ausgeführt werden sollen."
 
 msgid "Settings"
 msgstr "Einstellungen"
@@ -213,7 +215,7 @@ msgstr "Das SSL-Zertifikat."
 msgid ""
 "The location needs to have at least read permissions for the user/group www-"
 "data."
-msgstr ""
+msgstr "Der Benutzer/Gruppe benötigt für das Verzeichnis mindestens Lesezugriff für www-data."
 
 msgid ""
 "This enables PHP and makes the $socket variable (for the chosen PHP-FPM "
@@ -223,7 +225,7 @@ msgstr ""
 msgid ""
 "This option will populate the $root_path variable for usage in extra options"
 " or as document root."
-msgstr ""
+msgstr "Diese Option wird die $root_path-Variable für den Einsatz in Zusatzoptionen oder als Document-Root benötigt."
 
 msgid ""
 "This setting affects the max upload filesize and should preferably be "
@@ -233,7 +235,7 @@ msgstr ""
 msgid ""
 "This setting should be higher than the post max size. Setting a value of -1 "
 "makes it unlimited."
-msgstr ""
+msgstr "Diese Einstellung sollte höher als der Beitrag max Größe sein. Der Wert -1 bedeutet keine Begrenzung."
 
 msgid "URL"
 msgstr "URL"
@@ -247,16 +249,16 @@ msgid ""
 msgstr ""
 
 msgid "Use 'Directory' as document root."
-msgstr ""
+msgstr "Nutze 'Verzeichnis' als Dokument root."
 
 msgid "Use HTML tags in error messages."
-msgstr ""
+msgstr "Verwende HTML-Formatierung in Fehlermeldungen."
 
 msgid ""
 "Use if you serve your public files in a subfolder like public_html or "
 "public. This folder will be the document root. It also avoids the need to "
 "create an additional shared folder in such cases."
-msgstr ""
+msgstr "Verwenden Sie Ihre öffentlichen Dateien in einem Unterordner wie public_html oder public dienen. Dieses Verzeichnis wird der Dokument Root sein. Es vermeidet auch die Notwendigkeit, einen zusätzlichen freigegebenen Ordner in solchen Fällen zu erstellen."
 
 msgid "Use index"
 msgstr "Index verwenden"

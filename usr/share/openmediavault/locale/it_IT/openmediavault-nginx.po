@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Paolo Velati <paolo.velati@gmail.com>, 2014
+# luigif <luigif@gmail.com>, 2015
+# Paolo Velati <paolo.velati@gmail.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-nginx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-26 13:29-0600\n"
-"PO-Revision-Date: 2015-01-26 19:32+0000\n"
-"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
+"PO-Revision-Date: 2015-02-03 17:34+0000\n"
+"Last-Translator: luigif <luigif@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/openmediavault-nginx/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,10 +20,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Access log"
-msgstr ""
+msgstr "Log degli accessi"
 
 msgid "Add pool"
-msgstr ""
+msgstr "Aggiungi pool"
 
 msgid "Add server"
 msgstr "Aggiungi server"
@@ -49,7 +50,7 @@ msgid "Description"
 msgstr "Descrizione"
 
 msgid "Directory"
-msgstr ""
+msgstr "Directory"
 
 msgid "Display errors"
 msgstr "Mostra errori"
@@ -58,7 +59,7 @@ msgid "Don't serve .htaccess"
 msgstr "Non utilizzare .htaccess"
 
 msgid "Edit pool"
-msgstr ""
+msgstr "Modifica pool"
 
 msgid "Edit server"
 msgstr "Modifica server"
@@ -73,13 +74,13 @@ msgid "Enable SSL"
 msgstr "Abilita SSL"
 
 msgid "Enable log"
-msgstr ""
+msgstr "Abilita log"
 
 msgid "Enabled"
 msgstr "Abilita"
 
 msgid "Error log"
-msgstr ""
+msgstr "Log degli errori"
 
 msgid "Event"
 msgstr "Evento"
@@ -106,28 +107,28 @@ msgid "Host type"
 msgstr "Tipo host"
 
 msgid "Index"
-msgstr ""
+msgstr "Indice"
 
 msgid "Line"
-msgstr ""
+msgstr "Linea"
 
 msgid "Log"
-msgstr ""
+msgstr "Log"
 
 msgid "Max POST size (MB)"
 msgstr "Dimensione massima POST (MB)"
 
 msgid "Max children"
-msgstr ""
+msgstr "Numero massimo di processi"
 
 msgid "Max execution time (s)"
 msgstr "Tempo di esecuzione massimo (secondi)"
 
 msgid "Max requests"
-msgstr ""
+msgstr "Numero massimo di richieste"
 
 msgid "Max spare servers"
-msgstr ""
+msgstr "Numero massimo di servers di riserva"
 
 msgid "Max upload filesize (MB)"
 msgstr "Dimensione massima upload (MB)"
@@ -136,13 +137,13 @@ msgid "Memory limit (MB)"
 msgstr "Limite memoria (MB)"
 
 msgid "Message"
-msgstr ""
+msgstr "Messaggio"
 
 msgid "Message - row {0}"
-msgstr ""
+msgstr "Messaggio - riga  {0}"
 
 msgid "Min spare servers"
-msgstr ""
+msgstr "Numero minimo di servers di riserva"
 
 msgid "Name"
 msgstr "Nome"
@@ -151,22 +152,22 @@ msgid "Name-based"
 msgstr "Basato-su-nome"
 
 msgid "Nginx Websites"
-msgstr ""
+msgstr "Siti Nginx"
 
 msgid "Options"
 msgstr "Opzioni"
 
 msgid "PHP-FPM pool"
-msgstr ""
+msgstr "Pool PHP-FPM"
 
 msgid "Pools"
-msgstr ""
+msgstr "Pools"
 
 msgid "Port"
 msgstr "Porta"
 
 msgid "Process manager"
-msgstr ""
+msgstr "Gestore dei processi"
 
 msgid "Public directory"
 msgstr "Cartella pubblica"
@@ -175,7 +176,7 @@ msgid "Root"
 msgstr "Radice"
 
 msgid "Select a PHP-FPM pool ..."
-msgstr ""
+msgstr "Selezionare un pool PHP-FPM..."
 
 msgid "Server name"
 msgstr "Nome server"
@@ -205,7 +206,7 @@ msgid "Settings"
 msgstr "Impostazioni"
 
 msgid "Start servers"
-msgstr ""
+msgstr "Avvia server"
 
 msgid "The SSL certificate."
 msgstr "Il certificato SSL."
@@ -213,12 +214,12 @@ msgstr "Il certificato SSL."
 msgid ""
 "The location needs to have at least read permissions for the user/group www-"
 "data."
-msgstr ""
+msgstr "La destinazione deve avere almeno i permessi di lettura per il gruppo/utente www-data"
 
 msgid ""
 "This enables PHP and makes the $socket variable (for the chosen PHP-FPM "
 "pool) available in extra options."
-msgstr ""
+msgstr "Abilita PHP e rende disponibile la variabile $socket nelle opzioni aggiuntive (per il pool PHP-FPM selezionato)"
 
 msgid ""
 "This option will populate the $root_path variable for usage in extra options"
@@ -259,13 +260,13 @@ msgid ""
 msgstr "Utilizzare se si servono i file pubblici in una sottocartella come public_html o pubblica. Questa cartella sarà la radice del documento. Si evita inoltre la necessità di creare una cartella condivisa aggiuntiva in questo caso."
 
 msgid "Use index"
-msgstr ""
+msgstr "Usa indice"
 
 msgid "Use public directory"
 msgstr "Utilizza cartella pubblica"
 
 msgid "Use root"
-msgstr ""
+msgstr "Usa radice"
 
 msgid "Use the default Nginx config for PHP."
 msgstr "Usa la configurazione predefinita di Nginx per PHP"

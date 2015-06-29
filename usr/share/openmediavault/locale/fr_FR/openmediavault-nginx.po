@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Christophe Lherieau <skimpax@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-nginx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-26 13:29-0600\n"
-"PO-Revision-Date: 2015-01-26 19:32+0000\n"
-"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
+"PO-Revision-Date: 2015-06-25 14:41+0000\n"
+"Last-Translator: Christophe Lherieau <skimpax@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/openmediavault-nginx/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,256 +19,256 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Access log"
-msgstr ""
+msgstr "Journal des accès"
 
 msgid "Add pool"
-msgstr ""
+msgstr "Ajouter un pool"
 
 msgid "Add server"
-msgstr ""
+msgstr "Ajouter un serveur"
 
 msgid "Certificate"
-msgstr ""
+msgstr "Certificat"
 
 msgid "Date & Time"
-msgstr ""
+msgstr "Date & Heure"
 
 msgid "Default"
-msgstr ""
+msgstr "Par défaut"
 
 msgid "Default (SSL)"
-msgstr ""
+msgstr "Par défaut (SSL)"
 
 msgid "Default config"
-msgstr ""
+msgstr "Configuration par défaut"
 
 msgid "Default server"
-msgstr ""
+msgstr "Serveur par défaut"
 
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 msgid "Directory"
-msgstr ""
+msgstr "Répertoire"
 
 msgid "Display errors"
-msgstr ""
+msgstr "Afficher les erreurs"
 
 msgid "Don't serve .htaccess"
-msgstr ""
+msgstr "Ne pas servir les .htaccess"
 
 msgid "Edit pool"
-msgstr ""
+msgstr "Modifier le pool"
 
 msgid "Edit server"
-msgstr ""
+msgstr "Modifier le serveur"
 
 msgid "Enable"
-msgstr ""
+msgstr "Activer"
 
 msgid "Enable PHP"
-msgstr ""
+msgstr "Activer PHP"
 
 msgid "Enable SSL"
-msgstr ""
+msgstr "Activer SSL"
 
 msgid "Enable log"
-msgstr ""
+msgstr "Activer la journalisation"
 
 msgid "Enabled"
-msgstr ""
+msgstr "Activé"
 
 msgid "Error log"
-msgstr ""
+msgstr "Journal des erreurs"
 
 msgid "Event"
-msgstr ""
+msgstr "Événement"
 
 msgid "Extra options"
-msgstr ""
+msgstr "Options supplémentaires"
 
 msgid "Force SSL"
-msgstr ""
+msgstr "Forcer SSL"
 
 msgid "General"
-msgstr ""
+msgstr "Général"
 
 msgid "Group"
-msgstr ""
+msgstr "Groupe"
 
 msgid "HTML errors"
-msgstr ""
+msgstr "Erreurs HTML"
 
 msgid "Header buffer size"
-msgstr ""
+msgstr "Taille du tampon d'en-tête"
 
 msgid "Host type"
-msgstr ""
+msgstr "Type d'hôte"
 
 msgid "Index"
-msgstr ""
+msgstr "Index"
 
 msgid "Line"
-msgstr ""
+msgstr "Ligne"
 
 msgid "Log"
-msgstr ""
+msgstr "Journalisation"
 
 msgid "Max POST size (MB)"
-msgstr ""
+msgstr "Taille max de POST (Mo)"
 
 msgid "Max children"
-msgstr ""
+msgstr "Nombre max de processus fils"
 
 msgid "Max execution time (s)"
-msgstr ""
+msgstr "Durée max d'exécution (s)"
 
 msgid "Max requests"
-msgstr ""
+msgstr "Nombre max de requêtes"
 
 msgid "Max spare servers"
-msgstr ""
+msgstr "Nombre max de serveurs de secours"
 
 msgid "Max upload filesize (MB)"
-msgstr ""
+msgstr "Taille max d'un fichier en téléversement (Mo)"
 
 msgid "Memory limit (MB)"
-msgstr ""
+msgstr "Limite mémoire (Mo)"
 
 msgid "Message"
-msgstr ""
+msgstr "Message"
 
 msgid "Message - row {0}"
-msgstr ""
+msgstr "Message - rangée {0}"
 
 msgid "Min spare servers"
-msgstr ""
+msgstr "Nombre min de serveurs de secours"
 
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 msgid "Name-based"
-msgstr ""
+msgstr "Basé sur le nom"
 
 msgid "Nginx Websites"
-msgstr ""
+msgstr "Sites web nginx"
 
 msgid "Options"
-msgstr ""
+msgstr "Options"
 
 msgid "PHP-FPM pool"
-msgstr ""
+msgstr "Pool PHP-FPM"
 
 msgid "Pools"
-msgstr ""
+msgstr "Les pools"
 
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 msgid "Process manager"
-msgstr ""
+msgstr "Gestionnaire de processus"
 
 msgid "Public directory"
-msgstr ""
+msgstr "Répertoire public"
 
 msgid "Root"
-msgstr ""
+msgstr "Racine"
 
 msgid "Select a PHP-FPM pool ..."
-msgstr ""
+msgstr "Sélectionner un pool PHP-FPM..."
 
 msgid "Server name"
-msgstr ""
+msgstr "Nom du serveur"
 
 msgid "Server names hash bucket size"
-msgstr ""
+msgstr "Taille du sceau de hachage des noms de serveur"
 
 msgid "Servers"
-msgstr ""
+msgstr "Serveurs"
 
 msgid "Set the group under which PHP scripts should be executed as."
-msgstr ""
+msgstr "Saisir le groupe sous lequel les scripts PHP seront exécutés."
 
 msgid ""
 "Set the max execution time of a script. Using the value 0 means no limit."
-msgstr ""
+msgstr "Saisir la durée d'exécution max d'un script. La valeur 0 signifie illimité."
 
 msgid ""
 "Set the server as the default one to be served if no server name matches on "
 "the selected port."
-msgstr ""
+msgstr "Saisir le serveur à utiliser par défaut si aucun nom de serveur ne correspond sur le port sélectionné."
 
 msgid "Set the user under which PHP scripts should be executed as."
-msgstr ""
+msgstr "Saisir l'utilisateur sous lequel les scripts PHP seront exécutés"
 
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 msgid "Start servers"
-msgstr ""
+msgstr "Démarrer les serveurs"
 
 msgid "The SSL certificate."
-msgstr ""
+msgstr "Le certificat SSL."
 
 msgid ""
 "The location needs to have at least read permissions for the user/group www-"
 "data."
-msgstr ""
+msgstr "L'emplacement doit pouvoir être accessible au minimum en lecture pour l'utilisateur/groupe www-data."
 
 msgid ""
 "This enables PHP and makes the $socket variable (for the chosen PHP-FPM "
 "pool) available in extra options."
-msgstr ""
+msgstr "Cela active PHP rend la variable $socket disponible dans les options supplémentaires (pour le pool PHP-FPM choisi)."
 
 msgid ""
 "This option will populate the $root_path variable for usage in extra options"
 " or as document root."
-msgstr ""
+msgstr "Cette option va valoriser la variable $root_path pour être utilisée dans les options supplémentaires ou comme racine de document."
 
 msgid ""
 "This setting affects the max upload filesize and should preferably be "
 "higher."
-msgstr ""
+msgstr "Ce paramètre affecte la taille maximale d'un fichier en téléversement et devrait être plus grand."
 
 msgid ""
 "This setting should be higher than the post max size. Setting a value of -1 "
 "makes it unlimited."
-msgstr ""
+msgstr "Ce paramètre devrait être plus grand que la taille maximale d'un POST. Une valeur à -1 signifie illimité."
 
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 msgid "UUID"
-msgstr ""
+msgstr "UUID"
 
 msgid ""
 "Uncheck this if you want to use your own configuration to connect to the PHP"
 " socket."
-msgstr ""
+msgstr "Décocher ceci si vous voulez utiliser votre propre configuration pour se connecter à la socket PHP."
 
 msgid "Use 'Directory' as document root."
-msgstr ""
+msgstr "Utilise 'Répertoire' comme racine de document."
 
 msgid "Use HTML tags in error messages."
-msgstr ""
+msgstr "Utiliser les balises HTML dans les messages d'erreur."
 
 msgid ""
 "Use if you serve your public files in a subfolder like public_html or "
 "public. This folder will be the document root. It also avoids the need to "
 "create an additional shared folder in such cases."
-msgstr ""
+msgstr "A utiliser si vous servez vos fichier publiques dans un sous-répertoire comme public_html ou public. Ce répertoire sera la racine de document. Cela permet également d'éviter de créer un répertoire partagé supplémentaire dans ce cas de figure."
 
 msgid "Use index"
-msgstr ""
+msgstr "Utiliser l'index"
 
 msgid "Use public directory"
-msgstr ""
+msgstr "Utiliser un répertoire public"
 
 msgid "Use root"
-msgstr ""
+msgstr "Utiliser root"
 
 msgid "Use the default Nginx config for PHP."
-msgstr ""
+msgstr "Utiliser la configuration nginx par défaut pour PHP."
 
 msgid "User"
-msgstr ""
+msgstr "Utilisateur"
