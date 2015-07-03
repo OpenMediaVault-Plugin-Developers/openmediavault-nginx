@@ -1,3 +1,9 @@
+openmediavault-nginx (2.0-2) stable; urgency=low
+
+  * Fix cert location
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 03 Jul 2015 16:45:50 -0500
+
 openmediavault-nginx (2.0-1) stable; urgency=low
 
   * Update ssl certificate combo for OMV 2.x
