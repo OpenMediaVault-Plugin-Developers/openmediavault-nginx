@@ -176,7 +176,9 @@ generate_server_nginx_config()
             index_files+=" index.php"
         fi
 
-        echo "    index${index_files};" >> ${config}
+        if [ -n "${index_files}" ]; then
+            echo "    index${index_files};" >> ${config}
+        fi
     fi
 
     # Add $socket variable if PHP is enabled.
