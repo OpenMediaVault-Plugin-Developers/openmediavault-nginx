@@ -8,7 +8,7 @@ XB-Plugin-Section: network
 
 Package: openmediavault-nginx
 Architecture: all
-Depends: openmediavault (>= 2.1),
+Depends: openmediavault (>= 2.1.9),
          nginx,
          php5-fpm,
          ${misc:Depends}

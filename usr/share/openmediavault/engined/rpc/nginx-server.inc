@@ -21,6 +21,7 @@ require_once "openmediavault/error.inc";
 require_once "openmediavault/notify.inc";
 require_once "openmediavault/object.inc";
 require_once "openmediavault/rpc.inc";
+require_once "openmediavault/rpcservice.inc";
 require_once "openmediavault/util.inc";
 
 class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
@@ -317,9 +318,10 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             );
 
             if ($server["use_root"] && $server["use_public_directory"]) {
-                $rootFullPath = $rootFullPath
-                              . DIRECTORY_SEPARATOR
-                              . $server["public_directory"];
+                $rootFullPath = build_path([
+                    $rootFullPath,
+                    $server["public_directory"]
+                ]);
             }
         }
 
@@ -836,17 +838,11 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
      */
     private function getSharedFolderPathByUuid($uuid)
     {
-        global $xmlConfig;
+        $path = OMVRpc::exec("ShareMgmt", "getPath", [
+            "uuid" => $uuid,
+        ], $this->getAdminContext());
 
-        $xpath = sprintf("//system/shares/sharedfolder[uuid='%s']", $uuid);
-        $sharedFolder = $xmlConfig->get($xpath);
-        $sharedFolderRelDirPath = trim($sharedFolder["reldirpath"], DIRECTORY_SEPARATOR);
-
-        $xpath = sprintf("//system/fstab/mntent[uuid='%s']", $sharedFolder["mntentref"]);
-        $mountPoint = $xmlConfig->get($xpath);
-        $mountPointDir = rtrim($mountPoint["dir"], DIRECTORY_SEPARATOR);
-
-        return $mountPointDir . DIRECTORY_SEPARATOR . $sharedFolderRelDirPath;
+        return $path;
     }
 }
 
