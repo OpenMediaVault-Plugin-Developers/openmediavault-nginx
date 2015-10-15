@@ -1,4 +1,4 @@
-openmediavault-nginx (2.3) UNRELEASED; urgency=low
+openmediavault-nginx (2.3) stable; urgency=low
 
   * Fixed issue where Nginx got misconfigured and wouldn't start when no index 
     page was selected but the use index was still activated.
