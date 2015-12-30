@@ -17,11 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once "openmediavault/config.inc";
-require_once "openmediavault/error.inc";
-require_once "openmediavault/initscript.inc";
-require_once "openmediavault/module.inc";
-require_once "openmediavault/util.inc";
+ require_once "openmediavault/module.inc";
+ require_once "openmediavault/notify.inc";
 
 class OMVModuleNginxServer extends OMVModuleServiceAbstract implements OMVINotifyListener
 {
