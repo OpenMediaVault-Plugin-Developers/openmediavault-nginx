@@ -56,13 +56,13 @@ class OMVModuleNginxServer extends OMVModuleServiceAbstract implements OMVINotif
         $dispatcher->addListener(
             OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
             $this->getEventMessagePath(),
-            array($moduleMgr->getModule("webserver"), "setDirty")
+            [$moduleMgr->getModule("webserver"), "setDirty"]
         );
 
         $dispatcher->addListener(
             OMV_NOTIFY_MODIFY,
             $this->getSharedFolderEventMessagePath(),
-            array($moduleMgr->getModule("webserver"), "setDirty")
+            [$moduleMgr->getModule("webserver"), "setDirty"]
         );
     }
 }

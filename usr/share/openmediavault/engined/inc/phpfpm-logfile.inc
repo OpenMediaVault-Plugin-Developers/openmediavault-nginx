@@ -22,26 +22,26 @@
 // [01-Jan-2000 23:59:59] <message>
 OMVLogFile::registerType(
     "php-fpm",
-    array(
+    [
         "filename" => "php-fpm",
         "filepath" => "/var/log/php5-fpm.log",
         "regex" => "/^\[(\d+-\w+-\d+\s+\d+:\d+:\d+)\]\s+(.*)$/",
-        "columns" => array(
-            "ts" => array(
+        "columns" => [
+            "ts" => [
                 "index" => 1,
                 "func" => create_function(
                     "\$v",
                     "return strpdate(\$v, \"d-M-Y H:i:s\");"
                 )
-            ),
-            "date" => array(
+            ],
+            "date" => [
                 "index" => 1,
                 "func" => create_function(
                     '$v',
                     "return strftime(\"%c\", strpdate(\$v,\"d-M-Y H:i:s\"));"
                 )
-            ),
+            ],
             "event" => 2
-        )
-    )
+        ]
+    ]
 );

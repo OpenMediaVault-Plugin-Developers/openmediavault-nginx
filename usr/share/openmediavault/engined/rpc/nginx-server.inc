@@ -99,9 +99,9 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_ADMINISTRATOR
-        ));
+        ]);
 
         // Get configuration object
         $object = $xmlConfig->get($this->getXpath());
@@ -129,9 +129,9 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_ADMINISTRATOR
-        ));
+        ]);
 
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams(
@@ -146,10 +146,10 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         );
 
         // Prepare configuration data.
-        $object = array(
+        $object = [
             "enable" => array_boolval($params, "enable"),
             "server_names_hash_bucket_size" => $params["server_names_hash_bucket_size"]
-        );
+        ];
 
         // Get old configuration object.
         $oldConfig = $xmlConfig->get($this->getXpath());
@@ -192,9 +192,9 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_ADMINISTRATOR
-        ));
+        ]);
 
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams(
@@ -218,11 +218,11 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $xpath);
         }
 
-        $servers = array();
+        $servers = [];
 
         foreach ($uuids as $uuid) {
             try {
-                $servers[] = $this->get(array("uuid" => $uuid), $context);
+                $servers[] = $this->get(["uuid" => $uuid], $context);
             } catch (Exception $e) {
                 throw $e;
             }
@@ -250,9 +250,9 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_ADMINISTRATOR
-        ));
+        ]);
 
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams(
@@ -328,8 +328,8 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         $server["root_full_path"] = $rootFullPath;
 
         // Build possible URLs.
-        $urls = array();
-        $serverNames = array();
+        $urls = [];
+        $serverNames = [];
 
         if ($server["host_type"] == self::HOST_TYPE_PORT) {
             $serverNames[] = "!domain!";
@@ -365,9 +365,9 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_ADMINISTRATOR
-        ));
+        ]);
 
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams(
@@ -409,7 +409,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             }'
         );
 
-        $server = array(
+        $server = [
             "uuid" =>
                 ($params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"]) ?
                 OMVUtil::uuid() : $params["uuid"],
@@ -442,7 +442,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
             "large_client_header_buffers" => intval($params["large_client_header_buffers"]),
 
             "extra_options" => $params["extra_options"],
-        );
+        ];
 
         $server = $this->sanitizeServer($server);
         $this->validateServer($server);
@@ -454,7 +454,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         if ($params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"]) {
             $success = $xmlConfig->set(
                 $xpath = $this->getServersXpath(),
-                array("server" => $server),
+                ["server" => $server],
                 $server
             );
         } else {
@@ -493,9 +493,9 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_ADMINISTRATOR
-        ));
+        ]);
 
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams(
@@ -536,9 +536,9 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_ADMINISTRATOR
-        ));
+        ]);
 
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams(
@@ -559,7 +559,7 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
         $uuid = $params["uuid"];
         $type = $params["type"];
 
-        $logRows = array();
+        $logRows = [];
 
         $logPath = sprintf(
             "%s/%s-%s.log",
@@ -576,18 +576,18 @@ class OMVRpcServiceNginxServer extends OMVRpcServiceAbstract
 
             foreach ($logTextArray as $row) {
                 if (!empty($row)) {
-                    $logRows[] = array(
+                    $logRows[] = [
                         "id" => $rowNumber++,
                         "message" => $row,
-                    );
+                    ];
                 }
             }
         }
 
-        return array(
+        return [
             "total" => count($logRows),
             "data" => $logRows,
-        );
+        ];
     }
 
     /**

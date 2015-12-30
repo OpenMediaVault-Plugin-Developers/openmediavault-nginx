@@ -81,9 +81,9 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_ADMINISTRATOR
-        ));
+        ]);
 
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams(
@@ -107,11 +107,11 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
             throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $xpath);
         }
 
-        $pools = array();
+        $pools = [];
 
         foreach ($uuids as $uuid) {
             try {
-                $pools[] = $this->get(array("uuid" => $uuid), $context);
+                $pools[] = $this->get(["uuid" => $uuid], $context);
             } catch (Exception $e) {
                 throw $e;
             }
@@ -139,9 +139,9 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_ADMINISTRATOR
-        ));
+        ]);
 
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams(
@@ -192,9 +192,9 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_ADMINISTRATOR
-        ));
+        ]);
 
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams(
@@ -223,7 +223,7 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
             }'
         );
 
-        $pool = array(
+        $pool = [
             "uuid" =>
                 ($params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"])
                 ? OMVUtil::uuid() : $params["uuid"],
@@ -243,7 +243,7 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
             "php_post_max_size" => intval($params["php_post_max_size"]),
             "php_upload_max_filesize" => intval($params["php_upload_max_filesize"]),
             "extra_options" => trim($params["extra_options"]),
-        );
+        ];
 
         // Save the configuration.
         $success = false;
@@ -259,7 +259,7 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
 
             $success = $xmlConfig->set(
                 $xpath = $this->getPoolsXpath(),
-                array("pool" => $pool),
+                ["pool" => $pool],
                 $pool
             );
         } else {
@@ -298,9 +298,9 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
         global $xmlConfig;
 
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, array(
+        $this->validateMethodContext($context, [
             "role" => OMV_ROLE_ADMINISTRATOR
-        ));
+        ]);
 
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams(
