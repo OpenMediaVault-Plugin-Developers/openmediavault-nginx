@@ -1,3 +1,9 @@
+openmediavault-nginx (3.0.1) stable; urgency=medium
+
+  * Improve configuration script.
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 01 Jan 2016 23:25:07 +0100
+
 openmediavault-nginx (3.0) stable; urgency=low
 
   * OMV 3.0 release 
