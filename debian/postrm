@@ -38,13 +38,9 @@ case "$1" in
         # Remove php-fpm configuration files.
         find /etc/php5/fpm/pool.d -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \; || true
 
-        if [ -x "/etc/init.d/nginx" ]; then
-            invoke-rc.d nginx reload
-        fi
-
-        if [ -x "/etc/init.d/php5-fpm" ]; then
-            invoke-rc.d php5-fpm reload
-        fi
+        # Reload services.
+        deb-systemd-invoke reload nginx.service >/dev/null || true
+        deb-systemd-invoke reload php5-fpm.service >/dev/null || true
     ;;
 
     upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
