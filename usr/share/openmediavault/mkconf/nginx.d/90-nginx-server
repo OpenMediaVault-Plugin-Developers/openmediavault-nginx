@@ -184,7 +184,7 @@ generate_server_nginx_config()
         echo "        fastcgi_split_path_info ^(.+\.php)(/.+)$;" >> ${config}
         echo "        fastcgi_pass \$socket;" >> ${config}
         echo "        fastcgi_index index.php;" >> ${config}
-        echo "        include fastcgi_params;" >> ${config}
+        echo "        include fastcgi.conf;" >> ${config}
         echo "    }" >> ${config}
     fi
 
