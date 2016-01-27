@@ -181,10 +181,8 @@ generate_server_nginx_config()
     # Add default PHP configuration if it's enabled.
     if [ $php_enable -eq 1 -a $php_use_default_config  -eq 1 ]; then
         echo "    location ~ \.php$ {" >> ${config}
-        echo "        fastcgi_split_path_info ^(.+\.php)(/.+)$;" >> ${config}
+        echo "        include snippets/fastcgi-php.conf;" >> ${config}
         echo "        fastcgi_pass \$socket;" >> ${config}
-        echo "        fastcgi_index index.php;" >> ${config}
-        echo "        include fastcgi.conf;" >> ${config}
         echo "    }" >> ${config}
     fi
 
