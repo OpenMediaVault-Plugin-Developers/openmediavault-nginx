@@ -106,7 +106,7 @@ Ext.define("OMV.module.admin.service.nginx.Servers", {
             var value = "";
 
             for (var i = 0; i < urls.length; i++)
-                urls[i] = Ext.String.format("<a href='{0}' target='_blank'>{0}</a>", urls[i]
+                urls[i] = Ext.String.format("<a href=\"{0}\" target=\"_blank\">{0}</a>", urls[i]
                     .replace("!domain!", window.location.hostname));
 
             value = urls.join(", ");

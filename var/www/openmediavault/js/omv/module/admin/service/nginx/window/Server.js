@@ -310,7 +310,7 @@ Ext.define("OMV.module.admin.service.nginx.window.Server", {
             }, {
                 xtype: "checkbox",
                 name: "ssl_force",
-                fieldLabel: _("Force SSL"),
+                fieldLabel: _("Only use SSL"),
                 checked: false
             }]
         }, {
