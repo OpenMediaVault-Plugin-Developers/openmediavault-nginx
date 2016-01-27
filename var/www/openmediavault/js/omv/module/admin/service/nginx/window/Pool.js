@@ -62,8 +62,6 @@ Ext.define("OMV.module.admin.service.nginx.window.Pool", {
                 onLoad: Ext.Function.interceptBefore(OMV.form.field.UserComboBox.prototype, "onLoad", function(store, records, success) {
                     if (success) {
                         store.add({
-                            name: "openmediavault"
-                        }, {
                             name: "www-data"
                         });
                     }
@@ -81,8 +79,6 @@ Ext.define("OMV.module.admin.service.nginx.window.Pool", {
                 onLoad: Ext.Function.interceptBefore(OMV.form.field.GroupComboBox.prototype, "onLoad", function(store, records, success) {
                     if (success) {
                         store.add({
-                            name: "openmediavault"
-                        }, {
                             name: "www-data"
                         }, {
                             name: "users"
