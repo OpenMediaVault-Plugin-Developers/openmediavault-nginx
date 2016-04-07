@@ -1,3 +1,9 @@
+openmediavault-nginx (3.0.3) stable; urgency=medium
+
+  * OMV 3.0.15 support. 
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 07 Apr 2016 15:42:29 +0200
+
 openmediavault-nginx (3.0.2) stable; urgency=medium
 
   * Use snippets/fastcgi-php.conf as the default PHP config in Nginx.
