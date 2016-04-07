@@ -21,19 +21,19 @@
 // require("js/omv/data/proxy/Rpc.js")
 // require("js/omv/data/Store.js")
 
-Ext.define("OMV.module.admin.service.nginx.window.Log", {
-    extend: "OMV.window.Window",
+Ext.define('OMV.module.admin.service.nginx.window.Log', {
+    extend: 'OMV.window.Window',
     requires: [
-        "OMV.data.Model",
-        "OMV.data.proxy.Rpc",
-        "OMV.data.Store"
+        'OMV.data.Model',
+        'OMV.data.proxy.Rpc',
+        'OMV.data.Store'
     ],
 
-    title: _("Log"),
+    title: _('Log'),
 
     width: 550,
     height: 400,
-    layout: "fit",
+    layout: 'fit',
 
     initComponent: function() {
         var grid = this.getGrid();
@@ -48,33 +48,33 @@ Ext.define("OMV.module.admin.service.nginx.window.Log", {
     },
 
     getGrid: function() {
-        return Ext.create("Ext.grid.Panel", {
+        return Ext.create('Ext.grid.Panel', {
             columns: [{
-                header: _("Line"),
+                header: _('Line'),
                 width: 50,
                 sortable: true,
-                dataIndex: "id"
+                dataIndex: 'id'
             }, {
-                header: _("Message"),
+                header: _('Message'),
                 flex: 1,
                 sortable: false,
-                dataIndex: "message"
+                dataIndex: 'message'
             }],
-            store: Ext.create("OMV.data.Store", {
+            store: Ext.create('OMV.data.Store', {
                 autoLoad: true,
                 model: OMV.data.Model.createImplicit({
-                    idProperty: "id",
+                    idProperty: 'id',
                     fields: [{
-                        name: "id"
+                        name: 'id'
                     }, {
-                        name: "message"
+                        name: 'message'
                     }]
                 }),
                 proxy: {
-                    type: "rpc",
+                    type: 'rpc',
                     rpcData: {
-                        "service": "Nginx",
-                        "method": "getLog"
+                        'service': 'Nginx',
+                        'method': 'getLog'
                     },
                     extraParams: {
                         uuid: this.uuid,
@@ -83,18 +83,18 @@ Ext.define("OMV.module.admin.service.nginx.window.Log", {
                 },
                 remoteSort: false,
                 sorters: [{
-                    direction: "DESC",
-                    property: "id"
+                    direction: 'DESC',
+                    property: 'id'
                 }]
             }),
             listeners: {
                 cellclick: function(grid, td, cellIndex, record) {
                     Ext.MessageBox.show({
                         title: Ext.String.format(
-                            _("Message - row {0}"),
-                            record.get("id")
+                            _('Message - row {0}'),
+                            record.get('id')
                         ),
-                        msg: record.get("message")
+                        msg: record.get('message')
                     });
                 }
             }
