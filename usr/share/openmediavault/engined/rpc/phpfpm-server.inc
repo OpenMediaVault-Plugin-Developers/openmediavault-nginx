@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (C) 2014-2015 OpenMediaVault Plugin Developers
+ * Copyright (C) 2014-2015 OpenMediaVault Plugin Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,32 +17,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once "openmediavault/error.inc";
-require_once "openmediavault/notify.inc";
-require_once "openmediavault/object.inc";
-require_once "openmediavault/rpc.inc";
-require_once "openmediavault/util.inc";
+namespace OMV\Engined\Rpc;
 
-class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
+use OMV\Config\ConfigObject;
+use OMV\Config\Database;
+use OMV\Engine\Notify\Dispatcher;
+use OMV\Rpc\ServiceAbstract;
+
+class PhpFpmServer extends ServiceAbstract
 {
-    private function getEventMessagePath()
-    {
-        return "org.openmediavault.services.phpfpm";
-    }
+    /** @var Database */
+    private $database;
 
-    private function getXpath()
-    {
-        return "/config/services/phpfpm";
-    }
+    /** @var string */
+    private $dataModelPath = 'conf.service.phpfpm.pool';
 
-    private function getPoolsXpath()
-    {
-        return sprintf("%s/pools", $this->getXpath());
-    }
+    /** @var Dispatcher */
+    private $dispatcher;
 
-    private function getPoolXpathByUuid($uuid)
+    /** @var string */
+    private $eventMessagePath = 'org.openmediavault.services.phpfpm';
+
+    public function __construct(Database $database = null, Dispatcher $dispatcher = null)
     {
-        return sprintf("%s/pool[uuid='%s']", $this->getPoolsXpath(), $uuid);
+        $this->database = $database ?: Database::getInstance();
+        $this->dispatcher = $dispatcher ?: Dispatcher::getInstance();
     }
 
     /**
@@ -52,7 +51,7 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
      */
     public function getName()
     {
-        return "PhpFpm";
+        return 'PhpFpm';
     }
 
     /**
@@ -62,10 +61,10 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
      */
     public function initialize()
     {
-        $this->registerMethod("getList");
-        $this->registerMethod("get");
-        $this->registerMethod("set");
-        $this->registerMethod("delete");
+        $this->registerMethod('getList');
+        $this->registerMethod('get');
+        $this->registerMethod('set');
+        $this->registerMethod('delete');
     }
 
     /**
@@ -78,51 +77,22 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
      */
     public function getList($params, $context)
     {
-        global $xmlConfig;
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        $this->validateMethodParams($params, 'rpc.common.getlist');
 
-        // Validate the RPC caller context.
-        $this->validateMethodContext($context, [
-            "role" => OMV_ROLE_ADMINISTRATOR
-        ]);
-
-        // Validate the parameters of the RPC service method.
-        $this->validateMethodParams(
-            $params,
-            '{
-                "type": "object",
-                "properties": {
-                    "start": { "type": "integer" },
-                    "limit": {' . $GLOBALS["OMV_JSONSCHEMA_COUNTFIELD"] . '},
-                    "sortfield": {' . $GLOBALS["OMV_JSONSCHEMA_SORTFIELD"] . '},
-                    "sortdir": {' . $GLOBALS["OMV_JSONSCHEMA_SORTDIR"] . '}
-                }
-            }'
-        );
-
-        // Get configuration object.
-        $xpath = sprintf("%s/pool/uuid", $this->getPoolsXpath());
-        $uuids = $xmlConfig->getList($xpath);
-
-        if (is_null($uuids)) {
-            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $xpath);
-        }
-
+        $objects = $this->database->get($this->dataModelPath);
         $pools = [];
 
-        foreach ($uuids as $uuid) {
-            try {
-                $pools[] = $this->get(["uuid" => $uuid], $context);
-            } catch (Exception $e) {
-                throw $e;
-            }
+        foreach ($objects as $object) {
+            $pools[] = $object->getAssoc();
         }
 
         return $this->applyFilter(
             $pools,
-            $params["start"],
-            $params["limit"],
-            $params["sortfield"],
-            $params["sortdir"]
+            $params['start'],
+            $params['limit'],
+            $params['sortfield'],
+            $params['sortdir']
         );
     }
 
@@ -136,47 +106,12 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
      */
     public function get($params, $context)
     {
-        global $xmlConfig;
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        $this->validateMethodParams($params, 'rpc.common.objectuuid');
 
-        // Validate the RPC caller context.
-        $this->validateMethodContext($context, [
-            "role" => OMV_ROLE_ADMINISTRATOR
-        ]);
+        $object = $this->database->get($this->dataModelPath, $params['uuid']);
 
-        // Validate the parameters of the RPC service method.
-        $this->validateMethodParams(
-            $params,
-            '{
-                "type": "object",
-                "properties": {
-                    "uuid": {' . $GLOBALS["OMV_JSONSCHEMA_UUID"] . '}
-                }
-            }'
-        );
-
-        $pool = $xmlConfig->get($this->getPoolXpathByUuid($params["uuid"]));
-
-        if (is_null($pool)) {
-            throw new OMVException(
-                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $this->getPoolXpathByUuid($params["uuid"])
-            );
-        }
-
-        // General.
-        $pool["pm_max_children"] = intval($pool["pm_max_children"]);
-        $pool["pm_start_servers"] = intval($pool["pm_start_servers"]);
-        $pool["pm_min_spare_servers"] = intval($pool["pm_min_spare_servers"]);
-        $pool["pm_max_spare_servers"] = intval($pool["pm_max_spare_servers"]);
-        $pool["pm_max_requests"] = intval($pool["pm_max_requests"]);
-        $pool["php_display_errors"] = boolval($pool["php_display_errors"]);
-        $pool["php_html_errors"] = boolval($pool["php_html_errors"]);
-        $pool["php_max_execution_time"] = intval($pool["php_max_execution_time"]);
-        $pool["php_memory_limit"] = intval($pool["php_memory_limit"]);
-        $pool["php_post_max_size"] = intval($pool["php_post_max_size"]);
-        $pool["php_upload_max_filesize"] = intval($pool["php_upload_max_filesize"]);
-
-        return $pool;
+        return $object->getAssoc();
     }
 
     /**
@@ -189,100 +124,25 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
      */
     public function set($params, $context)
     {
-        global $xmlConfig;
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        $this->validateMethodParams($params, 'rpc.phpfpm.set');
 
-        // Validate the RPC caller context.
-        $this->validateMethodContext($context, [
-            "role" => OMV_ROLE_ADMINISTRATOR
-        ]);
+        $object = new ConfigObject($this->dataModelPath);
+        $object->setAssoc($params);
+        $isNewObject = $object->isNew();
 
-        // Validate the parameters of the RPC service method.
-        $this->validateMethodParams(
-            $params,
-            '{
-                "type": "object",
-                "properties": {
-                    "uuid": {' . $GLOBALS["OMV_JSONSCHEMA_UUID_UNDEFINED"] . '},
-                    "name": { "type": "string" },
-                    "description": { "type": "string" },
-                    "user": { "type": "string" },
-                    "group": { "type": "string" },
-                    "pm_max_children": { "type": "integer", "minimum": 1 },
-                    "pm_start_servers": { "type": "integer", "minimum": 1 },
-                    "pm_min_spare_servers": { "type": "integer", "minimum": 1 },
-                    "pm_max_spare_servers": { "type": "integer", "minimum": 1 },
-                    "pm_max_requests": { "type": "integer", "minimum": 0 },
-                    "php_display_errors": { "type": "boolean" },
-                    "php_html_errors": { "type": "boolean" },
-                    "php_max_execution_time": { "type": "integer", "minimum": 0 },
-                    "php_memory_limit": { "type": "integer", "minimum": -1 },
-                    "php_post_max_size": { "type": "integer", "minimum": 1 },
-                    "php_upload_max_filesize": { "type": "integer", "minimum": 1 },
-                    "extra_options": { "type": "string" }
-                }
-            }'
-        );
-
-        $pool = [
-            "uuid" =>
-                ($params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"])
-                ? OMVUtil::uuid() : $params["uuid"],
-            "name" => $params["name"],
-            "description" => $params["description"],
-            "user" => $params["user"],
-            "group" => $params["group"],
-            "pm_max_children" => intval($params["pm_max_children"]),
-            "pm_start_servers" => intval($params["pm_start_servers"]),
-            "pm_min_spare_servers" => intval($params["pm_min_spare_servers"]),
-            "pm_max_spare_servers" => intval($params["pm_max_spare_servers"]),
-            "pm_max_requests" => intval($params["pm_max_requests"]),
-            "php_display_errors" => boolval($params["php_display_errors"]),
-            "php_html_errors" => boolval($params["php_html_errors"]),
-            "php_memory_limit" => intval($params["php_memory_limit"]),
-            "php_max_execution_time" => intval($params["php_max_execution_time"]),
-            "php_post_max_size" => intval($params["php_post_max_size"]),
-            "php_upload_max_filesize" => intval($params["php_upload_max_filesize"]),
-            "extra_options" => trim($params["extra_options"]),
-        ];
-
-        // Save the configuration.
-        $success = false;
-        $xpath = null;
-
-        if ($params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"]) {
-            if (!$this->validateNewPool($pool)) {
-                throw new OMVException(
-                    OMVErrorMsg::E_CONFIG_OBJECT_INVALID,
-                    sprintf("%s is in use.", $pool["name"])
-                );
-            }
-
-            $success = $xmlConfig->set(
-                $xpath = $this->getPoolsXpath(),
-                ["pool" => $pool],
-                $pool
-            );
-        } else {
-            $success = $xmlConfig->replace(
-                $xpath = $this->getPoolXpathByUuid($params["uuid"]),
-                $pool
-            );
+        if ($isNewObject) {
+            $this->database->assertIsUnique($object, 'name');
         }
 
-        if (!$success) {
-            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND, $xpath);
-        }
-
-        // Notify configuration changes.
-        $dispatcher = &OMVNotifyDispatcher::getInstance();
-        $dispatcher->notify(
-            $params["uuid"] == $GLOBALS["OMV_UUID_UNDEFINED"] ?
-            OMV_NOTIFY_CREATE : OMV_NOTIFY_MODIFY,
-            $this->getEventMessagePath(),
-            $pool
+        $this->database->set($object);
+        $this->dispatcher->notify(
+            $isNewObject ? OMV_NOTIFY_CREATE : OMV_NOTIFY_MODIFY,
+            $this->eventMessagePath,
+            $object
         );
 
-        return $pool;
+        return $object->getAssoc();
     }
 
     /**
@@ -291,82 +151,17 @@ class OMVRpcServicePhpFpmServer extends OMVRpcServiceAbstract
      * @param array $params
      * @param array $context
      *
-     * @return void
+     * @return array
      */
     public function delete($params, $context)
     {
-        global $xmlConfig;
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        $this->validateMethodParams($params, 'rpc.common.objectuuid');
 
-        // Validate the RPC caller context.
-        $this->validateMethodContext($context, [
-            "role" => OMV_ROLE_ADMINISTRATOR
-        ]);
+        $object = $this->database->get($this->dataModelPath, $params['uuid']);
+        $this->database->assertIsNotReferenced($object);
 
-        // Validate the parameters of the RPC service method.
-        $this->validateMethodParams(
-            $params,
-            '{
-                "type": "object",
-                "properties": {
-                    "uuid": {' . $GLOBALS["OMV_JSONSCHEMA_UUID_NONE"] . '}
-                }
-            }'
-        );
-
-        $xpath = sprintf(
-            "//services/nginx/servers/server[php_pool_ref='%s']",
-            $params["uuid"]
-        );
-
-        if ($xmlConfig->count($xpath) > 0) {
-            throw new OMVException(OMVErrorMsg::E_CONFIG_OBJECT_INUSE);
-        }
-
-        $pool = $xmlConfig->delete($this->getPoolXpathByUuid($params["uuid"]));
-
-        if (is_null($pool)) {
-            throw new OMVException(
-                OMVErrorMsg::E_CONFIG_OBJECT_NOT_FOUND,
-                $this->getPoolXpathByUuid($params["uuid"])
-            );
-        }
-
-        // Notify configuration changes
-        $dispatcher = &OMVNotifyDispatcher::getInstance();
-        $dispatcher->notify(
-            OMV_NOTIFY_DELETE,
-            $this->getEventMessagePath(),
-            $pool
-        );
-    }
-
-    /**
-     * Validate the values of a new FPM pool. Throws an exception when the
-     * validation fails.
-     *
-     * @param array $pool
-     *
-     * @return bool
-     */
-    private function validateNewPool($pool)
-    {
-        global $xmlConfig;
-
-        $xpath = sprintf(
-            "%s/pool[name='%s' and not(uuid='%s')]",
-            $this->getPoolsXpath(),
-            $pool["name"],
-            $pool["uuid"]
-        );
-
-        if (true === $xmlConfig->exists($xpath)) {
-            return false;
-        }
-
-        return true;
+        $this->database->delete($object);
+        $this->dispatcher->notify(OMV_NOTIFY_DELETE, $this->eventMessagePath, $object);
     }
 }
-
-// Register the RPC service.
-$rpcServiceMgr = &OMVRpcServiceMgr::getInstance();
-$rpcServiceMgr->registerService(new OMVRpcServicePhpFpmServer());

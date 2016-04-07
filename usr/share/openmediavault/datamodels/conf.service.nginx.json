@@ -1,0 +1,111 @@
+{
+    "type": "config",
+    "id": "conf.service.nginx",
+    "title": "Nginx",
+    "queryinfo": {
+        "xpath": "/config/services/nginx",
+        "iterable": false
+    },
+    "properties": {
+        "enable": {
+            "type": "boolean",
+            "default": false
+        },
+        "server_names_hash_bucket_size": {
+            "type": "integer",
+            "enum": [32, 64, 128],
+            "default": 32
+        },
+        "servers": {
+            "type": "object",
+            "properties": {
+                "server": {
+                    "type": "array",
+                    "items": {
+                        "uuid": {
+                            "type": "string",
+                            "format": "uuidv4"
+                        },
+                        "enable": {
+                            "type": "boolean"
+                        },
+                        "sharedfolderref": {
+                            "type": "string"
+                        },
+                        "use_root": {
+                            "type": "boolean"
+                        },
+                        "use_public_directory": {
+                            "type": "boolean"
+                        },
+                        "public_directory": {
+                            "type": "string"
+                        },
+                        "host_type": {
+                            "type": "string",
+                            "enum": ["port", "name"]
+                        },
+                        "server_name": {
+                            "type": "string"
+                        },
+                        "port": {
+                            "type": "integer"
+                        },
+                        "port_default_server": {
+                            "type": "boolean"
+                        },
+                        "ssl_enable": {
+                            "type": "boolean"
+                        },
+                        "ssl_port": {
+                            "type": "integer"
+                        },
+                        "ssl_port_default_server": {
+                            "type": "boolean"
+                        },
+                        "sslcertificateref": {
+                            "type": "string"
+                        },
+                        "ssl_force": {
+                            "type": "boolean"
+                        },
+                        "php_enable": {
+                            "type": "boolean"
+                        },
+                        "php_pool_ref": {
+                            "type": "string"
+                        },
+                        "php_use_default_config": {
+                            "type": "boolean"
+                        },
+                        "use_index": {
+                            "type": "boolean"
+                        },
+                        "use_index_html": {
+                            "type": "boolean"
+                        },
+                        "use_index_php": {
+                            "type": "boolean"
+                        },
+                        "autoindex": {
+                            "type": "boolean"
+                        },
+                        "deny_htaccess": {
+                            "type": "boolean"
+                        },
+                        "log_enable": {
+                            "type": "boolean"
+                        },
+                        "large_client_header_buffers": {
+                            "type": "integer",
+                            "enum": [8, 16, 32]
+                        },
+                        "extra_options": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

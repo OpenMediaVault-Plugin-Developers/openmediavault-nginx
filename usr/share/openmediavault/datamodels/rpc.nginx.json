@@ -1,0 +1,164 @@
+[{
+    "type": "rpc",
+    "id": "rpc.nginx.setsettings",
+    "params": {
+        "type": "object",
+        "properties": {
+            "enable": {
+                "type": "boolean",
+                "required": true
+            },
+            "server_names_hash_bucket_size": {
+                "type": "integer",
+                "enum": [32, 64, 128],
+                "required": true
+            }
+        }
+    }
+}, {
+    "type": "rpc",
+    "id": "rpc.nginx.set",
+    "params": {
+        "type": "object",
+        "properties": {
+            "uuid": {
+                "type": "string",
+                "format": "uuidv4",
+                "required": true
+            },
+            "enable": {
+                "type": "boolean",
+                "required": true
+            },
+            "sharedfolderref": {
+                "type": "string",
+                "required": true
+            },
+            "use_root": {
+                "type": "boolean",
+                "required": true
+            },
+            "use_public_directory": {
+                "type": "boolean",
+                "required": true
+            },
+            "public_directory": {
+                "type": "string",
+                "required": false
+            },
+            "host_type": {
+                "type": "string",
+                "enum": ["port", "name"],
+                "required": true
+            },
+            "server_name": {
+                "type": "string",
+                "required": true
+            },
+            "port": {
+                "type": "integer",
+                "required": true
+            },
+            "port_default_server": {
+                "type": "boolean",
+                "required": true
+            },
+            "ssl_enable": {
+                "type": "boolean",
+                "required": true
+            },
+            "ssl_port": {
+                "type": "integer",
+                "required": true
+            },
+            "ssl_port_default_server": {
+                "type": "boolean",
+                "required": true
+            },
+            "sslcertificateref": {
+                "type": "string",
+                "required": true
+            },
+            "ssl_force": {
+                "type": "boolean",
+                "required": true
+            },
+            "php_enable": {
+                "type": "boolean",
+                "required": true
+            },
+            "php_pool_ref": {
+                "type": "string",
+                "required": true
+            },
+            "php_use_default_config": {
+                "type": "boolean",
+                "required": true
+            },
+            "use_index": {
+                "type": "boolean",
+                "required": true
+            },
+            "use_index_html": {
+                "type": "boolean",
+                "required": true
+            },
+            "use_index_php": {
+                "type": "boolean",
+                "required": true
+            },
+            "autoindex": {
+                "type": "boolean",
+                "required": true
+            },
+            "deny_htaccess": {
+                "type": "boolean",
+                "required": true
+            },
+            "log_enable": {
+                "type": "boolean",
+                "required": true
+            },
+            "large_client_header_buffers": {
+                "type": "integer",
+                "enum": [8, 16, 32],
+                "required": true
+            },
+            "extra_options": {
+                "type": "string",
+                "required": true
+            }
+        }
+    }
+}, {
+    "type": "rpc",
+    "id": "rpc.nginx.getlog",
+    "params": {
+        "type": "object",
+        "properties": {
+            "start": {
+                "type": "integer",
+                "required": true
+            },
+            "limit": {
+                "type": ["integer", "null"],
+                "required": true
+            },
+            "sortfield": {
+                "type": ["string", "null"]
+            },
+            "sortdir": {
+                "type": ["string", "null"],
+                "enum": ["asc", "ASC", "desc", "DESC"]
+            },
+            "uuid": {
+                "type": "string",
+                "format": "uuidv4"
+            },
+            "type": {
+                "type": "string",
+                "enum": ["access", "error"]
+            }
+        }
+    }
+}]

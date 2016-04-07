@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (C) 2014-2015 OpenMediaVault Plugin Developers
+ * Copyright (C) 2014-2015 OpenMediaVault Plugin Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,15 +17,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once "openmediavault/module.inc";
-require_once "openmediavault/notify.inc";
+namespace OMV\Engined\Module;
 
-class OMVModulePhpFpmServer extends OMVModuleServiceAbstract implements OMVINotifyListener
+use OMV\Engine\Module\Manager as ModuleManager;
+use OMV\Engine\Module\ServiceAbstract;
+use OMV\Engine\Notify\Dispatcher;
+use OMV\Engine\Notify\IListener;
+
+class PhpFpmServer extends ServiceAbstract implements IListener
 {
-    private function getEventMessagePath()
-    {
-        return "org.openmediavault.services.phpfpm";
-    }
+    /** @var string */
+    private $eventMessagePath = 'org.openmediavault.services.phpfpm';
 
     /**
      * Get the module name.
@@ -34,28 +36,24 @@ class OMVModulePhpFpmServer extends OMVModuleServiceAbstract implements OMVINoti
      */
     public function getName()
     {
-        return "phpfpm-server";
+        return 'phpfpm-server';
     }
 
     /**
      * Bind listeners.
      *
-     * @param OMVNotifyDispatcher $dispatcher The dispatcher object.
+     * @param Dispatcher $dispatcher The dispatcher object.
      *
      * @return void
      */
-    public function bindListeners(OMVNotifyDispatcher $dispatcher)
+    public function bindListeners(Dispatcher $dispatcher)
     {
-        $moduleMgr = &OMVModuleMgr::getInstance();
+        $moduleManager = ModuleManager::getInstance();
 
         $dispatcher->addListener(
             OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
-            $this->getEventMessagePath(),
-            [$moduleMgr->getModule("php5fpm"), "setDirty"]
+            $this->eventMessagePath,
+            [$moduleManager->getModule('php5fpm'), 'setDirty']
         );
     }
 }
-
-// Register module.
-$moduleMgr = &OMVModuleMgr::getInstance();
-$moduleMgr->registerModule(new OMVModulePhpFpmServer());

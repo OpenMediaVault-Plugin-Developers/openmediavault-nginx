@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (C) 2014-2015 OpenMediaVault Plugin Developers
+ * Copyright (C) 2014-2015 OpenMediaVault Plugin Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,20 +17,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- require_once "openmediavault/module.inc";
- require_once "openmediavault/notify.inc";
+namespace OMV\Engined\Module;
 
-class OMVModuleNginxServer extends OMVModuleServiceAbstract implements OMVINotifyListener
+use OMV\Engine\Module\Manager as ModuleManager;
+use OMV\Engine\Module\ServiceAbstract;
+use OMV\Engine\Notify\Dispatcher;
+use OMV\Engine\Notify\IListener;
+
+class NginxServer extends ServiceAbstract implements IListener
 {
-    private function getEventMessagePath()
-    {
-        return "org.openmediavault.services.nginx";
-    }
+    /** @var string */
+    private $eventMessagePath = 'org.openmediavault.services.nginx';
 
-    private function getSharedFolderEventMessagePath()
-    {
-        return "org.openmediavault.system.shares.sharedfolder";
-    }
+    /** @var string */
+    private $sharedFolderEventMessagePath = 'org.openmediavault.system.shares.sharedfolder';
 
     /**
      * Get the module name.
@@ -39,34 +39,30 @@ class OMVModuleNginxServer extends OMVModuleServiceAbstract implements OMVINotif
      */
     public function getName()
     {
-        return "nginx-server";
+        return 'nginx-server';
     }
 
     /**
      * Bind listeners.
      *
-     * @param OMVNotifyDispatcher $dispatcher The dispatcher object.
+     * @param Dispatcher $dispatcher The dispatcher object.
      *
      * @return void
      */
-    public function bindListeners(OMVNotifyDispatcher $dispatcher)
+    public function bindListeners(Dispatcher $dispatcher)
     {
-        $moduleMgr = &OMVModuleMgr::getInstance();
+        $moduleManager = ModuleManager::getInstance();
 
         $dispatcher->addListener(
             OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
-            $this->getEventMessagePath(),
-            [$moduleMgr->getModule("webserver"), "setDirty"]
+            $this->eventMessagePath,
+            [$moduleManager->getModule('webserver'), 'setDirty']
         );
 
         $dispatcher->addListener(
             OMV_NOTIFY_MODIFY,
-            $this->getSharedFolderEventMessagePath(),
-            [$moduleMgr->getModule("webserver"), "setDirty"]
+            $this->sharedFolderEventMessagePath,
+            [$moduleManager->getModule('webserver'), 'setDirty']
         );
     }
 }
-
-// Register module.
-$moduleMgr = &OMVModuleMgr::getInstance();
-$moduleMgr->registerModule(new OMVModuleNginxServer());

@@ -1,0 +1,74 @@
+{
+    "type": "config",
+    "id": "conf.service.phpfpm.pool",
+    "title": "PHP-FPM pool",
+    "queryinfo": {
+        "xpath": "/config/services/phpfpm/pools/pool",
+        "iterable": true,
+        "idproperty": "uuid",
+        "refproperty": "php_pool_ref"
+    },
+    "properties": {
+        "uuid": {
+            "type": "string",
+            "format": "uuidv4"
+        },
+        "name": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "user": {
+            "type": "string"
+        },
+        "group": {
+            "type": "string"
+        },
+        "pm_max_children": {
+            "type": "integer",
+            "minimum": 1
+        },
+        "pm_start_servers": {
+            "type": "integer",
+            "minimum": 1
+        },
+        "pm_min_spare_servers": {
+            "type": "integer",
+            "minimum": 1
+        },
+        "pm_max_spare_servers": {
+            "type": "integer",
+            "minimum": 1
+        },
+        "pm_max_requests": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "php_display_errors": {
+            "type": "boolean"
+        },
+        "php_html_errors": {
+            "type": "boolean"
+        },
+        "php_max_execution_time": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "php_memory_limit": {
+            "type": "integer",
+            "minimum": -1
+        },
+        "php_post_max_size": {
+            "type": "integer",
+            "minimum": 1
+        },
+        "php_upload_max_filesize": {
+            "type": "integer",
+            "minimum": 1
+        },
+        "extra_options": {
+            "type": "string"
+        }
+    }
+}

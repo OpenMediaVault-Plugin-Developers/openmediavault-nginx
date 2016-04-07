@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (C) 2015 OpenMediaVault Plugin Developers
+ * Copyright (C) 2015 OpenMediaVault Plugin Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,31 +17,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use OMV\System\LogFileSpec;
+
 // Register new logfile type.
 // Format:
 // [01-Jan-2000 23:59:59] <message>
-OMVLogFile::registerType(
-    "php-fpm",
+LogFileSpec::registerSpecification(
+    'php-fpm',
     [
-        "filename" => "php-fpm",
-        "filepath" => "/var/log/php5-fpm.log",
-        "regex" => "/^\[(\d+-\w+-\d+\s+\d+:\d+:\d+)\]\s+(.*)$/",
-        "columns" => [
-            "ts" => [
-                "index" => 1,
-                "func" => create_function(
-                    "\$v",
-                    "return strpdate(\$v, \"d-M-Y H:i:s\");"
-                )
+        'filename' => 'php-fpm',
+        'filepath' => '/var/log/php5-fpm.log',
+        'regex' => '/^\[(\d+-\w+-\d+\s+\d+:\d+:\d+)\]\s+(.*)$/',
+        'columns' => [
+            'ts' => [
+                'index' => 1,
+                'func' => function ($date) {
+                    return strpdate($date, 'd-M-Y H:i:s');
+                },
             ],
-            "date" => [
-                "index" => 1,
-                "func" => create_function(
-                    '$v',
-                    "return strftime(\"%c\", strpdate(\$v,\"d-M-Y H:i:s\"));"
-                )
+            'date' => [
+                'index' => 1,
+                'func' => function ($date) {
+                    return strftime('%c', strpdate($date, 'd-M-Y H:i:s'));
+                },
             ],
-            "event" => 2
-        ]
+            'event' => 2,
+        ],
     ]
 );
