@@ -37,8 +37,8 @@ generate_fpm_config()
     local config="${PHP_FPM_POOL_DIR}/${uuid}.conf"
 
     # PHP variables
-    local user=$(omv_config_get "${xpath}/user")
-    local group=$(omv_config_get "${xpath}/group")
+    local username=$(omv_config_get "${xpath}/username")
+    local groupname=$(omv_config_get "${xpath}/groupname")
 
     local pm_max_children=$(omv_config_get "${xpath}/pm_max_children")
     local pm_start_servers=$(omv_config_get "${xpath}/pm_start_servers")
@@ -67,8 +67,8 @@ listen.owner = www-data
 listen.group = www-data
 listen.mode = 0600
 
-user = ${user}
-group = ${group}
+user = ${username}
+group = ${groupname}
 
 ; Process manager
 pm = dynamic

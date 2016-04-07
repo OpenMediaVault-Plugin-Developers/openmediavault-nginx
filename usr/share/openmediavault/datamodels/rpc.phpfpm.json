@@ -14,10 +14,10 @@
             "description": {
                 "type": "string"
             },
-            "user": {
+            "username": {
                 "type": "string"
             },
-            "group": {
+            "groupname": {
                 "type": "string"
             },
             "pm_max_children": {

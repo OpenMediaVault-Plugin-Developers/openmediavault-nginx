@@ -55,7 +55,7 @@ Ext.define('OMV.module.admin.service.nginx.window.Pool', {
                 allowBlank: true
             }, {
                 xtype: 'usercombo',
-                name: 'user',
+                name: 'username',
                 fieldLabel: _('User'),
                 userType: 'normal',
                 editable: false,
@@ -72,7 +72,7 @@ Ext.define('OMV.module.admin.service.nginx.window.Pool', {
                 }]
             }, {
                 xtype: 'groupcombo',
-                name: 'group',
+                name: 'groupname',
                 fieldLabel: _('Group'),
                 groupType: 'normal',
                 editable: false,
