@@ -113,7 +113,6 @@ Ext.define('OMV.module.admin.service.nginx.window.Server', {
             properties: [
                 'show',
                 '!allowBlank',
-                '!allowNone',
                 '!readOnly'
             ]
         }, {
@@ -127,7 +126,6 @@ Ext.define('OMV.module.admin.service.nginx.window.Server', {
             }],
             properties: [
                 '!allowBlank',
-                '!allowNone',
                 '!readOnly',
                 'show'
             ]
@@ -330,15 +328,14 @@ Ext.define('OMV.module.admin.service.nginx.window.Server', {
                 name: 'php_pool_ref',
                 fieldLabel: _('PHP-FPM pool'),
                 emptyText: _('Select a PHP-FPM pool ...'),
-                allowBlank: false,
-                allowNone: false,
+                allowBlank: true,
                 editable: false,
-                triggerAction: 'all',
                 displayField: 'name',
                 valueField: 'uuid',
                 store: Ext.create('OMV.data.Store', {
                     autoLoad: true,
                     model: OMV.data.Model.createImplicit({
+                        identifier: 'empty',
                         idProperty: 'uuid',
                         fields: [{
                             name: 'uuid',
@@ -358,7 +355,16 @@ Ext.define('OMV.module.admin.service.nginx.window.Server', {
                     sorters: [{
                         direction: 'ASC',
                         property: 'name'
-                    }]
+                    }],
+                    listeners: {
+                        scope: this,
+                        load: function(store) {
+                            store.insert(0, {
+                                uuid: '',
+                                name: _('None')
+                            });
+                        }
+                    }
                 }),
                 value: ''
             }, {

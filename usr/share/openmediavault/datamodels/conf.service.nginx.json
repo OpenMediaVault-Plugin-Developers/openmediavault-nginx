@@ -30,7 +30,14 @@
                             "type": "boolean"
                         },
                         "sharedfolderref": {
-                            "type": "string"
+                            "type": "string",
+                            "oneOf": [{
+                                "type": "string",
+                                "format": "uuidv4"
+                            }, {
+                                "type": "string",
+                                "maxLength": 0
+                            }]
                         },
                         "use_root": {
                             "type": "boolean"
@@ -64,7 +71,14 @@
                             "type": "boolean"
                         },
                         "sslcertificateref": {
-                            "type": "string"
+                            "type": "string",
+                            "oneOf": [{
+                                "type": "string",
+                                "format": "uuidv4"
+                            }, {
+                                "type": "string",
+                                "maxLength": 0
+                            }]
                         },
                         "ssl_force": {
                             "type": "boolean"
@@ -73,7 +87,14 @@
                             "type": "boolean"
                         },
                         "php_pool_ref": {
-                            "type": "string"
+                            "type": "string",
+                            "oneOf": [{
+                                "type": "string",
+                                "format": "uuidv4"
+                            }, {
+                                "type": "string",
+                                "maxLength": 0
+                            }]
                         },
                         "php_use_default_config": {
                             "type": "boolean"

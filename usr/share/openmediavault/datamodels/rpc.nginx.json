@@ -32,6 +32,13 @@
             },
             "sharedfolderref": {
                 "type": "string",
+                "oneOf": [{
+                    "type": "string",
+                    "format": "uuidv4"
+                }, {
+                    "type": "string",
+                    "maxLength": 0
+                }],
                 "required": true
             },
             "use_root": {
@@ -77,6 +84,13 @@
             },
             "sslcertificateref": {
                 "type": "string",
+                "oneOf": [{
+                    "type": "string",
+                    "format": "uuidv4"
+                }, {
+                    "type": "string",
+                    "maxLength": 0
+                }],
                 "required": true
             },
             "ssl_force": {
@@ -89,6 +103,13 @@
             },
             "php_pool_ref": {
                 "type": "string",
+                "oneOf": [{
+                    "type": "string",
+                    "format": "uuidv4"
+                }, {
+                    "type": "string",
+                    "maxLength": 0
+                }],
                 "required": true
             },
             "php_use_default_config": {
