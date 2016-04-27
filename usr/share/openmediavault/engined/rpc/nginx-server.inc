@@ -442,11 +442,35 @@ class NginxServer extends ServiceAbstract
         // Get the server configurations matching the port to validage against.
         // When SSL is forced the non SSL port isn't used, so there's no need to
         // validate those entries.
-        $serversPredicate = sprintf('port=\'%s\' and ssl_force=\'0\'', $port);
-        $servers = $this->database->getByPredicate($this->serverDataModelPath, $serversPredicate);
+        $serversFilter = [
+            'operator' => 'and',
+            'arg0' => [
+                'operator' => 'stringEquals',
+                'arg0' => 'port',
+                'arg1' => $port,
+            ],
+            'arg1' => [
+                'operator' => 'stringEquals',
+                'arg0' => 'ssl_force',
+                'arg1' => 0,
+            ]
+        ];
+        $servers = $this->database->getByFilter($this->serverDataModelPath, $serversFilter);
 
-        $sslServersPredicate = sprintf('ssl_port=\'%s\' and ssl_enable=\'1\'', $port);
-        $sslServers = $this->database->getByPredicate($this->serverDataModelPath, $sslServersPredicate);
+        $sslServersFilter = [
+            'operator' => 'and',
+            'arg0' => [
+                'operator' => 'stringEquals',
+                'arg0' => 'ssl_port',
+                'arg1' => $port,
+            ],
+            'arg1' => [
+                'operator' => 'stringEquals',
+                'arg0' => 'ssl_enable',
+                'arg1' => 1,
+            ]
+        ];
+        $sslServers = $this->database->getByFilter($this->serverDataModelPath, $sslServersFilter);
 
         if (!empty($servers)) {
             // SSL and non SSL port mismatch.
@@ -513,15 +537,31 @@ class NginxServer extends ServiceAbstract
             return false;
         }
 
-        $predicateFormat = 'port=\'%s\' and port_default_server=\'1\' and uuid!=\'%s\'';
+        $filter = [
+            'arg0' => [
+                'operator' => 'and',
+                'arg0' => [
+                    'operator' => 'stringEquals',
+                    'arg0' => 'port',
+                    'arg1' => $port,
+                ]
+            ],
+            'arg1' => [
+                'operator' => 'and',
+                'arg0' => [
+                    'operator' => 'stringEquals',
+                    'arg0' => $ssl ? 'ssl_port_default_server' : 'port_default_server',
+                    'arg1' => 1,
+                ],
+                'arg1' => [
+                    'operator' => 'stringNotEquals',
+                    'arg0' => 'uuid',
+                    'arg1' => $uuid,
+                ]
+            ]
+        ];
 
-        if ($ssl) {
-            $predicate = 'ssl_port=\'%s\' and ssl_port_default_server=\'1\' and uuid!=\'%s\'';
-        }
-
-        $predicate = sprintf($predicateFormat, $port, $uuid);
-
-        return !$this->database->existsByPredicate($this->serverDataModelPath, $predicate);
+        return !$this->database->exists($this->serverDataModelPath, $filter);
     }
 
     /**
