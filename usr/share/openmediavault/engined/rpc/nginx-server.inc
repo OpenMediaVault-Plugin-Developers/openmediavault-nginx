@@ -41,13 +41,13 @@ class NginxServer extends ServiceAbstract
     private $dispatcher;
 
     /** @var string */
-    private $eventMessagePath = 'org.openmediavault.services.nginx';
+    private $eventMessagePath = 'org.openmediavault.conf.service.nginx';
 
     /** @var string */
     private $logDir = '/var/log/nginx';
 
     /** @var string */
-    private $phpFpmEventMessagePath = 'org.openmediavault.services.phpfpm';
+    private $phpFpmEventMessagePath = 'org.openmediavault.conf.service.phpfpm';
 
     // FIXME: Validation is currently lacking uuidv4 because since have to allow
     //        the none value (empty string).

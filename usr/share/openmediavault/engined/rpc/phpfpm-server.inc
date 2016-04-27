@@ -36,7 +36,7 @@ class PhpFpmServer extends ServiceAbstract
     private $dispatcher;
 
     /** @var string */
-    private $eventMessagePath = 'org.openmediavault.services.phpfpm';
+    private $eventMessagePath = 'org.openmediavault.conf.service.phpfpm';
 
     public function __construct(Database $database = null, Dispatcher $dispatcher = null)
     {

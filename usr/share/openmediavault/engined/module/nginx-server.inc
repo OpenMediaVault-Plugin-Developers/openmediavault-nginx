@@ -27,10 +27,10 @@ use OMV\Engine\Notify\IListener;
 class NginxServer extends ServiceAbstract implements IListener
 {
     /** @var string */
-    private $eventMessagePath = 'org.openmediavault.services.nginx';
+    private $eventMessagePath = 'org.openmediavault.conf.service.nginx';
 
     /** @var string */
-    private $sharedFolderEventMessagePath = 'org.openmediavault.system.shares.sharedfolder';
+    private $sharedFolderEventMessagePath = 'org.openmediavault.conf.system.sharedfolder';
 
     /**
      * Get the module name.
