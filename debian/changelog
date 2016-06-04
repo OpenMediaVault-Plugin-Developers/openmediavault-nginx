@@ -1,3 +1,9 @@
+openmediavault-nginx (3.0.4) stable; urgency=medium
+
+  * OMV 3.0.21 compatibility. 
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 04 Jun 2016 19:08:18 +0200
+
 openmediavault-nginx (3.0.3) stable; urgency=medium
 
   * OMV 3.0.15 support. 
