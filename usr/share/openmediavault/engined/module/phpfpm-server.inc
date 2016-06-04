@@ -27,7 +27,7 @@ use OMV\Engine\Notify\IListener;
 class PhpFpmServer extends ServiceAbstract implements IListener
 {
     /** @var string */
-    private $eventMessagePath = 'org.openmediavault.conf.service.phpfpm';
+    private $eventMessagePath = 'org.openmediavault.conf.service.phpfpm.pool';
 
     /**
      * Get the module name.

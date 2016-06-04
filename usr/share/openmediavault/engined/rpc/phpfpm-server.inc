@@ -21,7 +21,6 @@ namespace OMV\Engined\Rpc;
 
 use OMV\Config\ConfigObject;
 use OMV\Config\Database;
-use OMV\Engine\Notify\Dispatcher;
 use OMV\Rpc\ServiceAbstract;
 
 class PhpFpmServer extends ServiceAbstract
@@ -32,16 +31,9 @@ class PhpFpmServer extends ServiceAbstract
     /** @var string */
     private $dataModelPath = 'conf.service.phpfpm.pool';
 
-    /** @var Dispatcher */
-    private $dispatcher;
-
-    /** @var string */
-    private $eventMessagePath = 'org.openmediavault.conf.service.phpfpm';
-
-    public function __construct(Database $database = null, Dispatcher $dispatcher = null)
+    public function __construct(Database $database = null)
     {
         $this->database = $database ?: Database::getInstance();
-        $this->dispatcher = $dispatcher ?: Dispatcher::getInstance();
     }
 
     /**
@@ -136,11 +128,6 @@ class PhpFpmServer extends ServiceAbstract
         }
 
         $this->database->set($object);
-        $this->dispatcher->notify(
-            $isNewObject ? OMV_NOTIFY_CREATE : OMV_NOTIFY_MODIFY,
-            $this->eventMessagePath,
-            $object
-        );
 
         return $object->getAssoc();
     }
@@ -162,6 +149,5 @@ class PhpFpmServer extends ServiceAbstract
         $this->database->assertIsNotReferenced($object);
 
         $this->database->delete($object);
-        $this->dispatcher->notify(OMV_NOTIFY_DELETE, $this->eventMessagePath, $object);
     }
 }

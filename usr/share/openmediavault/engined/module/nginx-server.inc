@@ -30,6 +30,9 @@ class NginxServer extends ServiceAbstract implements IListener
     private $eventMessagePath = 'org.openmediavault.conf.service.nginx';
 
     /** @var string */
+    private $serverEventMessagePath = 'org.openmediavault.conf.service.nginx.server';
+
+    /** @var string */
     private $sharedFolderEventMessagePath = 'org.openmediavault.conf.system.sharedfolder';
 
     /**
@@ -56,6 +59,12 @@ class NginxServer extends ServiceAbstract implements IListener
         $dispatcher->addListener(
             OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
             $this->eventMessagePath,
+            [$moduleManager->getModule('webserver'), 'setDirty']
+        );
+
+        $dispatcher->addListener(
+            OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
+            $this->serverEventMessagePath,
             [$moduleManager->getModule('webserver'), 'setDirty']
         );
 

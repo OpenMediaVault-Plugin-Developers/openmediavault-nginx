@@ -21,7 +21,6 @@ namespace OMV\Engined\Rpc;
 
 use OMV\Config\ConfigObject;
 use OMV\Config\Database;
-use OMV\Engine\Notify\Dispatcher;
 use OMV\Exception;
 use OMV\Rpc\Rpc;
 use OMV\Rpc\ServiceAbstract;
@@ -37,27 +36,15 @@ class NginxServer extends ServiceAbstract
     /** @var string */
     private $dataModelPath = 'conf.service.nginx';
 
-    /** @var Dispatcher */
-    private $dispatcher;
-
-    /** @var string */
-    private $eventMessagePath = 'org.openmediavault.conf.service.nginx';
-
     /** @var string */
     private $logDir = '/var/log/nginx';
 
     /** @var string */
-    private $phpFpmEventMessagePath = 'org.openmediavault.conf.service.phpfpm';
-
-    // FIXME: Validation is currently lacking uuidv4 because since have to allow
-    //        the none value (empty string).
-    /** @var string */
     private $serverDataModelPath = 'conf.service.nginx.server';
 
-    public function __construct(Database $database = null, Dispatcher $dispatcher = null)
+    public function __construct(Database $database = null)
     {
         $this->database = $database ?: Database::getInstance();
-        $this->dispatcher = $dispatcher ?: Dispatcher::getInstance();
     }
 
     /**
@@ -121,8 +108,6 @@ class NginxServer extends ServiceAbstract
         $object->setAssoc($params);
 
         $this->database->set($object);
-        $this->dispatcher->notify(OMV_NOTIFY_MODIFY, $this->eventMessagePath, $object);
-        $this->dispatcher->notify(OMV_NOTIFY_MODIFY, $this->phpFpmEventMessagePath);
 
         $object->remove('servers');
 
@@ -235,12 +220,6 @@ class NginxServer extends ServiceAbstract
 
         $this->database->set($object);
 
-        $this->dispatcher->notify(
-            $isNewObject ? OMV_NOTIFY_CREATE : OMV_NOTIFY_MODIFY,
-            $this->eventMessagePath,
-            $object
-        );
-
         return $object->getAssoc();
     }
 
@@ -260,7 +239,6 @@ class NginxServer extends ServiceAbstract
         $object = $this->database->get($this->serverDataModelPath, $params['uuid']);
 
         $this->database->delete($object);
-        $this->dispatcher->notify(OMV_NOTIFY_DELETE, $this->eventMessagePath, $object);
     }
 
     /**
@@ -453,7 +431,7 @@ class NginxServer extends ServiceAbstract
                 'operator' => 'stringEquals',
                 'arg0' => 'ssl_force',
                 'arg1' => 0,
-            ]
+            ],
         ];
         $servers = $this->database->getByFilter($this->serverDataModelPath, $serversFilter);
 
@@ -468,7 +446,7 @@ class NginxServer extends ServiceAbstract
                 'operator' => 'stringEquals',
                 'arg0' => 'ssl_enable',
                 'arg1' => 1,
-            ]
+            ],
         ];
         $sslServers = $this->database->getByFilter($this->serverDataModelPath, $sslServersFilter);
 
@@ -544,7 +522,7 @@ class NginxServer extends ServiceAbstract
                     'operator' => 'stringEquals',
                     'arg0' => 'port',
                     'arg1' => $port,
-                ]
+                ],
             ],
             'arg1' => [
                 'operator' => 'and',
@@ -557,8 +535,8 @@ class NginxServer extends ServiceAbstract
                     'operator' => 'stringNotEquals',
                     'arg0' => 'uuid',
                     'arg1' => $uuid,
-                ]
-            ]
+                ],
+            ],
         ];
 
         return !$this->database->exists($this->serverDataModelPath, $filter);
