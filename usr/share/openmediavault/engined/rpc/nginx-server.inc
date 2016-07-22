@@ -503,7 +503,7 @@ class NginxServer extends ServiceAbstract
      *
      * @return bool
      */
-    private function validatePortDefaultServer($port, $uuid, $ssl = false)
+    private function validatePortDefaultServer($port, $uuid)
     {
         $webadminConfig = $this->database->get('conf.webadmin');
 
@@ -515,31 +515,49 @@ class NginxServer extends ServiceAbstract
             return false;
         }
 
-        $filter = [
+        $objects = $this->database->getByFilter($this->serverDataModelPath, [
+            'operator' => 'or',
             'arg0' => [
                 'operator' => 'and',
                 'arg0' => [
+                    'operator' => 'stringNotEquals',
+                    'arg0' => 'uuid',
+                    'arg1' => $uuid
+                ],
+                'arg1' => [
                     'operator' => 'stringEquals',
                     'arg0' => 'port',
-                    'arg1' => $port,
-                ],
+                    'arg1' => $port
+                ]
             ],
             'arg1' => [
                 'operator' => 'and',
                 'arg0' => [
-                    'operator' => 'stringEquals',
-                    'arg0' => $ssl ? 'ssl_port_default_server' : 'port_default_server',
-                    'arg1' => 1,
-                ],
-                'arg1' => [
                     'operator' => 'stringNotEquals',
                     'arg0' => 'uuid',
-                    'arg1' => $uuid,
+                    'arg1' => $uuid
                 ],
-            ],
-        ];
+                'arg1' => [
+                    'operator' => 'stringEquals',
+                    'arg0' => 'ssl_port',
+                    'arg1' => $port
+                ]
+            ]
+        ]);
 
-        return !$this->database->exists($this->serverDataModelPath, $filter);
+        foreach ($objects as $object) {
+            // Don't check the value if only SSL is enabled.
+            if ($object->get('port_default_server') && !$object->get('ssl_force')) {
+                return false;
+            }
+
+            // Don't check the value if SSL is not enabled.
+            if ($object->get('ssl_port_default_server') && $object->get('ssl_enable')) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
