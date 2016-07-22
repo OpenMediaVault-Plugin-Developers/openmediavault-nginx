@@ -1,3 +1,9 @@
+openmediavault-nginx (3.0.5) stable; urgency=low
+
+  * Fix default server setting
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 22 Jul 2016 18:31:13 -0500
+
 openmediavault-nginx (3.0.4) stable; urgency=medium
 
   * OMV 3.0.21 compatibility. 
