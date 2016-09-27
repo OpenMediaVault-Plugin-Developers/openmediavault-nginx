@@ -110,33 +110,32 @@ generate_server_nginx_config()
 
     # Non SSL configuration.
     # Always listen to port unless SSL is forced.
+
     if [ $ssl_force -ne 1 ]; then
-        local listen_options="[::]:${port}"
+        local listen_ipv4="${port}"
+        local listen_ipv6="[::]:${port}"
 
         if [ $port_default_server -eq 1 ]; then
-            listen_options+=" default_server"
+            listen_ipv4+=" default_server"
+            listen_ipv6+=" default_server"
         fi
 
-        if listen_options_undefined ${port} ${uuid}; then
-            listen_options+=" ipv6only=off"
-        fi
-
-        echo "    listen ${listen_options};" >> ${config}
+        echo "    listen ${listen_ipv4};" >> ${config}
+        echo "    listen ${listen_ipv6};" >> ${config}
     fi
 
     # SSL configuration.
     if [ $ssl_enable -eq 1 ]; then
-        local ssl_listen_options="[::]:${ssl_port} ssl"
+        local ssl_listen_ipv4="${ssl_port} ssl"
+        local ssl_listen_ipv6="[::]:${ssl_port} ssl"
 
         if [ $ssl_port_default_server -eq 1 ]; then
-            ssl_listen_options+=" default_server"
+            ssl_listen_ipv4+=" default_server"
+            ssl_listen_ipv6+=" default_server"
         fi
 
-        if listen_options_undefined ${ssl_port} ${uuid}; then
-            ssl_listen_options+=" ipv6only=off"
-        fi
-
-        echo "    listen ${ssl_listen_options};" >> ${config}
+        echo "    listen ${ssl_listen_ipv4};" >> ${config}
+        echo "    listen ${ssl_listen_ipv6};" >> ${config}
         echo "    ssl_certificate     ${OMV_SSL_CERTIFICATE_DIR}/certs/${OMV_SSL_CERTIFICATE_PREFIX}${sslcertificateref}.crt;" >> ${config}
         echo "    ssl_certificate_key ${OMV_SSL_CERTIFICATE_DIR}/private/${OMV_SSL_CERTIFICATE_PREFIX}${sslcertificateref}.key;" >> ${config}
     fi
