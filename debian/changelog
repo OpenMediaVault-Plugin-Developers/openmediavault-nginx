@@ -1,3 +1,10 @@
+openmediavault-nginx (3.0.6) UNRELEASED; urgency=medium
+
+  * Make sure both IPv4 and IPv6 work.
+  * OMV 3.0.40 compatibility.
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 27 Sep 2016 18:03:16 +0200
+
 openmediavault-nginx (3.0.5) stable; urgency=low
 
   * Fix default server setting
