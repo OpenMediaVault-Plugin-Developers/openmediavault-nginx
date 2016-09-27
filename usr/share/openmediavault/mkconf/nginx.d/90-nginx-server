@@ -20,244 +20,234 @@ set -e
 . /etc/default/openmediavault
 . /usr/share/openmediavault/scripts/helper-functions
 
-OMV_PLUGIN_XPATH=/config/services/nginx
-OMV_NGINX_SERVERS_XPATH=${OMV_PLUGIN_XPATH}/servers
-OMV_NGINX_SERVER_XPATH=${OMV_NGINX_SERVERS_XPATH}/server
+OMV_PLUGIN_XPATH="/config/services/nginx"
+OMV_NGINX_SERVERS_XPATH="$OMV_PLUGIN_XPATH/servers"
+OMV_NGINX_SERVER_XPATH="$OMV_NGINX_SERVERS_XPATH/server"
 
 # Nginx paths.
-NGINX_AVAILABLE_DIR=/etc/nginx/sites-available
-NGINX_ENABLED_DIR=/etc/nginx/sites-enabled
-NGINX_LOG_DIR=/var/log/nginx
+NGINX_AVAILABLE_DIR="/etc/nginx/sites-available"
+NGINX_ENABLED_DIR="/etc/nginx/sites-enabled"
+NGINX_LOG_DIR="/var/log/nginx"
 
-OMV_NGINX_CUSTOM_CONF=/etc/nginx/conf.d/openmediavault-nginx.conf
-OMV_NGINX_CONF=openmediavault-nginx
+OMV_NGINX_CUSTOM_CONF="/etc/nginx/conf.d/openmediavault-nginx.conf"
+OMV_NGINX_CONF="penmediavault-nginx"
 
-HOST_TYPE_PORT="port"
 HOST_TYPE_NAME="name"
-
-listen_options_undefined()
-{
-    # Match UUID with first result matching the port. This should only match
-    # once and therefore set the options once.
-    local port="${1}"
-    local uuid="${2}"
-    local webadmin_xpath="/config/webadmin[port='${port}' or sslport='${port}']"
-    local xpath="${OMV_NGINX_SERVER_XPATH}[port='${port}' or ssl_port='${port}'][1][uuid='${uuid}']"
-
-    # If using the ports OpenMediaVault is using, no options should be set.
-    if [ $(omv_config_get_count "${webadmin_xpath}") -gt 0 ]; then
-        return 1
-    fi
-
-    # If we get a match this is the entry that will get listen options.
-    if [ $(omv_config_get_count "${xpath}") -gt 0 ]; then
-        return 0
-    fi
-
-    return 1
-}
 
 generate_server_nginx_config()
 {
-    local xpath="${1}"
-    local config="${2}"
+    local xpath="$1"
+    local config="$2"
 
     # Get document root if it's set.
-    local root_ref=$(omv_config_get "${xpath}/sharedfolderref")
-    local root=""
-    local use_root=$(omv_config_get "${xpath}/use_root")
-    local use_public_directory=$(omv_config_get "${xpath}/use_public_directory")
-    local public_directory=$(omv_config_get "${xpath}/public_directory")
+    local root_ref root use_root use_public_directory public_directory
+    root_ref=$(omv_config_get "$xpath/sharedfolderref")
+    use_root=$(omv_config_get "$xpath/use_root")
+    use_public_directory=$(omv_config_get "$xpath/use_public_directory")
+    public_directory=$(omv_config_get "$xpath/public_directory")
 
-    if [ -n "${root_ref}" ]; then
-        root=$(omv_get_sharedfolder_path "${root_ref}")
+    if [ -n "$root_ref" ]; then
+        root="$(omv_get_sharedfolder_path "$root_ref")"
 
-        if [ $use_root -eq 1 -a ${use_public_directory} -eq 1 ]; then
-            root="${root}/${public_directory}"
+        if [ "$use_root" -eq 1 ] && [ "$use_public_directory" -eq 1 ]; then
+            root="$root/$public_directory"
         fi
     fi
 
     # Variables.
-    local uuid=$(omv_config_get "${xpath}/uuid")
-    local host_type=$(omv_config_get "${xpath}/host_type")
-    local server_name=$(omv_config_get "${xpath}/server_name")
-    local port=$(omv_config_get "${xpath}/port")
-    local port_default_server=$(omv_config_get "${xpath}/port_default_server")
+    local uuid host_type server_name port port_default_server
+    uuid=$(omv_config_get "$xpath/uuid")
+    host_type=$(omv_config_get "$xpath/host_type")
+    server_name=$(omv_config_get "$xpath/server_name")
+    port=$(omv_config_get "$xpath/port")
+    port_default_server=$(omv_config_get "$xpath/port_default_server")
 
     # SSL.
-    local ssl_enable=$(omv_config_get "${xpath}/ssl_enable")
-    local ssl_port=$(omv_config_get "${xpath}/ssl_port")
-    local ssl_port_default_server=$(omv_config_get "${xpath}/ssl_port_default_server")
-    local sslcertificateref=$(omv_config_get "${xpath}/sslcertificateref")
-    local ssl_force=$(omv_config_get "${xpath}/ssl_force")
+    local ssl_enable ssl_port ssl_port_default_server sslcertificateref ssl_force
+    ssl_enable=$(omv_config_get "$xpath/ssl_enable")
+    ssl_port=$(omv_config_get "$xpath/ssl_port")
+    ssl_port_default_server=$(omv_config_get "$xpath/ssl_port_default_server")
+    sslcertificateref=$(omv_config_get "$xpath/sslcertificateref")
+    ssl_force=$(omv_config_get "$xpath/ssl_force")
 
     # PHP.
-    local php_enable=$(omv_config_get "${xpath}/php_enable")
-    local php_pool_ref=$(omv_config_get "${xpath}/php_pool_ref")
-    local php_use_default_config=$(omv_config_get "${xpath}/php_use_default_config")
+    local php_enable php_pool_ref php_use_default_config
+    php_enable=$(omv_config_get "$xpath/php_enable")
+    php_pool_ref=$(omv_config_get "$xpath/php_pool_ref")
+    php_use_default_config=$(omv_config_get "$xpath/php_use_default_config")
 
     # Options.
-    local use_index=$(omv_config_get "${xpath}/use_index")
-    local use_index_html=$(omv_config_get "${xpath}/use_index_html")
-    local use_index_php=$(omv_config_get "${xpath}/use_index_php")
-    local autoindex=$(omv_config_get "${xpath}/autoindex")
-    local deny_htaccess=$(omv_config_get "${xpath}/deny_htaccess")
-    local log_enable=$(omv_config_get "${xpath}/log_enable")
-    local large_client_header_buffers=$(omv_config_get "${xpath}/large_client_header_buffers")
+    local use_index use_index_html use_index_php autoindex deny_htaccess log_enable large_client_header_buffers
+    use_index=$(omv_config_get "$xpath/use_index")
+    use_index_html=$(omv_config_get "$xpath/use_index_html")
+    use_index_php=$(omv_config_get "$xpath/use_index_php")
+    autoindex=$(omv_config_get "$xpath/autoindex")
+    deny_htaccess=$(omv_config_get "$xpath/deny_htaccess")
+    log_enable=$(omv_config_get "$xpath/log_enable")
+    large_client_header_buffers=$(omv_config_get "$xpath/large_client_header_buffers")
 
     # Start generating configuration file.
-    echo "server {" >> ${config}
+    echo "server {" >> "$config"
 
     # Non SSL configuration.
     # Always listen to port unless SSL is forced.
 
-    if [ $ssl_force -ne 1 ]; then
-        local listen_ipv4="${port}"
-        local listen_ipv6="[::]:${port}"
+    if [ "$ssl_force" -ne 1 ]; then
+        local listen_ipv4="$port"
+        local listen_ipv6="[::]:$port"
 
-        if [ $port_default_server -eq 1 ]; then
+        if [ "$port_default_server" -eq 1 ]; then
             listen_ipv4+=" default_server"
             listen_ipv6+=" default_server"
         fi
 
-        echo "    listen ${listen_ipv4};" >> ${config}
-        echo "    listen ${listen_ipv6};" >> ${config}
+        echo "    listen $listen_ipv4;" >> "$config"
+        echo "    listen $listen_ipv6;" >> "$config"
     fi
 
     # SSL configuration.
-    if [ $ssl_enable -eq 1 ]; then
-        local ssl_listen_ipv4="${ssl_port} ssl"
-        local ssl_listen_ipv6="[::]:${ssl_port} ssl"
+    if [ "$ssl_enable" -eq 1 ]; then
+        local ssl_listen_ipv4="$ssl_port ssl"
+        local ssl_listen_ipv6="[::]:$ssl_port ssl"
 
-        if [ $ssl_port_default_server -eq 1 ]; then
+        if [ "$ssl_port_default_server" -eq 1 ]; then
             ssl_listen_ipv4+=" default_server"
             ssl_listen_ipv6+=" default_server"
         fi
 
-        echo "    listen ${ssl_listen_ipv4};" >> ${config}
-        echo "    listen ${ssl_listen_ipv6};" >> ${config}
-        echo "    ssl_certificate     ${OMV_SSL_CERTIFICATE_DIR}/certs/${OMV_SSL_CERTIFICATE_PREFIX}${sslcertificateref}.crt;" >> ${config}
-        echo "    ssl_certificate_key ${OMV_SSL_CERTIFICATE_DIR}/private/${OMV_SSL_CERTIFICATE_PREFIX}${sslcertificateref}.key;" >> ${config}
+        {
+            echo "    listen $ssl_listen_ipv4;"
+            echo "    listen $ssl_listen_ipv6;"
+            echo "    ssl_certificate     $OMV_SSL_CERTIFICATE_DIR/certs/$OMV_SSL_CERTIFICATE_PREFIX$sslcertificateref.crt;"
+            echo "    ssl_certificate_key $OMV_SSL_CERTIFICATE_DIR/private/$OMV_SSL_CERTIFICATE_PREFIX$sslcertificateref.key;"
+        } >> "$config"
     fi
 
     # Set the server_name option if the server is name-based.
-    if [ $host_type = $HOST_TYPE_NAME ]; then
-        echo "    server_name ${server_name};" >> ${config}
+    if [ "$host_type" = "$HOST_TYPE_NAME" ]; then
+        echo "    server_name $server_name;" >> "$config"
     fi
 
-    if [ -n "${root}" ]; then
+    if [ -n "$root" ]; then
         # Add root_path variable.
-        echo "    set \$root_path \"${root}\";" >> ${config}
+        echo "    set \$root_path \"$root\";" >> "$config"
 
         # Set the root option if it's enabled.
-        if [ $use_root -eq 1 ]; then
-            echo "    root \$root_path;" >> ${config}
+        if [ "$use_root" -eq 1 ]; then
+            echo "    root \$root_path;" >> "$config"
         fi
     fi
 
     # Add valid index files.
-    if [ $use_index -eq 1 ]; then
-        local index_files=""
+    if [ "$use_index" -eq 1 ]; then
+        local index_files
 
-        if [ $use_index_html -eq 1 ]; then
+        if [ "$use_index_html" -eq 1 ]; then
             index_files+=" index.html"
         fi
 
-        if [ $use_index_php -eq 1 ]; then
+        if [ "$use_index_php" -eq 1 ]; then
             index_files+=" index.php"
         fi
 
-        if [ -n "${index_files}" ]; then
-            echo "    index${index_files};" >> ${config}
+        if [ -n "$index_files" ]; then
+            echo "    index$index_files;" >> "$config"
         fi
     fi
 
     # Add $socket variable if PHP is enabled.
-    if [ $php_enable -eq 1 ]; then
-        echo "    set \$socket \"unix:/var/run/fpm-${php_pool_ref}.sock\";" >> ${config}
+    if [ "$php_enable" -eq 1 ]; then
+        echo "    set \$socket \"unix:/var/run/fpm-$php_pool_ref.sock\";" >> "$config"
     fi
 
     # Add default PHP configuration if it's enabled.
-    if [ $php_enable -eq 1 -a $php_use_default_config  -eq 1 ]; then
-        echo "    location ~ \.php$ {" >> ${config}
-        echo "        include snippets/fastcgi-php.conf;" >> ${config}
-        echo "        fastcgi_pass \$socket;" >> ${config}
-        echo "    }" >> ${config}
+    if [ "$php_enable" -eq 1 ] && [ "$php_use_default_config"  -eq 1 ]; then
+        {
+            echo "    location ~ \.php$ {"
+            echo "        include snippets/fastcgi-php.conf;"
+            echo "        fastcgi_pass \$socket;"
+            echo "    }"
+        } >> "$config"
     fi
 
     # Enable logs.
-    if [ $log_enable -eq 1 ]; then
-        echo "    access_log ${NGINX_LOG_DIR}/${uuid}-access.log;" >> ${config}
-        echo "    error_log  ${NGINX_LOG_DIR}/${uuid}-error.log;" >> ${config}
+    if [ "$log_enable" -eq 1 ]; then
+        echo "    access_log $NGINX_LOG_DIR/$uuid-access.log;" >> "$config"
+        echo "    error_log  $NGINX_LOG_DIR/$uuid-error.log;" >> "$config"
     fi
 
     # Add other options.
-    if [ $autoindex -eq 1 ]; then
-        echo "    autoindex on;" >> ${config}
+    if [ "$autoindex" -eq 1 ]; then
+        echo "    autoindex on;" >> "$config"
     fi
 
-    if [ $deny_htaccess -eq 1 ]; then
-        echo "    location ~ /\.ht {" >> ${config}
-        echo "        deny all;" >> ${config}
-        echo "    }" >> ${config}
+    if [ "$deny_htaccess" -eq 1 ]; then
+        {
+            echo "    location ~ /\.ht {"
+            echo "        deny all;"
+            echo "    }"
+        } >> "$config"
     fi
 
-    echo "    large_client_header_buffers 4 ${large_client_header_buffers}k;" >> ${config}
+    {
+        echo "    large_client_header_buffers 4 ${large_client_header_buffers}k;"
 
-    # Add extra options.
-    xmlstarlet sel -t -m "${xpath}" \
-        -i "string-length(extra_options) > 0" \
-            -o "    " -v extra_options -n \
-        -b \
-        ${OMV_CONFIG_FILE} | xmlstarlet unesc >> ${config}
+        # Add extra options.
+        xmlstarlet sel -t -m "$xpath" \
+            -i "string-length(extra_options) > 0" \
+                -o "    " -v extra_options -n \
+            -b \
+            "$OMV_CONFIG_FILE" | xmlstarlet unesc
 
-    echo "}" >> ${config}
-    echo "" >> ${config}
+        echo "}"
+        echo ""
+    } >> "$config"
 }
 
 generate_nginx_config()
 {
-    local size=$(omv_config_get "${OMV_PLUGIN_XPATH}/server_names_hash_bucket_size")
-    echo "server_names_hash_bucket_size ${size};" > ${OMV_NGINX_CUSTOM_CONF}
+    local size
+    size=$(omv_config_get "$OMV_PLUGIN_XPATH/server_names_hash_bucket_size")
+    echo "server_names_hash_bucket_size $size;" > "$OMV_NGINX_CUSTOM_CONF"
 }
 
 # Remove the current configuration files if they exists.
-if [ -e "${OMV_NGINX_CUSTOM_CONF}" ]; then
-    rm "${OMV_NGINX_CUSTOM_CONF}"
+if [ -e "$OMV_NGINX_CUSTOM_CONF" ]; then
+    rm "$OMV_NGINX_CUSTOM_CONF"
 fi
 
-if [ -e "${NGINX_ENABLED_DIR}/${OMV_NGINX_CONF}" ]; then
-    rm "${NGINX_ENABLED_DIR}/${OMV_NGINX_CONF}"
+if [ -e "$NGINX_ENABLED_DIR/$OMV_NGINX_CONF" ]; then
+    rm "$NGINX_ENABLED_DIR/$OMV_NGINX_CONF"
 fi
 
-if [ -e "${NGINX_AVAILABLE_DIR}/${OMV_NGINX_CONF}" ]; then
-    rm "${NGINX_AVAILABLE_DIR}/${OMV_NGINX_CONF}"
+if [ -e "$NGINX_AVAILABLE_DIR/$OMV_NGINX_CONF" ]; then
+    rm "$NGINX_AVAILABLE_DIR/$OMV_NGINX_CONF"
 fi
 
 # Remove logs.
-find ${NGINX_LOG_DIR} -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -exec rm {} \;
+find "$NGINX_LOG_DIR" -type f -regextype sed -regex ".*/[a-f0-9\-]\{36\}.*" -delete
 
-if [ "$(omv_config_get "${OMV_PLUGIN_XPATH}/enable")" -eq "1" ]; then
+if [ "$(omv_config_get "$OMV_PLUGIN_XPATH/enable")" -eq "1" ]; then
 
     # Generate the custom nginx configuration.
     generate_nginx_config
 
     # Iterate through enabled servers and generate their configuration.
-    server_count=$(omv_config_get_count "${OMV_NGINX_SERVER_XPATH}[enable = '1']")
+    server_count=$(omv_config_get_count "$OMV_NGINX_SERVER_XPATH[enable = '1']")
     index=1
 
-    while [ $index -lt $server_count -o $index -eq $server_count ]; do
+    while [ "$index" -lt "$server_count" ] || [ "$index" -eq "$server_count" ]; do
 
-        current_server_xpath="${OMV_NGINX_SERVER_XPATH}[enable = '1'][${index}]"
-        generate_server_nginx_config "${current_server_xpath}" "${NGINX_AVAILABLE_DIR}/${OMV_NGINX_CONF}"
+        current_server_xpath="$OMV_NGINX_SERVER_XPATH[enable = '1'][$index]"
+        generate_server_nginx_config "$current_server_xpath" "$NGINX_AVAILABLE_DIR/$OMV_NGINX_CONF"
 
-        index=$(( ${index} + 1 ))
+        index=$(( "$index" + 1 ))
 
     done
 
     # Enable the configuration file.
-    if [ -e "${NGINX_AVAILABLE_DIR}/${OMV_NGINX_CONF}" ]; then
-        ln -s "${NGINX_AVAILABLE_DIR}/${OMV_NGINX_CONF}" "${NGINX_ENABLED_DIR}/${OMV_NGINX_CONF}"
+    if [ -e "$NGINX_AVAILABLE_DIR/$OMV_NGINX_CONF" ]; then
+        ln -s "$NGINX_AVAILABLE_DIR/$OMV_NGINX_CONF" "$NGINX_ENABLED_DIR/$OMV_NGINX_CONF"
     fi
 fi
 
