@@ -1,3 +1,11 @@
+openmediavault-nginx (3.0.7) stable; urgency=medium
+
+  * Fix typo in mkconf script.
+  * Fix incorrectly written arithmetric operation so that configuration
+    generation doesn't fail.
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 28 Sep 2016 18:35:45 +0200
+
 openmediavault-nginx (3.0.6) stable; urgency=medium
 
   * Make sure both IPv4 and IPv6 work.
@@ -13,13 +21,13 @@ openmediavault-nginx (3.0.5) stable; urgency=low
 
 openmediavault-nginx (3.0.4) stable; urgency=medium
 
-  * OMV 3.0.21 compatibility. 
+  * OMV 3.0.21 compatibility.
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 04 Jun 2016 19:08:18 +0200
 
 openmediavault-nginx (3.0.3) stable; urgency=medium
 
-  * OMV 3.0.15 support. 
+  * OMV 3.0.15 support.
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 07 Apr 2016 15:42:29 +0200
 
@@ -40,13 +48,13 @@ openmediavault-nginx (3.0.1) stable; urgency=medium
 
 openmediavault-nginx (3.0) stable; urgency=low
 
-  * OMV 3.0 release 
+  * OMV 3.0 release
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 30 Dec 2015 14:24:31 +0100
 
 openmediavault-nginx (2.3) stable; urgency=low
 
-  * Fixed issue where Nginx got misconfigured and wouldn't start when no index 
+  * Fixed issue where Nginx got misconfigured and wouldn't start when no index
     page was selected but the use index was still activated.
   * Utilize helper in OMV 2.1.9.
 
