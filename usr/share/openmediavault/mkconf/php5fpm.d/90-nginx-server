@@ -127,7 +127,7 @@ if [ "$(omv_config_get "$OMV_NGINX_PLUGIN_XPATH/enable")" -eq "1" ]; then
         current_server_xpath="$OMV_PHPFPM_POOL_XPATH[$index]"
         generate_fpm_config "$current_server_xpath"
 
-        index=$(( "$index" + 1 ))
+        index=$((index + 1))
 
     done
 fi
