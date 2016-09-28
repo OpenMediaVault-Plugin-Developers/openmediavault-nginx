@@ -233,7 +233,7 @@ if [ "$(omv_config_get "$OMV_PLUGIN_XPATH/enable")" -eq "1" ]; then
     generate_nginx_config
 
     # Iterate through enabled servers and generate their configuration.
-    server_count=$(omv_config_get_count "$OMV_NGINX_SERVER_XPATH[enable = '1']")
+    server_count="$(omv_config_get_count "$OMV_NGINX_SERVER_XPATH[enable = '1']")"
     index=1
 
     while [ "$index" -lt "$server_count" ] || [ "$index" -eq "$server_count" ]; do
