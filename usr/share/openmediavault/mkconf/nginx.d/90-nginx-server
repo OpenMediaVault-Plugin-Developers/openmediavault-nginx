@@ -30,7 +30,7 @@ NGINX_ENABLED_DIR="/etc/nginx/sites-enabled"
 NGINX_LOG_DIR="/var/log/nginx"
 
 OMV_NGINX_CUSTOM_CONF="/etc/nginx/conf.d/openmediavault-nginx.conf"
-OMV_NGINX_CONF="penmediavault-nginx"
+OMV_NGINX_CONF="openmediavault-nginx"
 
 HOST_TYPE_NAME="name"
 
