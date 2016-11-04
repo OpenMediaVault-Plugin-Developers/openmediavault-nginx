@@ -25,6 +25,15 @@ case "$1" in
             omv_config_add_node "$SERVICE_PHPFPM_XPATH" "pools"
         fi
 
+        # Perform migrations.
+        if dpkg --compare-versions "$2" lt-nl "3.0.8"; then
+            for config in "conf.d/openmediavault-nginx.conf" "sites-available/openmediavault-nginx" "sites-enabled/openmediavault-nginx"; do
+                if [ -e "/etc/nginx/$config" ]; then
+                    rm "/etc/nginx/$config"
+                fi
+            done
+        fi
+
         # Activate package triggers. These triggers are only set during the
         # package installation.
         dpkg-trigger update-fixperms
