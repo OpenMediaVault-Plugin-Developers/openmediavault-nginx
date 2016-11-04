@@ -29,8 +29,8 @@ NGINX_AVAILABLE_DIR="/etc/nginx/sites-available"
 NGINX_ENABLED_DIR="/etc/nginx/sites-enabled"
 NGINX_LOG_DIR="/var/log/nginx"
 
-OMV_NGINX_CUSTOM_CONF="/etc/nginx/conf.d/openmediavault-nginx.conf"
-OMV_NGINX_CONF="openmediavault-nginx"
+OMV_NGINX_CUSTOM_CONF="/etc/nginx/conf.d/zzz-omv-nginx.conf"
+OMV_NGINX_CONF="zzz-omv-nginx"
 
 HOST_TYPE_NAME="name"
 

@@ -5,7 +5,7 @@ set -e
 . /etc/default/openmediavault
 . /usr/share/openmediavault/scripts/helper-functions
 
-OMV_NGINX_CONF_NAME="openmediavault-nginx"
+OMV_NGINX_CONF_NAME="zzz-omv-nginx"
 OMV_NGINX_CUSTOM_CONF="/etc/nginx/conf.d/$OMV_NGINX_CONF_NAME.conf"
 NGINX_AVAILABLE_DIR="/etc/nginx/sites-available"
 NGINX_ENABLED_DIR="/etc/nginx/sites-enabled"
