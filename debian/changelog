@@ -1,3 +1,10 @@
+openmediavault-nginx (3.0.8) stable; urgency=medium
+
+  * Load the plugin configuration after the one from OMV so that the web
+    interface is inexplicitly the default server.
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 04 Nov 2016 18:00:54 +0100
+
 openmediavault-nginx (3.0.7) stable; urgency=medium
 
   * Fix typo in mkconf script.
