@@ -1,3 +1,9 @@
+openmediavault-nginx (3.0.9) stable; urgency=medium
+
+  * Improve the behaviour of the extra options field when editing a server.
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 15 Nov 2016 23:02:17 +0100
+
 openmediavault-nginx (3.0.8) stable; urgency=medium
 
   * Load the plugin configuration after the one from OMV so that the web
