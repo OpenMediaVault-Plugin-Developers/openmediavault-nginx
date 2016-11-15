@@ -474,6 +474,7 @@ Ext.define('OMV.module.admin.service.nginx.window.Server', {
             items: [{
                 xtype: 'textarea',
                 name: 'extra_options',
+                grow: true,
                 minHeight: 150,
                 allowBlank: true
             }]
