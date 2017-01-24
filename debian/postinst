@@ -34,6 +34,22 @@ case "$1" in
             done
         fi
 
+        if dpkg --compare-versions "$2" lt-nl "3.0.8"; then
+            SERVICE_PHPFPM_XPATH_POOL="/config/services/phpfpm/pools/pool"
+
+            count=$(omv_config_get_count "${SERVICE_PHPFPM_XPATH_POOL}");
+            index=1;
+            while [ ${index} -le ${count} ]; do
+                if omv_config_exists "${SERVICE_PHPFPM_XPATH_POOL}[position()=${index}]/user"; then
+                    omv_config_rename "${SERVICE_PHPFPM_XPATH_POOL}[position()=${index}]/user" "username"
+                fi
+                if omv_config_exists "${SERVICE_PHPFPM_XPATH_POOL}[position()=${index}]/group"; then
+                    omv_config_rename "${SERVICE_PHPFPM_XPATH_POOL}[position()=${index}]/group" "groupname"
+                fi
+                index=$(( ${index} + 1 ))
+            done;
+        fi
+
         # Activate package triggers. These triggers are only set during the
         # package installation.
         dpkg-trigger update-fixperms
