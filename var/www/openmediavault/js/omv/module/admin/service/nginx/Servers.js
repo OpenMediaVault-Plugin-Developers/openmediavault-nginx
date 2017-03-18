@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014-2015 OpenMediaVault Plugin Developers
+ * Copyright (C) 2014-2017 OpenMediaVault Plugin Developers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,6 +39,7 @@ Ext.define('OMV.module.admin.service.nginx.Servers', {
     reloadOnActivate: true,
 
     columns: [{
+        xtype: "textcolumn",
         header: _('UUID'),
         hidden: true,
         dataIndex: 'uuid'
@@ -93,11 +94,13 @@ Ext.define('OMV.module.admin.service.nginx.Servers', {
         trueIcon: 'switch_on.png',
         falseIcon: 'switch_off.png'
     }, {
+        xtype: "textcolumn",
         header: _('Root'),
         flex: 1,
         sortable: true,
         dataIndex: 'root_full_path'
     }, {
+        xtype: "textcolumn",
         header: _('URL'),
         flex: 1,
         sortable: true,

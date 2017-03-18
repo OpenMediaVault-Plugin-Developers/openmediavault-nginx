@@ -1,3 +1,9 @@
+openmediavault-nginx (3.0.11) stable; urgency=low
+
+  * Improve foreign content handling
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 18 Mar 2017 10:40:47 -0500
+
 openmediavault-nginx (3.0.10) stable; urgency=low
 
   * Fix upgrades
