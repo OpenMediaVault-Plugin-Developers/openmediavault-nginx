@@ -9,8 +9,8 @@ XB-Plugin-Section: network
 Package: openmediavault-nginx
 Architecture: all
 Depends: nginx,
-         openmediavault (>= 3.0.67),
-         php5-fpm,
+         openmediavault (>= 4.0.4),
+         php-fpm,
          ${misc:Depends}
 Description: Nginx plugin for OpenMediaVault.
  Nginx ("engine X") is a high-performance web server. It can be used to serve

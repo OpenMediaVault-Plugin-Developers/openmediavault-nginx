@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (C) 2014-2015 OpenMediaVault Plugin Developers
+# Copyright (C) 2014-2017 OpenMediaVault Plugin Developers
 #
 # This file is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ OMV_PHPFPM_POOL_XPATH="$OMV_PHPFPM_POOLS_XPATH/pool"
 OMV_NGINX_PLUGIN_XPATH="/config/services/nginx"
 
 # PHP-FPM paths.
-PHP_FPM_POOL_DIR="/etc/php5/fpm/pool.d"
+PHP_FPM_POOL_DIR="/etc/php/7.0/fpm/pool.d"
 
 generate_fpm_config()
 {

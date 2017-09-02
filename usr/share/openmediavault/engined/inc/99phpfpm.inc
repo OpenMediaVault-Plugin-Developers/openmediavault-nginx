@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (C) 2015 OpenMediaVault Plugin Developers.
+ * Copyright (C) 2015-2017 OpenMediaVault Plugin Developers.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ LogFileSpec::registerSpecification(
     'php-fpm',
     [
         'filename' => 'php-fpm',
-        'filepath' => '/var/log/php5-fpm.log',
+        'filepath' => '/var/log/php7.0-fpm.log',
         'regex' => '/^\[(\d+-\w+-\d+\s+\d+:\d+:\d+)\]\s+(.*)$/',
         'columns' => [
             'ts' => [
