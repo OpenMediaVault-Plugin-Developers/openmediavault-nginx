@@ -1,3 +1,9 @@
+openmediavault-nginx (4.0.1) stable; urgency=low
+
+  * Remove ipv4 listen directive on ipv6 enabled hosts
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 19 Jan 2018 08:32:02 -0600
+
 openmediavault-nginx (4.0) stable; urgency=low
 
   * Update for OMV 4.x

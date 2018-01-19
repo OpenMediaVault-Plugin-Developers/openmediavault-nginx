@@ -101,8 +101,11 @@ generate_server_nginx_config()
             listen_ipv6+=" default_server"
         fi
 
-        echo "    listen $listen_ipv4;" >> "$config"
-        echo "    listen $listen_ipv6;" >> "$config"
+        if omv_is_ipv6_enabled; then
+            echo "    listen $listen_ipv6;" >> "$config"
+        else
+            echo "    listen $listen_ipv4;" >> "$config"
+        fi
     fi
 
     # SSL configuration.
@@ -116,8 +119,11 @@ generate_server_nginx_config()
         fi
 
         {
-            echo "    listen $ssl_listen_ipv4;"
-            echo "    listen $ssl_listen_ipv6;"
+            if omv_is_ipv6_enabled; then
+                echo "    listen $ssl_listen_ipv6;"
+            else
+                echo "    listen $ssl_listen_ipv4;"
+            fi
             echo "    ssl_certificate     $OMV_SSL_CERTIFICATE_DIR/certs/$OMV_SSL_CERTIFICATE_PREFIX$sslcertificateref.crt;"
             echo "    ssl_certificate_key $OMV_SSL_CERTIFICATE_DIR/private/$OMV_SSL_CERTIFICATE_PREFIX$sslcertificateref.key;"
         } >> "$config"
