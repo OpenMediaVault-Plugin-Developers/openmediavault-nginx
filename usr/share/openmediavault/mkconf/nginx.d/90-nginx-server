@@ -107,8 +107,8 @@ generate_server_nginx_config()
 
     # SSL configuration.
     if [ "$ssl_enable" -eq 1 ]; then
-        local ssl_listen_ipv4="$ssl_port ssl"
-        local ssl_listen_ipv6="[::]:$ssl_port ssl"
+        local ssl_listen_ipv4="$ssl_port ssl http2"
+        local ssl_listen_ipv6="[::]:$ssl_port ssl http2"
 
         if [ "$ssl_port_default_server" -eq 1 ]; then
             ssl_listen_ipv4+=" default_server"

@@ -1,3 +1,9 @@
+openmediavault-nginx (4.0.3) stable; urgency=low
+
+  * Add http/2 support
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 24 Sep 2018 09:30:13 -0500
+
 openmediavault-nginx (4.0.2) stable; urgency=low
 
   * Revert 4.0.1 changes
