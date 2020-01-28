@@ -138,7 +138,7 @@ class NginxServer extends ServiceAbstract
                 $rootFullPath = $this->getSharedFolderPathByUuid($object->get('sharedfolderref'));
 
                 if ($object->get('use_root') && $object->get('use_public_directory')) {
-                    $rootFullPath = build_path([$rootFullPath, $object->get('public_directory')]);
+                    $rootFullPath = build_path(DIRECTORY_SEPARATOR, [$rootFullPath, $object->get('public_directory')]);
                 }
             }
 
