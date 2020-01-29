@@ -1,3 +1,9 @@
+openmediavault-nginx (4.0.4) stable; urgency=low
+
+  * Fix for change in OMV build_path behavior
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 29 Jan 2020 07:21:32 -0600
+
 openmediavault-nginx (4.0.3) stable; urgency=low
 
   * Add http/2 support
